@@ -3,18 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="5;url=/second.html">
+    <title>Sweet Delights - Desserts for Every Occasion</title>
     <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #fefcf9;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(90deg, #ff9f68, #ff6f91);
+            color: white;
+            padding: 1.5rem 1rem;
             text-align: center;
-            padding: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            background: white;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 0;
+        }
+
+        nav a {
+            color: #ff6f91;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff9f68;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('https://source.unsplash.com/1600x900/?desserts');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+        }
+
+        .hero button {
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: #ff6f91;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .hero button:hover {
+            background: #ff9f68;
+        }
+
+        /* About Section */
+        .about {
+            padding: 2rem 1rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .about h2 {
+            color: #ff6f91;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        /* Desserts Section */
+        .desserts {
+            padding: 2rem 1rem;
+            background: #fff6f2;
+        }
+
+        .desserts h2 {
+            text-align: center;
+            color: #ff6f91;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .desserts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dessert-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dessert-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .dessert-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .dessert-item h3 {
+            font-size: 1.5rem;
+            color: #ff6f91;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        /* Footer Section */
+        footer {
+            text-align: center;
+            background: #333;
+            color: white;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <h1>Redirecting...</h1>
-    <p>You are being redirected to the second webpage. If the redirect doesn't work, <a href="/second.html">click here</a>.</p>
+    <!-- Header -->
+    <header>
+        <h1>Sweet Delights</h1>
+        <p>Delicious Desserts for Every Occasion</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#about">About Us</a>
+        <a href="#desserts">Our Desserts</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h2>Indulge in Sweetness</h2>
+            <p>Handcrafted desserts made with love and the finest ingredients.</p>
+            <button onclick="window.location.href='#desserts'">Explore Desserts</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2>About Us</h2>
+        <p>
+            At Sweet Delights, we believe every occasion deserves a touch of sweetness. 
+            From cakes to cookies, we specialize in creating desserts that look as good as they taste. 
+            Our passion for baking is matched only by our commitment to quality.
+        </p>
+    </section>
+
+    <!-- Desserts Section -->
+    <section class="desserts" id="desserts">
+        <h2>Our Desserts</h2>
+        <div class="desserts-grid">
+            <div class="dessert-item">
+                <img src="https://source.unsplash.com/300x200/?cake" alt="Cake">
+                <h3>Classic Cakes</h3>
+            </div>
+            <div class="dessert-item">
+                <img src="https://source.unsplash.com/300x200/?cookies" alt="Cookies">
+                <h3>Crunchy Cookies</h3>
+            </div>
+            <div class="dessert-item">
+                <img src="https://source.unsplash.com/300x200/?cupcake" alt="Cupcakes">
+                <h3>Delicious Cupcakes</h3>
+            </div>
+            <div class="dessert-item">
+                <img src="https://source.unsplash.com/300x200/?dessert" alt="Desserts">
+                <h3>Custom Desserts</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Sweet Delights. All rights reserved.</p>
+    </footer>
 </body>
 </html>
