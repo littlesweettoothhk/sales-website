@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Little Sweet Tooth - Artisanal Desserts & Confectionery</title>
-    <!-- Link to external styles -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Header -->
@@ -29,7 +26,13 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="floating-icons"></div>
+        <div class="floating-icons">
+            <div class="floating-icon" style="left: 10%; animation-delay: 0s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 25%; animation-delay: 2s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10L70,50L50,90L30,50Z\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 50%; animation-delay: 4s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle fill=\"%23fffcf8\" cx=\"50\" cy=\"50\" r=\"40\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 75%; animation-delay: 6s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10L90,50L50,90L10,50Z\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 90%; animation-delay: 8s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z\"/></svg>')"></div>
+        </div>
         <div class="hero-content">
             <h2>Indulge in Decadent Delights</h2>
             <p>Handcrafted desserts that transform ordinary moments into extraordinary memories</p>
@@ -45,7 +48,9 @@
         <h2>Our Sweet Story</h2>
         <div class="about-content">
             <div class="about-text">
-                <p>Founded in 2024, Little Sweet Tooth began as a small home bakery with a big dream...</p>
+                <p>Founded in 2024, Little Sweet Tooth began as a small home bakery with a big dream: to create desserts that not only taste incredible but also tell a story through their exquisite presentation.</p>
+                <p>Every dessert we create is a labor of love, made with the finest ingredients sourced from local producers whenever possible. We believe in sustainable practices and ethical sourcing without compromising on quality.</p>
+                <p>Our team of passionate pastry chefs brings together decades of experience from around the world, blending traditional techniques with innovative flavors to create something truly special.</p>
             </div>
             <div class="about-image">
                 <img src="https://source.unsplash.com/600x400/?baker,kitchen" alt="Our Bakery">
@@ -53,15 +58,218 @@
         </div>
     </section>
 
-    <!-- Other sections (features, desserts, testimonials, etc.) -->
-    <!-- ... -->
+    <!-- Special Features -->
+    <section class="features">
+        <h2>Why Choose Little Sweet Tooth</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Premium Ingredients</h3>
+                <p>We use only the highest quality, locally-sourced ingredients with no artificial additives or preservatives.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Handcrafted with Love</h3>
+                <p>Each dessert is carefully made by our skilled artisans who pour their passion into every creation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Custom Designs</h3>
+                <p>We work closely with you to create bespoke desserts that perfectly match your vision and occasion.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desserts Section -->
+    <section class="desserts" id="desserts">
+        <h2>Our Signature Creations</h2>
+        <div class="dessert-categories">
+            <button class="category-btn active">All</button>
+            <button class="category-btn">Cakes</button>
+            <button class="category-btn">Pastries</button>
+            <button class="category-btn">Cookies</button>
+            <button class="category-btn">Seasonal</button>
+        </div>
+        <div class="desserts-grid">
+            <div class="dessert-item">
+                <div class="dessert-image">
+                    <img src="https://source.unsplash.com/600x400/?chocolate,cake" alt="Chocolate Indulgence Cake">
+                    <div class="dessert-badge">Best Seller</div>
+                </div>
+                <div class="dessert-info">
+                    <h3>Chocolate Indulgence</h3>
+                    <p>Triple-layer chocolate cake with ganache filling and chocolate shavings</p>
+                    <span class="dessert-price">$45.00</span>
+                    <div class="dessert-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="dessert-item">
+                <div class="dessert-image">
+                    <img src="https://source.unsplash.com/600x400/?red,velvet,cake" alt="Red Velvet Elegance">
+                </div>
+                <div class="dessert-info">
+                    <h3>Red Velvet Elegance</h3>
+                    <p>Classic red velvet with cream cheese frosting and edible gold leaf</p>
+                    <span class="dessert-price">$48.00</span>
+                    <div class="dessert-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="dessert-item">
+                <div class="dessert-image">
+                    <img src="https://source.unsplash.com/600x400/?cheesecake" alt="Berry Cheesecake">
+                    <div class="dessert-badge">New</div>
+                </div>
+                <div class="dessert-info">
+                    <h3>Berry Cheesecake</h3>
+                    <p>New York style with mixed berry compote and almond crust</p>
+                    <span class="dessert-price">$38.00</span>
+                    <div class="dessert-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="dessert-item">
+                <div class="dessert-image">
+                    <img src="https://source.unsplash.com/600x400/?macarons" alt="French Macarons">
+                </div>
+                <div class="dessert-info">
+                    <h3>French Macarons</h3>
+                    <p>Assortment of 12 delicate macarons in seasonal flavors</p>
+                    <span class="dessert-price">$32.00</span>
+                    <div class="dessert-actions">
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <p>The most amazing cake I've ever had! The attention to detail was incredible and it tasted even better than it looked. Will definitely be ordering again for all my special occasions.</p>
+                </div>
+                <div class="testimonial-author">Sarah Johnson</div>
+                <div class="testimonial-role">Wedding Planner</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2>Sweet Updates</h2>
+            <p>Subscribe to our newsletter for seasonal specials, new creations, and exclusive offers</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Get in Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Visit Us</h3>
+                <p>123 Sweet Street<br>Dessert Valley, DV 12345</p>
+                
+                <h3><i class="fas fa-phone"></i> Call Us</h3>
+                <p>(555) 123-4567</p>
+                
+                <h3><i class="fas fa-envelope"></i> Email Us</h3>
+                <p>hello@littlesweettooth.com</p>
+                
+                <h3><i class="fas fa-clock"></i> Hours</h3>
+                <p>Monday-Friday: 9am - 7pm<br>Saturday: 10am - 6pm<br>Sunday: 12pm - 5pm</p>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 Little Sweet Tooth. All Rights Reserved.</p>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Little Sweet Tooth</h3>
+                <p>Artisanal desserts crafted with passion and the finest ingredients to satisfy your sweet cravings.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#desserts">Menu</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Little Sweet Tooth. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- Link to external JavaScript -->
-    <script src="scripts.js"></script>
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
