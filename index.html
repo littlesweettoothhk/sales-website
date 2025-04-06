@@ -17,8 +17,8 @@
         body {
             font-family: 'Montserrat', sans-serif;
             line-height: 1.8;
-            background-color: #f9f5f0;
-            color: #4a3a2a;
+            background-color: #faf6f2;
+            color: #5a4a42;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
@@ -26,18 +26,18 @@
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            color: #5d4037;
+            color: #8c6a56;
         }
 
         /* Header Section */
         header {
-            background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
-            color: #fff8f0;
+            background: linear-gradient(135deg, #c4a484 0%, #d4b59a 100%);
+            color: #fffcf8;
             padding: 1.5rem 1rem;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(93, 64, 55, 0.3);
+            box-shadow: 0 4px 20px rgba(140, 106, 86, 0.2);
         }
 
         header::before {
@@ -47,15 +47,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.05)" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
-            opacity: 0.1;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.1)" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
+            opacity: 0.2;
         }
 
         header h1 {
             font-size: 3rem;
             margin-bottom: 0.5rem;
             position: relative;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
             letter-spacing: 1px;
         }
 
@@ -72,16 +72,16 @@
             display: flex;
             justify-content: center;
             gap: 2rem;
-            background: #5d4037;
+            background: #d4b59a;
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 15px rgba(93, 64, 55, 0.4);
+            box-shadow: 0 2px 15px rgba(140, 106, 86, 0.2);
         }
 
         nav a {
-            color: #fff8f0;
+            color: #fffcf8;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
@@ -97,7 +97,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #d7ccc8;
+            background: #fffcf8;
             transition: width 0.3s ease;
         }
 
@@ -111,7 +111,7 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(93, 64, 55, 0.7), rgba(93, 64, 55, 0.7)), 
+            background: linear-gradient(rgba(212, 181, 154, 0.7), rgba(212, 181, 154, 0.7)), 
                         url('https://source.unsplash.com/1920x1080/?dessert,chocolate,cake');
             background-size: cover;
             background-position: center;
@@ -121,7 +121,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #fff8f0;
+            color: #fffcf8;
             position: relative;
             overflow: hidden;
         }
@@ -137,7 +137,7 @@
         .hero h2 {
             font-size: 4rem;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
             line-height: 1.2;
         }
 
@@ -167,25 +167,25 @@
         }
 
         .btn-primary {
-            background: #8d6e63;
-            color: #fff8f0;
-            box-shadow: 0 4px 15px rgba(141, 110, 99, 0.4);
+            background: #a78b76;
+            color: #fffcf8;
+            box-shadow: 0 4px 15px rgba(167, 139, 118, 0.3);
         }
 
         .btn-primary:hover {
-            background: #a1887f;
+            background: #8c6a56;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(141, 110, 99, 0.6);
+            box-shadow: 0 6px 20px rgba(167, 139, 118, 0.4);
         }
 
         .btn-secondary {
             background: transparent;
-            color: #fff8f0;
-            border: 2px solid #fff8f0;
+            color: #fffcf8;
+            border: 2px solid #fffcf8;
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 248, 240, 0.1);
+            background: rgba(255, 252, 248, 0.1);
             transform: translateY(-3px);
         }
 
@@ -242,7 +242,7 @@
             transform: translateX(-50%);
             width: 150px;
             height: 150px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%235d4037" opacity="0.1" d="M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z"/></svg>') no-repeat;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%238c6a56" opacity="0.1" d="M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z"/></svg>') no-repeat;
             background-size: contain;
             z-index: -1;
         }
@@ -262,7 +262,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: #8d6e63;
+            background: #a78b76;
         }
 
         .about-content {
@@ -280,7 +280,7 @@
         .about-text p {
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
-            color: #5d4037;
+            color: #5a4a42;
         }
 
         .about-image {
@@ -288,7 +288,7 @@
             position: relative;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(93, 64, 55, 0.2);
+            box-shadow: 0 15px 30px rgba(140, 106, 86, 0.1);
             transition: transform 0.5s ease;
         }
 
@@ -309,7 +309,7 @@
 
         /* Special Features */
         .features {
-            background: #fff8f0;
+            background: #fffcf8;
             padding: 5rem 1rem;
             text-align: center;
         }
@@ -331,7 +331,7 @@
             background: white;
             border-radius: 10px;
             padding: 2rem;
-            box-shadow: 0 5px 15px rgba(93, 64, 55, 0.1);
+            box-shadow: 0 5px 15px rgba(140, 106, 86, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -339,12 +339,12 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(93, 64, 55, 0.2);
+            box-shadow: 0 15px 30px rgba(140, 106, 86, 0.2);
         }
 
         .feature-icon {
             font-size: 3rem;
-            color: #8d6e63;
+            color: #a78b76;
             margin-bottom: 1.5rem;
         }
 
@@ -354,13 +354,13 @@
         }
 
         .feature-card p {
-            color: #5d4037;
+            color: #5a4a42;
         }
 
         /* Desserts Section */
         .desserts {
             padding: 5rem 1rem;
-            background: linear-gradient(to bottom, #f9f5f0 0%, #efebe9 100%);
+            background: linear-gradient(to bottom, #faf6f2 0%, #f0e6dd 100%);
             position: relative;
         }
 
@@ -371,7 +371,7 @@
             left: 0;
             right: 0;
             height: 20px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path fill="%23fff8f0" d="M0,0 L100,0 L100,5 C75,10 25,10 0,5 Z"/></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path fill="%23fffcf8" d="M0,0 L100,0 L100,5 C75,10 25,10 0,5 Z"/></svg>');
             background-size: 100% 100%;
         }
 
@@ -392,8 +392,8 @@
         .category-btn {
             padding: 0.8rem 1.5rem;
             background: transparent;
-            border: 2px solid #8d6e63;
-            color: #8d6e63;
+            border: 2px solid #a78b76;
+            color: #a78b76;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -401,7 +401,7 @@
         }
 
         .category-btn:hover, .category-btn.active {
-            background: #8d6e63;
+            background: #a78b76;
             color: white;
         }
 
@@ -417,14 +417,14 @@
             background: white;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(93, 64, 55, 0.1);
+            box-shadow: 0 5px 15px rgba(140, 106, 86, 0.1);
             transition: all 0.5s ease;
             position: relative;
         }
 
         .dessert-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(93, 64, 55, 0.2);
+            box-shadow: 0 15px 30px rgba(140, 106, 86, 0.2);
         }
 
         .dessert-image {
@@ -448,7 +448,7 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: #8d6e63;
+            background: #a78b76;
             color: white;
             padding: 0.3rem 0.8rem;
             border-radius: 50px;
@@ -466,7 +466,7 @@
         }
 
         .dessert-info p {
-            color: #5d4037;
+            color: #5a4a42;
             margin-bottom: 1rem;
             min-height: 60px;
         }
@@ -474,7 +474,7 @@
         .dessert-price {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #5d4037;
+            color: #8c6a56;
             margin-bottom: 1rem;
             display: block;
         }
@@ -486,7 +486,7 @@
         }
 
         .add-to-cart {
-            background: #8d6e63;
+            background: #a78b76;
             color: white;
             border: none;
             padding: 0.7rem 1.5rem;
@@ -497,33 +497,33 @@
         }
 
         .add-to-cart:hover {
-            background: #6d4c41;
+            background: #8c6a56;
             transform: translateY(-2px);
         }
 
         .favorite-btn {
             background: transparent;
             border: none;
-            color: #d7ccc8;
+            color: #d4b59a;
             font-size: 1.3rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .favorite-btn.active {
-            color: #ff6b6b;
+            color: #e67e7e;
         }
 
         /* Testimonials */
         .testimonials {
             padding: 5rem 1rem;
-            background: #5d4037;
-            color: #fff8f0;
+            background: #d4b59a;
+            color: #fffcf8;
             text-align: center;
         }
 
         .testimonials h2 {
-            color: #fff8f0;
+            color: #fffcf8;
             font-size: 2.5rem;
             margin-bottom: 3rem;
         }
@@ -535,11 +535,11 @@
         }
 
         .testimonial {
-            background: #8d6e63;
+            background: #a78b76;
             padding: 2rem;
             border-radius: 10px;
             margin: 0 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .testimonial-content {
@@ -552,7 +552,7 @@
         .testimonial-content::after {
             content: '"';
             font-size: 3rem;
-            color: rgba(255, 248, 240, 0.2);
+            color: rgba(255, 252, 248, 0.2);
             position: absolute;
         }
 
@@ -578,7 +578,7 @@
         /* Newsletter */
         .newsletter {
             padding: 5rem 1rem;
-            background: #fff8f0;
+            background: #fffcf8;
             text-align: center;
         }
 
@@ -588,7 +588,7 @@
             background: white;
             padding: 3rem 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(93, 64, 55, 0.1);
+            box-shadow: 0 5px 15px rgba(140, 106, 86, 0.1);
         }
 
         .newsletter h2 {
@@ -597,7 +597,7 @@
         }
 
         .newsletter p {
-            color: #5d4037;
+            color: #5a4a42;
             margin-bottom: 2rem;
         }
 
@@ -610,7 +610,7 @@
         .newsletter-form input {
             flex: 1;
             padding: 1rem;
-            border: 2px solid #d7ccc8;
+            border: 2px solid #d4b59a;
             border-radius: 50px 0 0 50px;
             font-size: 1rem;
             outline: none;
@@ -618,12 +618,12 @@
         }
 
         .newsletter-form input:focus {
-            border-color: #8d6e63;
+            border-color: #8c6a56;
         }
 
         .newsletter-form button {
             padding: 1rem 1.5rem;
-            background: #8d6e63;
+            background: #a78b76;
             color: white;
             border: none;
             border-radius: 0 50px 50px 0;
@@ -633,13 +633,13 @@
         }
 
         .newsletter-form button:hover {
-            background: #6d4c41;
+            background: #8c6a56;
         }
 
         /* Contact Section */
         .contact {
             padding: 5rem 1rem;
-            background: linear-gradient(to bottom, #efebe9 0%, #f9f5f0 100%);
+            background: linear-gradient(to bottom, #f0e6dd 0%, #faf6f2 100%);
             text-align: center;
         }
 
@@ -660,27 +660,27 @@
             background: white;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(93, 64, 55, 0.1);
+            box-shadow: 0 5px 15px rgba(140, 106, 86, 0.1);
             text-align: left;
         }
 
         .contact-info h3 {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            color: #5d4037;
+            color: #8c6a56;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .contact-info i {
-            color: #8d6e63;
+            color: #a78b76;
             font-size: 1.3rem;
         }
 
         .contact-info p {
             margin-bottom: 1.5rem;
-            color: #5d4037;
+            color: #5a4a42;
         }
 
         .social-links {
@@ -695,14 +695,14 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background: #8d6e63;
+            background: #a78b76;
             color: white;
             border-radius: 50%;
             transition: all 0.3s ease;
         }
 
         .social-links a:hover {
-            background: #5d4037;
+            background: #8c6a56;
             transform: translateY(-3px);
         }
 
@@ -710,7 +710,7 @@
             background: white;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(93, 64, 55, 0.1);
+            box-shadow: 0 5px 15px rgba(140, 106, 86, 0.1);
             text-align: left;
         }
 
@@ -721,7 +721,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #5d4037;
+            color: #5a4a42;
             font-weight: 600;
         }
 
@@ -729,7 +729,7 @@
         .form-group textarea {
             width: 100%;
             padding: 0.8rem;
-            border: 2px solid #d7ccc8;
+            border: 2px solid #d4b59a;
             border-radius: 5px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
@@ -742,12 +742,12 @@
 
         .form-group input:focus,
         .form-group textarea:focus {
-            border-color: #8d6e63;
+            border-color: #8c6a56;
             outline: none;
         }
 
         .submit-btn {
-            background: #8d6e63;
+            background: #a78b76;
             color: white;
             border: none;
             padding: 1rem 2rem;
@@ -758,14 +758,14 @@
         }
 
         .submit-btn:hover {
-            background: #5d4037;
+            background: #8c6a56;
             transform: translateY(-2px);
         }
 
         /* Footer */
         footer {
-            background: #5d4037;
-            color: #fff8f0;
+            background: #8c6a56;
+            color: #fffcf8;
             padding: 3rem 1rem 1rem;
             text-align: center;
         }
@@ -782,7 +782,7 @@
         .footer-column h3 {
             font-size: 1.3rem;
             margin-bottom: 1.5rem;
-            color: #d7ccc8;
+            color: #f0e6dd;
         }
 
         .footer-column ul {
@@ -794,17 +794,17 @@
         }
 
         .footer-column ul li a {
-            color: #fff8f0;
+            color: #fffcf8;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .footer-column ul li a:hover {
-            color: #d7ccc8;
+            color: #f0e6dd;
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255, 248, 240, 0.1);
+            border-top: 1px solid rgba(255, 252, 248, 0.1);
             padding-top: 1.5rem;
         }
 
@@ -820,7 +820,7 @@
             right: 30px;
             width: 50px;
             height: 50px;
-            background: #8d6e63;
+            background: #a78b76;
             color: white;
             border-radius: 50%;
             display: flex;
@@ -832,7 +832,7 @@
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 99;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .back-to-top.active {
@@ -841,7 +841,7 @@
         }
 
         .back-to-top:hover {
-            background: #5d4037;
+            background: #8c6a56;
             transform: translateY(-3px);
         }
 
@@ -933,11 +933,11 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="floating-icons">
-            <div class="floating-icon" style="left: 10%; animation-delay: 0s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fff8f0\" d=\"M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z\"/></svg>')"></div>
-            <div class="floating-icon" style="left: 25%; animation-delay: 2s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fff8f0\" d=\"M50,10L70,50L50,90L30,50Z\"/></svg>')"></div>
-            <div class="floating-icon" style="left: 50%; animation-delay: 4s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle fill=\"%23fff8f0\" cx=\"50\" cy=\"50\" r=\"40\"/></svg>')"></div>
-            <div class="floating-icon" style="left: 75%; animation-delay: 6s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fff8f0\" d=\"M50,10L90,50L50,90L10,50Z\"/></svg>')"></div>
-            <div class="floating-icon" style="left: 90%; animation-delay: 8s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fff8f0\" d=\"M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 10%; animation-delay: 0s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 25%; animation-delay: 2s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10L70,50L50,90L30,50Z\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 50%; animation-delay: 4s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle fill=\"%23fffcf8\" cx=\"50\" cy=\"50\" r=\"40\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 75%; animation-delay: 6s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10L90,50L50,90L10,50Z\"/></svg>')"></div>
+            <div class="floating-icon" style="left: 90%; animation-delay: 8s; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><path fill=\"%23fffcf8\" d=\"M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z\"/></svg>')"></div>
         </div>
         <div class="hero-content">
             <h2>Indulge in Decadent Delights</h2>
@@ -1054,4 +1054,6 @@
                 <div class="dessert-info">
                     <h3>French Macarons</h3>
                     <p>Assortment of 12 delicate macarons in seasonal flavors</p>
-                    <span
+                    <span class="dessert-price">$32.00</span>
+                    <div class="dessert-actions">
+                       
