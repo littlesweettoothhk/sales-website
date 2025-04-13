@@ -38,8 +38,7 @@ header::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.1)" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
-    opacity: 0.2;
+    background: #809c9a;
 }
 
 header h1 {
