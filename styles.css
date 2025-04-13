@@ -22,8 +22,8 @@ h1, h2, h3, h4 {
 
 /* Header Section */
 header {
-    background: #809c9a;
-    /*color: #330033;*/
+    background: #fdf9e7;
+    color: #330033;
     padding: 1.5rem 1rem;
     text-align: center;
     position: relative;
@@ -101,8 +101,7 @@ nav a i {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(212, 181, 154, 0.7), rgba(212, 181, 154, 0.7)), 
-                url('https://source.unsplash.com/1920x1080/?dessert,chocolate,cake');
+    background: #E5DAD5;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
