@@ -231,7 +231,7 @@ nav a i {
     transform: translateX(-50%);
     width: 150px;
     height: 150px;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%238c6a56" opacity="0.1" d="M50,10C60,10,70,15,75,25C80,35,80,45,75,55C70,65,60,70,50,70C40,70,30,65,25,55C20,45,20,35,25,25C30,15,40,10,50,10Z"/></svg>') no-repeat;
+    background: url('src/Little-Sweet-Tooth-Logo.jpeg') no-repeat;
     background-size: contain;
     z-index: -1;
 }
