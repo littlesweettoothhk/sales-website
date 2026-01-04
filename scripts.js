@@ -1,35 +1,4 @@
-function updateContent(lang) {
-    if (typeof translations === 'undefined') {
-        console.error('Translations not loaded');
-        return;
-    }
-    
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            if (element.tagName === 'TITLE') {
-                document.title = translations[lang][key];
-            } else {
-                element.textContent = translations[lang][key];
-            }
-        }
-    });
-    document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
-    localStorage.setItem('preferredLanguage', lang);
-}
-
-function changeLanguage(lang) {
-    updateContent(lang);
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize language
-    // Use a small delay to ensure translations.js is fully parsed if needed
-    setTimeout(() => {
-        const savedLang = localStorage.getItem('preferredLanguage') || 'zh';
-        updateContent(savedLang);
-    }, 10);
-
     // Back to top button functionality
     const backToTopButton = document.querySelector('.back-to-top');
     
@@ -75,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const dessertName = dessertItem.querySelector('h3').textContent;
             const dessertPrice = dessertItem.querySelector('.dessert-price').textContent;
             
-            const currentLang = localStorage.getItem('preferredLanguage') || 'zh';
-            const msg = currentLang === 'zh' ? `已將 ${dessertName} (${dessertPrice}) 加入購物車！` : `Added ${dessertName} (${dessertPrice}) to your cart!`;
+            const isEn = document.documentElement.lang === 'en';
+            const msg = isEn ? `Added ${dessertName} (${dessertPrice}) to your cart!` : `已將 ${dessertName} (${dessertPrice}) 加入購物車！`;
             alert(msg);
         });
     });
@@ -87,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const currentLang = localStorage.getItem('preferredLanguage') || 'zh';
-            const msg = currentLang === 'zh' ? '感謝您的訊息！我們會盡快回覆您。' : 'Thank you for your message! We will get back to you soon.';
+            const isEn = document.documentElement.lang === 'en';
+            const msg = isEn ? 'Thank you for your message! We will get back to you soon.' : '感謝您的訊息！我們會盡快回覆您。';
             alert(msg);
             this.reset();
         });
