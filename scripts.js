@@ -1,4 +1,9 @@
 function updateContent(lang) {
+    if (typeof translations === 'undefined') {
+        console.error('Translations not loaded');
+        return;
+    }
+    
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
@@ -19,24 +24,29 @@ function changeLanguage(lang) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize language
-    const savedLang = localStorage.getItem('preferredLanguage') || 'zh';
-    updateContent(savedLang);
+    // Use a small delay to ensure translations.js is fully parsed if needed
+    setTimeout(() => {
+        const savedLang = localStorage.getItem('preferredLanguage') || 'zh';
+        updateContent(savedLang);
+    }, 10);
 
     // Back to top button functionality
     const backToTopButton = document.querySelector('.back-to-top');
     
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.add('active');
-        } else {
-            backToTopButton.classList.remove('active');
-        }
-    });
-    
-    backToTopButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (backToTopButton) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
     
     // Favorite button functionality
     const favoriteButtons = document.querySelectorAll('.favorite-btn');
@@ -87,16 +97,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for navigation links
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 70,
-                    behavior: 'smooth'
-                });
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
