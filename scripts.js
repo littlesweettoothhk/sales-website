@@ -1,4 +1,27 @@
+function updateContent(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            if (element.tagName === 'TITLE') {
+                document.title = translations[lang][key];
+            } else {
+                element.textContent = translations[lang][key];
+            }
+        }
+    });
+    document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+    localStorage.setItem('preferredLanguage', lang);
+}
+
+function changeLanguage(lang) {
+    updateContent(lang);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize language
+    const savedLang = localStorage.getItem('preferredLanguage') || 'zh';
+    updateContent(savedLang);
+
     // Back to top button functionality
     const backToTopButton = document.querySelector('.back-to-top');
     
@@ -13,22 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     backToTopButton.addEventListener('click', function(e) {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // Category buttons functionality
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all buttons
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Here you would typically filter the desserts based on the selected category
-            // For now, we'll just log the selected category
-            console.log(`Selected category: ${this.textContent}`);
-        });
     });
     
     // Favorite button functionality
@@ -58,29 +65,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const dessertName = dessertItem.querySelector('h3').textContent;
             const dessertPrice = dessertItem.querySelector('.dessert-price').textContent;
             
-            // Here you would typically add the item to a shopping cart
-            // For now, we'll just show an alert
-            alert(`Added ${dessertName} (${dessertPrice}) to your cart!`);
+            const currentLang = localStorage.getItem('preferredLanguage') || 'zh';
+            const msg = currentLang === 'zh' ? `已將 ${dessertName} (${dessertPrice}) 加入購物車！` : `Added ${dessertName} (${dessertPrice}) to your cart!`;
+            alert(msg);
         });
     });
     
     // Form submissions
-    const newsletterForm = document.querySelector('.newsletter-form');
     const contactForm = document.querySelector('.contact-form form');
-    
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            alert(`Thank you for subscribing with ${email}! You'll receive our sweet updates soon.`);
-            this.reset();
-        });
-    }
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
+            const currentLang = localStorage.getItem('preferredLanguage') || 'zh';
+            const msg = currentLang === 'zh' ? '感謝您的訊息！我們會盡快回覆您。' : 'Thank you for your message! We will get back to you soon.';
+            alert(msg);
             this.reset();
         });
     }
