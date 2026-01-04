@@ -207,40 +207,44 @@ nav a i {
     transform: translateY(-3px);
 }
 
-/* Floating Dessert Icons */
-.floating-icons {
+/* Hero Banner Styles */
+.hero {
+    background: #E5DAD5;
+    position: relative;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fffcf8;
+    overflow: hidden;
+}
+
+.hero-banner {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     z-index: 1;
 }
 
-.floating-icon {
-    position: absolute;
-    display: block;
-    width: 40px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0.6;
-    animation: float 15s linear infinite;
+.hero-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
 }
 
-@keyframes float {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-    }
+.hero-content {
+    max-width: 800px;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s ease-out;
+    background: rgba(140, 106, 86, 0.4);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
 }
 
 /* About Section */
@@ -723,60 +727,66 @@ nav a i {
     transform: translateY(-3px);
 }
 
-.contact-form {
+.contact-whatsapp {
     background: white;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(140, 106, 86, 0.1);
-    text-align: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.form-group {
+.contact-whatsapp h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #25D366;
+}
+
+.contact-whatsapp p {
     margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
     color: #5a4a42;
-    font-weight: 600;
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 2px solid #d4b59a;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.form-group textarea {
-    min-height: 150px;
-    resize: vertical;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #8c6a56;
-    outline: none;
-}
-
-.submit-btn {
-    background: #a78b76;
+.whatsapp-btn {
+    background: #25D366;
     color: white;
     border: none;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 1.2rem;
+    text-decoration: none;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
 }
 
-.submit-btn:hover {
-    background: #8c6a56;
-    transform: translateY(-2px);
+.whatsapp-btn:hover {
+    background: #128C7E;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    color: white;
+}
+
+.whatsapp-qr {
+    margin-top: 2rem;
+}
+
+.whatsapp-qr p {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #8c6a56;
+}
+
+.whatsapp-qr img {
+    border: 5px solid #f0e6dd;
+    border-radius: 10px;
 }
 
 /* Footer */
