@@ -220,20 +220,82 @@ nav a i {
     overflow: hidden;
 }
 
-.hero-banner {
+.hero-slider {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 1;
+    overflow: hidden;
 }
 
-.hero-banner img {
+.slider-container {
+    display: flex;
+    width: 500%; /* 5 images */
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    width: 20%; /* 1/5 of container */
+    height: 100%;
+}
+
+.slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 0.7;
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 20px;
+    z-index: 3;
+}
+
+.slider-nav button {
+    background: rgba(140, 106, 86, 0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.slider-nav button:hover {
+    background: rgba(140, 106, 86, 0.8);
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dot.active {
+    background: white;
 }
 
 .hero-content {
