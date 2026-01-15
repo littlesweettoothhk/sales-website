@@ -14,18 +14,27 @@
         <a href="index.html" class="lang-btn">中文</a>
     </div>
 
-    <!-- Header -->
+    <!-- Header - Completely Redesigned -->
     <header>
-        <h1>Little Sweet Tooth</h1>
-        <p>♥ Good Food, Good Mood ♥</p>
+        <div class="header-top">
+            <div class="logo-container">
+                <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Little Sweet Tooth Logo" class="logo">
+            </div>
+            <div class="header-text">
+                <h1>Little Sweet Tooth</h1>
+                <p class="subtitle">Good Food, Good Mood</p>
+            </div>
+        </div>
+        <div class="header-divider"></div>
+        <p class="header-tagline">Every bite of sweetness is a memory crafted with care</p>
     </header>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="#home"><i class="fas fa-home"></i> Home</a>
-        <a href="#about"><i class="fas fa-info-circle"></i> About Us</a>
-        <a href="#desserts"><i class="fas fa-utensils"></i> Desserts</a>
-        <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>About Us</span></a>
+        <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>Desserts</span></a>
+        <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>Contact Us</span></a>
     </nav>
 
     <!-- Hero Section -->
@@ -44,6 +53,7 @@
             </div>
             <div class="slider-dots"></div>
         </div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2>Taste Luxury Desserts</h2>
             <p>Handcrafted desserts that turn ordinary moments into extraordinary memories</p>
@@ -51,6 +61,10 @@
                 <a href="#desserts" class="btn btn-primary">Browse Menu</a>
                 <a href="#contact" class="btn btn-secondary">Contact Us</a>
             </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
@@ -149,30 +163,34 @@
         </div>
     </section>
 
-    <!-- Contact Us -->
+    <!-- Contact Us - Instagram Only -->
     <section class="contact" id="contact">
         <h2>Contact Us</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3><i class="fab fa-instagram"></i> Instagram</h3>
-                <p>Follow our Instagram for the latest updates and dessert news!</p>
-                <p><strong>@littlesweettooth._</strong></p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i> Follow Now</a>
+        <div class="contact-wrapper">
+            <div class="instagram-card">
+                <div class="instagram-card-top">
+                    <i class="fab fa-instagram"></i>
                 </div>
-                <h3 style="margin-top: 2rem;"><i class="fas fa-envelope"></i> Email</h3>
-                <p>littlesweettoothhk@gmail.com</p>
-            </div>
-            <div class="contact-whatsapp">
-                <h3><i class="fab fa-whatsapp"></i> WhatsApp Contact</h3>
-                <p>Click the button below to chat with us directly on WhatsApp. We will respond to your inquiry as soon as possible.</p>
-                <a href="https://wa.me/85251121662" class="whatsapp-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Chat Now
+                <h3>Follow Us on Instagram</h3>
+                <p class="instagram-handle">@littlesweettooth._</p>
+                <p class="instagram-description">Get the latest dessert updates, special offers & behind-the-scenes</p>
+                <div class="instagram-features">
+                    <div class="feature-item">
+                        <i class="fas fa-camera"></i>
+                        <span>Latest Works</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-gift"></i>
+                        <span>Special Offers</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Fan Interaction</span>
+                    </div>
+                </div>
+                <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="instagram-follow-btn">
+                    <i class="fab fa-instagram"></i> Follow Now
                 </a>
-                <div class="whatsapp-qr">
-                    <p>Or scan the QR code:</p>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/85251121662" alt="WhatsApp QR Code">
-                </div>
             </div>
         </div>
     </section>

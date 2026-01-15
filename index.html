@@ -14,18 +14,27 @@
         <a href="en.html" class="lang-btn">English</a>
     </div>
 
-    <!-- 頁首 -->
+    <!-- 頁首 - 完全重新設計 -->
     <header>
-        <h1>Little Sweet Tooth</h1>
-        <p>♥ 𝐺𝑜𝑜𝑑 𝐹𝑜𝑜𝑑, 𝐺𝑜𝑜𝑑 𝑀𝑜𝑜𝑑 ♥</p>
+        <div class="header-top">
+            <div class="logo-container">
+                <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Little Sweet Tooth Logo" class="logo">
+            </div>
+            <div class="header-text">
+                <h1>Little Sweet Tooth</h1>
+                <p class="subtitle">Good Food, Good Mood</p>
+            </div>
+        </div>
+        <div class="header-divider"></div>
+        <p class="header-tagline">每一口甜蜜，都是用心製作的回憶</p>
     </header>
 
     <!-- 導航欄 -->
-    <nav>
-        <a href="#home"><i class="fas fa-home"></i> 首頁</a>
-        <a href="#about"><i class="fas fa-info-circle"></i> 關於我們</a>
-        <a href="#desserts"><i class="fas fa-utensils"></i> 甜點系列</a>
-        <a href="#contact"><i class="fas fa-envelope"></i> 聯絡我們</a>
+    <nav class="navbar">
+        <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>首頁</span></a>
+        <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>關於我們</span></a>
+        <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>甜點系列</span></a>
+        <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>聯絡我們</span></a>
     </nav>
 
     <!-- 主圖區 -->
@@ -44,6 +53,7 @@
             </div>
             <div class="slider-dots"></div>
         </div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2>品味奢華甜點</h2>
             <p>手工製作的甜點，將平凡時刻轉化為非凡回憶</p>
@@ -51,6 +61,10 @@
                 <a href="#desserts" class="btn btn-primary">瀏覽菜單</a>
                 <a href="#contact" class="btn btn-secondary">聯絡我們</a>
             </div>
+        </div>
+        <div class="hero-scroll">
+            <span>向下滾動</span>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
@@ -149,30 +163,34 @@
         </div>
     </section>
 
-    <!-- 聯絡我們 -->
+    <!-- 聯絡我們 - Instagram Only -->
     <section class="contact" id="contact">
         <h2>聯絡我們</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3><i class="fab fa-instagram"></i> Instagram</h3>
-                <p>追蹤我們的 Instagram 獲取最新動態與甜點資訊！</p>
-                <p><strong>@littlesweettooth._</strong></p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i> 立即追蹤</a>
+        <div class="contact-wrapper">
+            <div class="instagram-card">
+                <div class="instagram-card-top">
+                    <i class="fab fa-instagram"></i>
                 </div>
-                <h3 style="margin-top: 2rem;"><i class="fas fa-envelope"></i> 電子郵件</h3>
-                <p>littlesweettoothhk@gmail.com</p>
-            </div>
-            <div class="contact-whatsapp">
-                <h3><i class="fab fa-whatsapp"></i> WhatsApp 聯絡</h3>
-                <p>點擊下方按鈕直接與我們在 WhatsApp 上溝通，我們將盡快回覆您的查詢。</p>
-                <a href="https://wa.me/85251121662" class="whatsapp-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i> 立即對話
+                <h3>追蹤我們的 Instagram</h3>
+                <p class="instagram-handle">@littlesweettooth._</p>
+                <p class="instagram-description">獲取最新甜點動態、特別優惠與幕後花絮</p>
+                <div class="instagram-features">
+                    <div class="feature-item">
+                        <i class="fas fa-camera"></i>
+                        <span>最新作品</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-gift"></i>
+                        <span>特別優惠</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-heart"></i>
+                        <span>粉絲互動</span>
+                    </div>
+                </div>
+                <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="instagram-follow-btn">
+                    <i class="fab fa-instagram"></i> 立即追蹤
                 </a>
-                <div class="whatsapp-qr">
-                    <p>或掃描二維碼：</p>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/85251121662" alt="WhatsApp QR Code">
-                </div>
             </div>
         </div>
     </section>
@@ -182,7 +200,7 @@
         <div class="footer-content">
             <div class="footer-column">
                 <h3>Little Sweet Tooth</h3>
-                <p>♥ 𝐺𝑜𝑜𝑑 𝐹𝑜𝑜𝑑, 𝐺𝑜𝑜𝑑 𝑀𝑜𝑜𝑑 ♥</p>
+                <p>♥ Good Food, Good Mood ♥</p>
             </div>
             <div class="footer-column">
                 <h3>快速連結</h3>

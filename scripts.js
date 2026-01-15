@@ -137,4 +137,25 @@ document.addEventListener('DOMContentLoaded', function() {
             heroSlider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
         }
     }
+
+    // Scroll animation for elements
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe feature cards and dessert items
+    document.querySelectorAll('.feature-card, .dessert-item').forEach(el => {
+        el.style.opacity = '0';
+        observer.observe(el);
+    });
 });
