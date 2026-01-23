@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Little Sweet Tooth - ♥ Good Food, Good Mood ♥</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,27 +14,33 @@
         <a href="index.html" class="lang-btn">中文</a>
     </div>
 
-    <!-- Header - Completely Redesigned -->
+    <!-- Header -->
     <header>
-        <div class="header-top">
-            <div class="logo-container">
+        <div class="header-container">
+            <div class="logo-wrapper">
                 <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Little Sweet Tooth Logo" class="logo">
             </div>
-            <div class="header-text">
-                <h1>Little Sweet Tooth</h1>
-                <p class="subtitle">Good Food, Good Mood</p>
+            <div class="header-content-text">
+                <h1 class="brand-name">Little Sweet Tooth</h1>
+                <p class="brand-subtitle">Good Food, Good Mood</p>
+                <div class="header-decoration">
+                    <span></span>
+                    <i class="fas fa-heart"></i>
+                    <span></span>
+                </div>
+                <p class="header-tagline">Every bite of sweetness is a memory crafted with care</p>
             </div>
         </div>
-        <div class="header-divider"></div>
-        <p class="header-tagline">Every bite of sweetness is a memory crafted with care</p>
     </header>
 
     <!-- Navigation Bar -->
     <nav class="navbar">
-        <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>About Us</span></a>
-        <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>Desserts</span></a>
-        <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>Contact Us</span></a>
+        <div class="nav-container">
+            <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>About Us</span></a>
+            <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>Desserts</span></a>
+            <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>Contact Us</span></a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -47,179 +53,212 @@
                 <div class="slide"><img src="./src/banners/Cookies.JPG" alt="Banner 4"></div>
                 <div class="slide"><img src="./src/banners/Cookies2.JPEG" alt="Banner 5"></div>
             </div>
+            <div class="slider-overlay"></div>
             <div class="slider-nav">
                 <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
                 <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="slider-dots"></div>
         </div>
-        <div class="hero-overlay"></div>
+        
         <div class="hero-content">
-            <h2>Taste Luxury Desserts</h2>
-            <p>Handcrafted desserts that turn ordinary moments into extraordinary memories</p>
-            <div class="hero-buttons">
-                <a href="#desserts" class="btn btn-primary">Browse Menu</a>
-                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+            <div class="hero-text-box">
+                <span class="hero-pretitle">Handmade with Love</span>
+                <h2>Taste Luxury Desserts</h2>
+                <p>Handcrafted desserts that turn ordinary moments into extraordinary memories</p>
+                <div class="hero-buttons">
+                    <a href="#desserts" class="btn btn-primary">Browse Menu</a>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
             </div>
-        </div>
-        <div class="hero-scroll">
-            <span>Scroll Down</span>
-            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
     <!-- About Us -->
     <section class="about" id="about">
-        <h2>Our Sweet Story</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>"Little Sweet Tooth" was founded in 2024. We have a big dream in our hearts - to make desserts so delicious they make people smile, and each one has its own cute little story!</p>
-                <p>Every dessert has been repeatedly adjusted just to present the most perfect texture and flavor layers.</p>
-                <p>We make every dessert with a craftsman's heart, hoping that the moment you taste it, the corners of your mouth will involuntarily rise, worries will be temporarily set aside, and you will enjoy pure sweet joy.</p>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Story</span>
+                <h2>Our Sweet Story</h2>
+                <div class="section-divider"></div>
             </div>
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Our Bakery">
+            <div class="about-grid">
+                <div class="about-text">
+                    <p class="lead">"Little Sweet Tooth" was founded in 2024. We have a big dream in our hearts - to make desserts so delicious they make people smile!</p>
+                    <p>Every dessert has been repeatedly adjusted just to present the most perfect texture and flavor layers. We make every dessert with a craftsman's heart, hoping that the moment you taste it, worries will be temporarily set aside.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-num">100%</span>
+                            <span class="stat-label">Handmade</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">Fresh</span>
+                            <span class="stat-label">Daily Baked</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image-container">
+                    <div class="image-border"></div>
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Our Bakery" class="about-img">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Features -->
     <section class="features">
-        <h2>Why Choose Little Sweet Tooth</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-leaf"></i>
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Premium Ingredients</h3>
+                    <p>We only use the highest quality, locally sourced ingredients, free of artificial additives.</p>
                 </div>
-                <h3>Premium Ingredients</h3>
-                <p>We only use the highest quality, locally sourced ingredients, free of artificial additives or preservatives.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-heart"></i>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Handcrafted with Love</h3>
+                    <p>Each dessert is carefully crafted by our skilled masters, pouring passion into every piece.</p>
                 </div>
-                <h3>Handcrafted with Love</h3>
-                <p>Each dessert is carefully crafted by our skilled masters, pouring passion into every piece.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-palette"></i>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Custom Design</h3>
+                    <p>We work closely with you to create custom desserts that perfectly fit your vision and occasion.</p>
                 </div>
-                <h3>Custom Design</h3>
-                <p>We work closely with you to create custom desserts that perfectly fit your vision and occasion.</p>
             </div>
         </div>
     </section>
 
     <!-- Desserts Section -->
     <section class="desserts" id="desserts">
-        <h2>Our Signature Desserts</h2>
-        <div class="desserts-grid">
-            <div class="dessert-item">
-                <div class="dessert-image">
-                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Dacquoise">
-                    <div class="dessert-badge">Hot Sale</div>
-                </div>
-                <div class="dessert-info">
-                    <h3>Dacquoise</h3>
-                    <p>A classic dessert from France, based on a crispy almond meringue and supplemented with buttercream filling. The outer layer is light and crispy, and the inner filling is soft and sweet, with rich texture layers.</p>
-                    <span class="dessert-price">HKD$40.00</span>
-                    <div class="dessert-actions">
-                        <button class="add-to-cart">Add to Cart</button>
-                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Menu</span>
+                <h2>Our Signature Desserts</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="desserts-grid">
+                <!-- Dessert 1 -->
+                <div class="dessert-card">
+                    <div class="dessert-img-container">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dacquoise">
+                        <div class="dessert-badge">Hot Sale</div>
+                    </div>
+                    <div class="dessert-content">
+                        <h3>Dacquoise</h3>
+                        <p>A classic French dessert with a crispy almond meringue base, light and crispy outside, soft and sweet inside.</p>
+                        <div class="dessert-footer">
+                            <span class="dessert-price">HKD$40.00</span>
+                            <a href="product-dacquoise-en.html" class="know-more-btn">
+                                Know More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="dessert-item">
-                <div class="dessert-image">
-                    <img src="src/American_cookies.JPEG" alt="American Marshmallow Cookie">
-                    <div class="dessert-badge">Hot Sale</div>
-                </div>
-                <div class="dessert-info">
-                    <h3>American Marshmallow Cookie</h3>
-                    <p>Combines the crispness of cookies with the silkiness of marshmallows. Rich, sweet, and healing.</p>
-                    <span class="dessert-price">HKD$30.00</span>
-                    <div class="dessert-actions">
-                        <button class="add-to-cart">Add to Cart</button>
-                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                <!-- Dessert 2 -->
+                <div class="dessert-card">
+                    <div class="dessert-img-container">
+                        <img src="src/American_cookies.JPEG" alt="American Marshmallow Cookie">
+                        <div class="dessert-badge">Hot Sale</div>
+                    </div>
+                    <div class="dessert-content">
+                        <h3>Marshmallow Cookie</h3>
+                        <p>Combines the crispness of cookies with the silkiness of marshmallows. Rich, sweet, and healing.</p>
+                        <div class="dessert-footer">
+                            <span class="dessert-price">HKD$30.00</span>
+                            <a href="product-cookie-en.html" class="know-more-btn">
+                                Know More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="dessert-item">
-                <div class="dessert-image">
-                    <img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Brownie">
-                    <div class="dessert-badge">New Arrival</div>
-                </div>
-                <div class="dessert-info">
-                    <h3>Brownie</h3>
-                    <p>Slightly crispy on the outside, moist and dense on the inside. Sweet with a hint of bitterness, rich and mellow.</p>
-                    <span class="dessert-price">$38.00</span>
-                    <div class="dessert-actions">
-                        <button class="add-to-cart">Add to Cart</button>
-                        <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                <!-- Dessert 3 -->
+                <div class="dessert-card">
+                    <div class="dessert-img-container">
+                        <img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brownie">
+                        <div class="dessert-badge">New Arrival</div>
+                    </div>
+                    <div class="dessert-content">
+                        <h3>Brownie</h3>
+                        <p>Slightly crispy on the outside, moist and dense on the inside. Sweet with a hint of bitterness.</p>
+                        <div class="dessert-footer">
+                            <span class="dessert-price">HKD$38.00</span>
+                            <a href="product-brownie-en.html" class="know-more-btn">
+                                Know More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Us - Instagram Only -->
+    <!-- Contact Us -->
     <section class="contact" id="contact">
-        <h2>Contact Us</h2>
-        <div class="contact-wrapper">
-            <div class="instagram-card">
-                <div class="instagram-card-top">
-                    <i class="fab fa-instagram"></i>
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h2>Contact Us</h2>
+                    <p>Have questions or want to order custom desserts? Feel free to contact us via Instagram!</p>
+                    <div class="contact-details">
+                        <div class="detail-item">
+                            <i class="fab fa-instagram"></i>
+                            <span>@littlesweettooth._</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Reply Time: 10:00 - 20:00</span>
+                        </div>
+                    </div>
+                    <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-instagram"></i> Message Us
+                    </a>
                 </div>
-                <h3>Follow Us on Instagram</h3>
-                <p class="instagram-handle">@littlesweettooth._</p>
-                <p class="instagram-description">Get the latest dessert updates, special offers & behind-the-scenes</p>
-                <div class="instagram-features">
-                    <div class="feature-item">
-                        <i class="fas fa-camera"></i>
-                        <span>Latest Works</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-gift"></i>
-                        <span>Special Offers</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-heart"></i>
-                        <span>Fan Interaction</span>
+                <div class="contact-visual">
+                    <div class="insta-preview">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow us for more sweetness</span>
                     </div>
                 </div>
-                <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="instagram-follow-btn">
-                    <i class="fab fa-instagram"></i> Follow Now
-                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Little Sweet Tooth</h3>
-                <p>♥ Good Food, Good Mood ♥</p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Little Sweet Tooth</h3>
+                    <p>♥ Good Food, Good Mood ♥</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#desserts">Menu</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#desserts">Menu</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Little Sweet Tooth. All Rights Reserved.</p>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Little Sweet Tooth. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
     <div class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
+        <i class="fas fa-chevron-up"></i>
     </div>
 
     <script src="scripts.js"></script>

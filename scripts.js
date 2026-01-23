@@ -17,64 +17,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Favorite button functionality
-    const favoriteButtons = document.querySelectorAll('.favorite-btn');
-    
-    favoriteButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            this.classList.toggle('active');
-            const icon = this.querySelector('i');
-            
-            if (this.classList.contains('active')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-            } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-            }
-        });
-    });
-    
-    // Add to cart functionality
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const dessertItem = this.closest('.dessert-item');
-            const dessertName = dessertItem.querySelector('h3').textContent;
-            const dessertPrice = dessertItem.querySelector('.dessert-price').textContent;
-            
-            const isEn = document.documentElement.lang === 'en';
-            const msg = isEn ? `Added ${dessertName} (${dessertPrice}) to your cart!` : `已將 ${dessertName} (${dessertPrice}) 加入購物車！`;
-            alert(msg);
-        });
-    });
-    
-    // Form submissions
-    const contactForm = document.querySelector('.contact-form form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const isEn = document.documentElement.lang === 'en';
-            const msg = isEn ? 'Thank you for your message! We will get back to you soon.' : '感謝您的訊息！我們會盡快回覆您。';
-            alert(msg);
-            this.reset();
-        });
-    }
-    
     // Smooth scrolling for navigation links
-    document.querySelectorAll('nav a').forEach(anchor => {
+    document.querySelectorAll('.nav-link, .footer-links a, .hero-buttons a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            if (targetId.startsWith('#')) {
+            if (targetId && targetId.startsWith('#')) {
                 e.preventDefault();
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
                     window.scrollTo({
-                        top: targetElement.offsetTop - 70,
+                        top: targetElement.offsetTop - navHeight,
                         behavior: 'smooth'
                     });
+                    
+                    // Update active link
+                    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                    if (this.classList.contains('nav-link')) {
+                        this.classList.add('active');
+                    }
                 }
             }
         });
@@ -141,21 +102,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Scroll animation for elements
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe feature cards and dessert items
-    document.querySelectorAll('.feature-card, .dessert-item').forEach(el => {
+    // Observe cards and sections
+    document.querySelectorAll('.feature-card, .dessert-card, .about-grid, .contact-card').forEach(el => {
         el.style.opacity = '0';
         observer.observe(el);
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.style.padding = '0.5rem 0';
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.backdropFilter = 'blur(10px)';
+        } else {
+            navbar.style.padding = '0';
+            navbar.style.background = '#ffffff';
+            navbar.style.backdropFilter = 'none';
+        }
     });
 });
