@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Centering the two products */
+        .desserts-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+        }
+        .dessert-card {
+            flex: 0 1 350px;
+            max-width: 350px;
+        }
+        @media (max-width: 768px) {
+            .dessert-card {
+                flex: 0 1 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Language Switcher -->
@@ -48,10 +67,8 @@
         <div class="hero-slider">
             <div class="slider-container">
                 <div class="slide"><img src="./src/banners/American_cookies.JPEG" alt="Banner 1"></div>
-                <div class="slide"><img src="./src/banners/Canele.JPG" alt="Banner 2"></div>
-                <div class="slide"><img src="./src/banners/Dacquoise.jpg" alt="Banner 3"></div>
-                <div class="slide"><img src="./src/banners/Cookies.JPG" alt="Banner 4"></div>
-                <div class="slide"><img src="./src/banners/Cookies2.JPEG" alt="Banner 5"></div>
+                <div class="slide"><img src="./src/banners/Cookies.JPG" alt="Banner 2"></div>
+                <div class="slide"><img src="./src/banners/Cookies2.JPEG" alt="Banner 3"></div>
             </div>
             <div class="slider-overlay"></div>
             <div class="slider-nav">
@@ -146,23 +163,6 @@
                 <!-- Dessert 1 -->
                 <div class="dessert-card">
                     <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dacquoise">
-                        <div class="dessert-badge">Hot Sale</div>
-                    </div>
-                    <div class="dessert-content">
-                        <h3>Dacquoise</h3>
-                        <p>A classic French dessert with a crispy almond meringue base, light and crispy outside, soft and sweet inside.</p>
-                        <div class="dessert-footer">
-                            <span class="dessert-price">HKD$40.00</span>
-                            <a href="product-dacquoise-en.html" class="know-more-btn">
-                                Know More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Dessert 2 -->
-                <div class="dessert-card">
-                    <div class="dessert-img-container">
                         <img src="src/American_cookies.JPEG" alt="American Marshmallow Cookie">
                         <div class="dessert-badge">Hot Sale</div>
                     </div>
@@ -177,15 +177,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- Dessert 3 -->
+                <!-- Dessert 2 -->
                 <div class="dessert-card">
                     <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brownie">
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brownie Cookie">
                         <div class="dessert-badge">New Arrival</div>
                     </div>
                     <div class="dessert-content">
-                        <h3>Brownie</h3>
-                        <p>Slightly crispy on the outside, moist and dense on the inside. Sweet with a hint of bitterness.</p>
+                        <h3>Brownie Cookie</h3>
+                        <p>The ultimate fudgy experience. A brownie in cookie form with a crackly top and a rich, moist center.</p>
                         <div class="dessert-footer">
                             <span class="dessert-price">HKD$38.00</span>
                             <a href="product-brownie-en.html" class="know-more-btn">

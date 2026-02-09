@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Centering the two products */
+        .desserts-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+        }
+        .dessert-card {
+            flex: 0 1 350px;
+            max-width: 350px;
+        }
+        @media (max-width: 768px) {
+            .dessert-card {
+                flex: 0 1 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 語言切換 -->
@@ -28,7 +47,7 @@
                     <i class="fas fa-heart"></i>
                     <span></span>
                 </div>
-                <p class="header-tagline">每一口甜蜜，都是用心製作的回憶</p>
+                <p class="header-tagline">每一口甜蜜，都係用心製作嘅回憶</p>
             </div>
         </div>
     </header>
@@ -37,9 +56,9 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>首頁</span></a>
-            <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>關於我們</span></a>
+            <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>關於我哋</span></a>
             <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>甜點系列</span></a>
-            <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>聯絡我們</span></a>
+            <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>聯絡我哋</span></a>
         </div>
     </nav>
 
@@ -48,10 +67,8 @@
         <div class="hero-slider">
             <div class="slider-container">
                 <div class="slide"><img src="./src/banners/American_cookies.JPEG" alt="Banner 1"></div>
-                <div class="slide"><img src="./src/banners/Canele.JPG" alt="Banner 2"></div>
-                <div class="slide"><img src="./src/banners/Dacquoise.jpg" alt="Banner 3"></div>
-                <div class="slide"><img src="./src/banners/Cookies.JPG" alt="Banner 4"></div>
-                <div class="slide"><img src="./src/banners/Cookies2.JPEG" alt="Banner 5"></div>
+                <div class="slide"><img src="./src/banners/Cookies.JPG" alt="Banner 2"></div>
+                <div class="slide"><img src="./src/banners/Cookies2.JPEG" alt="Banner 3"></div>
             </div>
             <div class="slider-overlay"></div>
             <div class="slider-nav">
@@ -65,10 +82,10 @@
             <div class="hero-text-box">
                 <span class="hero-pretitle">Handmade with Love</span>
                 <h2>品味奢華甜點</h2>
-                <p>手工製作的甜點，將平凡時刻轉化為非凡回憶</p>
+                <p>手工製作嘅甜點，將平凡時刻轉化為非凡回憶</p>
                 <div class="hero-buttons">
-                    <a href="#desserts" class="btn btn-primary">瀏覽菜單</a>
-                    <a href="#contact" class="btn btn-outline">聯絡我們</a>
+                    <a href="#desserts" class="btn btn-primary">睇下菜單</a>
+                    <a href="#contact" class="btn btn-outline">聯絡我哋</a>
                 </div>
             </div>
         </div>
@@ -79,13 +96,13 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Our Story</span>
-                <h2>我們的甜蜜故事</h2>
+                <h2>我哋嘅甜蜜故事</h2>
                 <div class="section-divider"></div>
             </div>
             <div class="about-grid">
                 <div class="about-text">
-                    <p class="lead">「Little Sweet Tooth」創立於2024年。我們心裡藏著大大的夢想——做出好吃到讓人微笑的甜點，而且每一款都要有自己可愛的小故事！</p>
-                    <p>每一款甜點都經過反覆調製，只為呈現最完美的口感與風味層次。我們以匠人之心製作每份甜點，就是希望當您品嚐的瞬間，嘴角能不自覺上揚，煩憂暫時擱置，享受純粹的甜蜜愉悅。</p>
+                    <p class="lead">「Little Sweet Tooth」創立於2024年。我哋心入面藏住一個大夢想——做出好食到令人微笑嘅甜點，而且每一款都要有自己可愛嘅小故事！</p>
+                    <p>每一款甜點都經過反覆調製，只為呈現最完美嘅口感同風味層次。我哋以匠人之心製作每份甜點，就係希望當你品嚐嘅一刻，嘴角會不自覺上揚，煩惱暫時放埋一邊，享受純粹嘅甜蜜愉悅。</p>
                     <div class="about-stats">
                         <div class="stat-item">
                             <span class="stat-num">100%</span>
@@ -99,7 +116,7 @@
                 </div>
                 <div class="about-image-container">
                     <div class="image-border"></div>
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="我們的烘焙坊" class="about-img">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="我哋嘅烘焙坊" class="about-img">
                 </div>
             </div>
         </div>
@@ -114,21 +131,21 @@
                         <i class="fas fa-leaf"></i>
                     </div>
                     <h3>優質食材</h3>
-                    <p>我們只使用最高品質、當地採購的食材，不含人工添加劑或防腐劑。</p>
+                    <p>我哋只會用最高品質、本地採購嘅食材，唔含人工添加劑或防腐劑。</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <i class="fas fa-heart"></i>
                     </div>
                     <h3>用心手工製作</h3>
-                    <p>每款甜點都由我們技藝精湛的師傅精心製作，將熱情注入每一件作品。</p>
+                    <p>每款甜點都由我哋技藝精湛嘅師傅精心製作，將熱情注入每一件作品。</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <i class="fas fa-palette"></i>
                     </div>
                     <h3>客製設計</h3>
-                    <p>我們與您密切合作，創造完美符合您願景和場合的訂製甜點。</p>
+                    <p>我哋會同你密切合作，創造完美符合你願景同場合嘅訂製甜點。</p>
                 </div>
             </div>
         </div>
@@ -139,28 +156,11 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Our Menu</span>
-                <h2>我們的招牌甜點</h2>
+                <h2>我哋嘅招牌甜點</h2>
                 <div class="section-divider"></div>
             </div>
             <div class="desserts-grid">
                 <!-- 甜點 1 -->
-                <div class="dessert-card">
-                    <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="達克瓦茲">
-                        <div class="dessert-badge">熱銷商品</div>
-                    </div>
-                    <div class="dessert-content">
-                        <h3>達克瓦茲</h3>
-                        <p>源自法國的經典甜點，以酥脆的杏仁蛋白餅為基底，外層輕盈酥脆，內餡柔軟香甜。</p>
-                        <div class="dessert-footer">
-                            <span class="dessert-price">HKD$40.00</span>
-                            <a href="product-dacquoise.html" class="know-more-btn">
-                                了解更多 <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- 甜點 2 -->
                 <div class="dessert-card">
                     <div class="dessert-img-container">
                         <img src="src/American_cookies.JPEG" alt="美式棉花糖曲奇">
@@ -168,7 +168,7 @@
                     </div>
                     <div class="dessert-content">
                         <h3>美式棉花糖曲奇</h3>
-                        <p>結合了曲奇的酥香與棉花糖的綿密。濃郁香甜、牽絲療癒，每一口都是驚喜。</p>
+                        <p>結合咗曲奇嘅酥香同棉花糖嘅綿密。濃郁香甜、拉絲療癒，每一口都係驚喜。</p>
                         <div class="dessert-footer">
                             <span class="dessert-price">HKD$30.00</span>
                             <a href="product-cookie.html" class="know-more-btn">
@@ -177,15 +177,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- 甜點 3 -->
+                <!-- 甜點 2 -->
                 <div class="dessert-card">
                     <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="布朗尼">
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="布朗尼曲奇">
                         <div class="dessert-badge">新品</div>
                     </div>
                     <div class="dessert-content">
-                        <h3>布朗尼</h3>
-                        <p>外層微脆、內裡濕潤綿密。甜中帶苦，濃厚香醇，巧克力愛好者的首選。</p>
+                        <h3>布朗尼曲奇</h3>
+                        <p>擁有布朗尼般嘅極致 Fudgy 口感，外層微脆裂紋，內裡濕潤濃厚，巧克力控嘅終極夢幻逸品。</p>
                         <div class="dessert-footer">
                             <span class="dessert-price">HKD$38.00</span>
                             <a href="product-brownie.html" class="know-more-btn">
@@ -203,8 +203,8 @@
         <div class="container">
             <div class="contact-card">
                 <div class="contact-info">
-                    <h2>聯絡我們</h2>
-                    <p>有任何疑問或想訂製甜點嗎？歡迎透過 Instagram 與我們聯繫！</p>
+                    <h2>聯絡我哋</h2>
+                    <p>有任何疑問或者想訂製甜點？歡迎透過 Instagram 同我哋聯絡！</p>
                     <div class="contact-details">
                         <div class="detail-item">
                             <i class="fab fa-instagram"></i>
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                     <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-instagram"></i> 私訊我們
+                        <i class="fab fa-instagram"></i> 私訊我哋
                     </a>
                 </div>
                 <div class="contact-visual">
@@ -244,9 +244,9 @@
                     <h4>快速連結</h4>
                     <ul>
                         <li><a href="#home">首頁</a></li>
-                        <li><a href="#about">關於我們</a></li>
+                        <li><a href="#about">關於我哋</a></li>
                         <li><a href="#desserts">菜單</a></li>
-                        <li><a href="#contact">聯絡我們</a></li>
+                        <li><a href="#contact">聯絡我哋</a></li>
                     </ul>
                 </div>
             </div>
