@@ -3,34 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Little Sweet Tooth - ♥ Good Food, Good Mood ♥</title>
+    <title>Little Sweet Tooth - ♥ 𝐺𝑜𝑜𝑑 𝐹𝑜𝑜𝑑, 𝐺𝑜𝑜𝑑 𝑀𝑜𝑜𝑑 ♥</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Centering the two products */
+        /* Product Grid Styling */
         .desserts-grid {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
+            gap: 3rem;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 2.5rem;
+            margin-top: 2rem;
         }
+        
         .dessert-card {
-            flex: 0 1 350px;
-            max-width: 350px;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
-        @media (max-width: 768px) {
-            .dessert-card {
-                flex: 0 1 100%;
-                max-width: 100%;
-            }
+
+        .dessert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(140, 106, 86, 0.15);
+        }
+
+        .dessert-img-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .dessert-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .dessert-card:hover .dessert-img-container img {
+            transform: scale(1.1);
+        }
+
+        .format-toggle {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 4px;
+            margin: 1.5rem 0;
+            position: relative;
+            width: fit-content;
+            align-self: center;
+        }
+
+        .format-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 1;
+            color: var(--text-light);
+        }
+
+        .format-btn.active {
+            color: var(--white);
+            background: var(--primary-color);
+        }
+
+        .dessert-content {
+            padding: 2rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dessert-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dessert-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            min-height: 3em;
+        }
+
+        .dessert-footer {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dessert-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .know-more-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .know-more-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hide slider elements */
+        .slider-nav, .slider-dots, .slider-dots-container, .slider-nav-btn {
+            display: none !important;
         }
     </style>
 </head>
 <body>
     <!-- Language Switcher -->
     <div class="language-switcher">
-        <a href="index.html" class="lang-btn">中文</a>
+        <a href="index.html" class="lang-btn">繁體中文</a>
     </div>
 
     <!-- Header -->
@@ -47,44 +154,37 @@
                     <i class="fas fa-heart"></i>
                     <span></span>
                 </div>
-                <p class="header-tagline">Every bite of sweetness is a memory crafted with care</p>
+                <p class="header-tagline">Every bite of sweetness is a memory made with heart</p>
             </div>
         </div>
     </header>
 
-    <!-- Navigation Bar -->
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
-            <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>About Us</span></a>
+            <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>About</span></a>
             <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>Desserts</span></a>
-            <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>Contact Us</span></a>
+            <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>Contact</span></a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Static) -->
     <section class="hero" id="home">
         <div class="hero-slider">
-            <div class="slider-container">
-                <div class="slide"><img src="./src/banners/American_cookies.JPEG" alt="Banner 1"></div>
-                <div class="slide"><img src="./src/banners/Cookies.JPG" alt="Banner 2"></div>
-                <div class="slide"><img src="./src/banners/Cookies2.JPEG" alt="Banner 3"></div>
+            <div class="slider-container" style="width: 100%; transform: none;">
+                <div class="slide" style="width: 100%;"><img src="./src/banners/Cookies.JPG" alt="Banner 1"></div>
             </div>
             <div class="slider-overlay"></div>
-            <div class="slider-nav">
-                <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
-                <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="slider-dots"></div>
         </div>
         
         <div class="hero-content">
             <div class="hero-text-box">
                 <span class="hero-pretitle">Handmade with Love</span>
-                <h2>Taste Luxury Desserts</h2>
-                <p>Handcrafted desserts that turn ordinary moments into extraordinary memories</p>
+                <h2>Elegance in Every Bite</h2>
+                <p>Handcrafted desserts that turn ordinary moments into unforgettable memories</p>
                 <div class="hero-buttons">
-                    <a href="#desserts" class="btn btn-primary">Browse Menu</a>
+                    <a href="#desserts" class="btn btn-primary">Menu</a>
                     <a href="#contact" class="btn btn-outline">Contact Us</a>
                 </div>
             </div>
@@ -101,8 +201,8 @@
             </div>
             <div class="about-grid">
                 <div class="about-text">
-                    <p class="lead">"Little Sweet Tooth" was founded in 2024. We have a big dream in our hearts - to make desserts so delicious they make people smile!</p>
-                    <p>Every dessert has been repeatedly adjusted just to present the most perfect texture and flavor layers. We make every dessert with a craftsman's heart, hoping that the moment you taste it, worries will be temporarily set aside.</p>
+                    <p class="lead">"Little Sweet Tooth" was founded in 2024. We have a big dream in our hearts—to make desserts so delicious they make you smile, and each one has its own lovely little story!</p>
+                    <p>Every dessert is repeatedly refined to present the most perfect texture and flavor layers. We make every dessert with heart, hoping that when you taste it, the corners of your mouth will naturally rise, worries will be temporarily set aside, and you'll enjoy pure sweet pleasure.</p>
                     <div class="about-stats">
                         <div class="stat-item">
                             <span class="stat-num">100%</span>
@@ -131,64 +231,80 @@
                         <i class="fas fa-leaf"></i>
                     </div>
                     <h3>Premium Ingredients</h3>
-                    <p>We only use the highest quality, locally sourced ingredients, free of artificial additives.</p>
+                    <p>We only use the highest quality ingredients, free from artificial additives or preservatives.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <h3>Handcrafted with Love</h3>
-                    <p>Each dessert is carefully crafted by our skilled masters, pouring passion into every piece.</p>
+                    <h3>Handmade with Heart</h3>
+                    <p>Each dessert is carefully crafted by our pastry chefs, pouring passion into every piece.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <i class="fas fa-balance-scale"></i>
                     </div>
-                    <h3>Sweetness Balanced</h3>
-                    <p>We carefully control the sugar levels to ensure a refined, balanced flavor that satisfies your cravings without being overwhelming.</p>
+                    <h3>Balanced Sweetness</h3>
+                    <p>Strictly controlled sweetness for a rich yet not greasy taste, allowing you to enjoy sweetness with less burden.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Desserts Section -->
+    <!-- Desserts Menu -->
     <section class="desserts" id="desserts">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Our Menu</span>
-                <h2>Our Signature Desserts</h2>
+                <h2>Our Signature Brownie Cookies</h2>
                 <div class="section-divider"></div>
             </div>
+
             <div class="desserts-grid">
-                <!-- Dessert 1 -->
-                <div class="dessert-card">
+                <!-- Product 1: Dark Chocolate -->
+                <div class="dessert-card" id="card-dark">
                     <div class="dessert-img-container">
-                        <img src="src/American_cookies.JPEG" alt="American Marshmallow Cookie">
-                        <div class="dessert-badge">Hot Sale</div>
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dark Chocolate Brownie Cookie" id="img-dark">
+                        <div class="dessert-badge">Best Seller</div>
                     </div>
                     <div class="dessert-content">
-                        <h3>Marshmallow Cookie</h3>
-                        <p>Combines the crispness of cookies with the silkiness of marshmallows. Rich, sweet, and healing.</p>
+                        <h3 id="title-dark">Dark Chocolate Brownie Cookie</h3>
+                        
+                        <div class="format-toggle">
+                            <button class="format-btn active" onclick="switchFormat('dark', 'standard')">Standard</button>
+                            <button class="format-btn" onclick="switchFormat('dark', 'box')">Box</button>
+                        </div>
+
+                        <p class="dessert-description" id="desc-dark">Focusing on the moist texture inside, every bite is a rich chocolate impact.</p>
+                        
                         <div class="dessert-footer">
-                            <span class="dessert-price">HKD$35.00</span>
-                            <a href="product-cookie-en.html" class="know-more-btn">
+                            <span class="dessert-price" id="price-dark">HKD$65.00</span>
+                            <a href="product-dark-large-en.html" class="know-more-btn" id="link-dark">
                                 Know More <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                <!-- Dessert 2 -->
-                <div class="dessert-card">
+
+                <!-- Product 2: Matcha -->
+                <div class="dessert-card" id="card-matcha">
                     <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brownie Cookie">
+                        <img src="https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Matcha Brownie Cookie" id="img-matcha">
                         <div class="dessert-badge">New Arrival</div>
                     </div>
                     <div class="dessert-content">
-                        <h3>Brownie Cookie</h3>
-                        <p>The ultimate fudgy experience. A brownie in cookie form with a crackly top and a rich, moist center.</p>
+                        <h3 id="title-matcha">Matcha Brownie Cookie</h3>
+
+                        <div class="format-toggle">
+                            <button class="format-btn active" onclick="switchFormat('matcha', 'standard')">Standard</button>
+                            <button class="format-btn" onclick="switchFormat('matcha', 'box')">Box</button>
+                        </div>
+
+                        <p class="dessert-description" id="desc-matcha">Selected premium matcha, focusing on the lingering sweet aftertaste and long-lasting tea aroma.</p>
+                        
                         <div class="dessert-footer">
-                            <span class="dessert-price">HKD$65.00</span>
-                            <a href="product-brownie-en.html" class="know-more-btn">
+                            <span class="dessert-price" id="price-matcha">HKD$68.00</span>
+                            <a href="product-matcha-large-en.html" class="know-more-btn" id="link-matcha">
                                 Know More <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
@@ -204,26 +320,19 @@
             <div class="contact-card">
                 <div class="contact-info">
                     <h2>Contact Us</h2>
-                    <p>Have questions? Feel free to contact us via Instagram!</p>
+                    <p>If you have any questions, feel free to contact us via Instagram!</p>
                     <div class="contact-details">
-                        <div class="detail-item">
+                        <div class="contact-item">
                             <i class="fab fa-instagram"></i>
-                            <span>@littlesweettooth._</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Reply Time: 10:00 - 20:00</span>
+                            <div>
+                                <h4>Instagram</h4>
+                                <p><a href="https://www.instagram.com/little_sweet_tooth_/" target="_blank">@little_sweet_tooth_</a></p>
+                            </div>
                         </div>
                     </div>
-                    <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-instagram"></i> Message Us
-                    </a>
                 </div>
-                <div class="contact-visual">
-                    <div class="insta-preview">
-                        <i class="fab fa-instagram"></i>
-                        <span>Follow us for more sweetness</span>
-                    </div>
+                <div class="contact-image">
+                    <img src="./src/banners/Dacquoise.jpg" alt="Contact Us">
                 </div>
             </div>
         </div>
@@ -232,21 +341,19 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-grid">
+            <div class="footer-content">
                 <div class="footer-brand">
+                    <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Logo" class="footer-logo">
                     <h3>Little Sweet Tooth</h3>
-                    <p>♥ Good Food, Good Mood ♥</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                    </div>
+                    <p>Good Food, Good Mood</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#desserts">Menu</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#desserts">Desserts</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -256,11 +363,74 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <div class="back-to-top">
-        <i class="fas fa-chevron-up"></i>
-    </div>
+    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
 
     <script src="scripts.js"></script>
+    <script>
+        const productData = {
+            dark: {
+                standard: {
+                    price: 'HKD$65.00',
+                    desc: 'Focusing on the moist texture inside, every bite is a rich chocolate impact.',
+                    link: 'product-dark-large-en.html',
+                    img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                },
+                box: {
+                    price: 'HKD$128.00',
+                    desc: 'Exquisite bite-sized deliciousness, perfect for sharing sweet moments with friends and family.',
+                    link: 'product-dark-box-en.html',
+                    img: 'https://images.unsplash.com/photo-1582176604447-aa5144675a69?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                }
+            },
+            matcha: {
+                standard: {
+                    price: 'HKD$68.00',
+                    desc: 'Selected premium matcha, focusing on the lingering sweet aftertaste and long-lasting tea aroma.',
+                    link: 'product-matcha-large-en.html',
+                    img: 'https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                },
+                box: {
+                    price: 'HKD$135.00',
+                    desc: 'Bite-sized matcha surprises in a sharing pack design, letting deliciousness travel further.',
+                    link: 'product-matcha-box-en.html',
+                    img: 'https://images.unsplash.com/photo-1536184071535-78906f7172c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                }
+            }
+        };
+
+        function switchFormat(flavor, format) {
+            const data = productData[flavor][format];
+            
+            // Update elements with transition
+            const card = document.getElementById(`card-${flavor}`);
+            const priceEl = document.getElementById(`price-${flavor}`);
+            const descEl = document.getElementById(`desc-${flavor}`);
+            const linkEl = document.getElementById(`link-${flavor}`);
+            const imgEl = document.getElementById(`img-${flavor}`);
+            
+            // Update buttons
+            const buttons = card.querySelectorAll('.format-btn');
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase() === format) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Apply fade out
+            [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '0');
+            
+            setTimeout(() => {
+                priceEl.innerText = data.price;
+                descEl.innerText = data.desc;
+                linkEl.href = data.link;
+                imgEl.src = data.img;
+                
+                // Apply fade in
+                [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '1');
+            }, 300);
+        }
+    </script>
 </body>
 </html>

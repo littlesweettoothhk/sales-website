@@ -8,22 +8,129 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Centering the two products */
+        /* Product Grid Styling */
         .desserts-grid {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
+            gap: 3rem;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 2.5rem;
+            margin-top: 2rem;
         }
+        
         .dessert-card {
-            flex: 0 1 350px;
-            max-width: 350px;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
-        @media (max-width: 768px) {
-            .dessert-card {
-                flex: 0 1 100%;
-                max-width: 100%;
-            }
+
+        .dessert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(140, 106, 86, 0.15);
+        }
+
+        .dessert-img-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .dessert-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .dessert-card:hover .dessert-img-container img {
+            transform: scale(1.1);
+        }
+
+        .format-toggle {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 4px;
+            margin: 1.5rem 0;
+            position: relative;
+            width: fit-content;
+            align-self: center;
+        }
+
+        .format-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 1;
+            color: var(--text-light);
+        }
+
+        .format-btn.active {
+            color: var(--white);
+            background: var(--primary-color);
+        }
+
+        .dessert-content {
+            padding: 2rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dessert-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dessert-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            min-height: 3em;
+        }
+
+        .dessert-footer {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dessert-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .know-more-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .know-more-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hide slider elements */
+        .slider-nav, .slider-dots, .slider-dots-container, .slider-nav-btn {
+            display: none !important;
         }
     </style>
 </head>
@@ -62,20 +169,13 @@
         </div>
     </nav>
 
-    <!-- 主圖區 -->
+    <!-- 主圖區 (Static) -->
     <section class="hero" id="home">
         <div class="hero-slider">
-            <div class="slider-container">
-                <div class="slide"><img src="./src/banners/American_cookies.JPEG" alt="Banner 1"></div>
-                <div class="slide"><img src="./src/banners/Cookies.JPG" alt="Banner 2"></div>
-                <div class="slide"><img src="./src/banners/Cookies2.JPEG" alt="Banner 3"></div>
+            <div class="slider-container" style="width: 100%; transform: none;">
+                <div class="slide" style="width: 100%;"><img src="./src/banners/Cookies.JPG" alt="Banner 1"></div>
             </div>
             <div class="slider-overlay"></div>
-            <div class="slider-nav">
-                <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
-                <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="slider-dots"></div>
         </div>
         
         <div class="hero-content">
@@ -156,39 +256,55 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Our Menu</span>
-                <h2>我哋嘅招牌甜品</h2>
+                <h2>我哋嘅招牌布朗尼曲奇</h2>
                 <div class="section-divider"></div>
             </div>
+
             <div class="desserts-grid">
-                <!-- 甜品 1 -->
-                <div class="dessert-card">
+                <!-- 產品 1: 黑朱古力 -->
+                <div class="dessert-card" id="card-dark">
                     <div class="dessert-img-container">
-                        <img src="src/American_cookies.JPEG" alt="美式棉花糖曲奇">
-                        <div class="dessert-badge">熱銷商品</div>
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="黑朱古力布朗尼曲奇" id="img-dark">
+                        <div class="dessert-badge">皇牌產品</div>
                     </div>
                     <div class="dessert-content">
-                        <h3>美式棉花糖曲奇</h3>
-                        <p>結合咗曲奇嘅酥香同棉花糖嘅綿密。濃郁香甜、拉絲療癒，每一口都係驚喜。</p>
+                        <h3 id="title-dark">黑朱古力布朗尼曲奇</h3>
+                        
+                        <div class="format-toggle">
+                            <button class="format-btn active" onclick="switchFormat('dark', 'standard')">Standard</button>
+                            <button class="format-btn" onclick="switchFormat('dark', 'box')">Box</button>
+                        </div>
+
+                        <p class="dessert-description" id="desc-dark">專注於內裡嘅濕潤口感，每一口都係濃郁朱古力嘅重擊。</p>
+                        
                         <div class="dessert-footer">
-                            <span class="dessert-price">HKD$35.00</span>
-                            <a href="product-cookie.html" class="know-more-btn">
+                            <span class="dessert-price" id="price-dark">HKD$65.00</span>
+                            <a href="product-dark-large.html" class="know-more-btn" id="link-dark">
                                 了解更多 <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                <!-- 甜品 2 -->
-                <div class="dessert-card">
+
+                <!-- 產品 2: 抹茶 -->
+                <div class="dessert-card" id="card-matcha">
                     <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="布朗尼曲奇">
-                        <div class="dessert-badge">新品</div>
+                        <img src="https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="抹茶布朗尼曲奇" id="img-matcha">
+                        <div class="dessert-badge">新品上市</div>
                     </div>
                     <div class="dessert-content">
-                        <h3>布朗尼曲奇</h3>
-                        <p>「Fudgy」 口感，外層微脆裂紋，內裡濕潤濃厚，巧克力控嘅最愛。</p>
+                        <h3 id="title-matcha">抹茶布朗尼曲奇</h3>
+
+                        <div class="format-toggle">
+                            <button class="format-btn active" onclick="switchFormat('matcha', 'standard')">Standard</button>
+                            <button class="format-btn" onclick="switchFormat('matcha', 'box')">Box</button>
+                        </div>
+
+                        <p class="dessert-description" id="desc-matcha">選用優質抹茶，專注於內裡嘅回甘口感，茶香濃郁持久。</p>
+                        
                         <div class="dessert-footer">
-                            <span class="dessert-price">HKD$65.00</span>
-                            <a href="product-brownie.html" class="know-more-btn">
+                            <span class="dessert-price" id="price-matcha">HKD$68.00</span>
+                            <a href="product-matcha-large.html" class="know-more-btn" id="link-matcha">
                                 了解更多 <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
@@ -206,24 +322,17 @@
                     <h2>聯絡我們</h2>
                     <p>有任何疑問，歡迎透過 Instagram 同我哋聯絡！</p>
                     <div class="contact-details">
-                        <div class="detail-item">
+                        <div class="contact-item">
                             <i class="fab fa-instagram"></i>
-                            <span>@littlesweettooth._</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>回覆時間：10:00 - 20:00</span>
+                            <div>
+                                <h4>Instagram</h4>
+                                <p><a href="https://www.instagram.com/little_sweet_tooth_/" target="_blank">@little_sweet_tooth_</a></p>
+                            </div>
                         </div>
                     </div>
-                    <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-instagram"></i> 私訊我哋
-                    </a>
                 </div>
-                <div class="contact-visual">
-                    <div class="insta-preview">
-                        <i class="fab fa-instagram"></i>
-                        <span>Follow us for more sweetness</span>
-                    </div>
+                <div class="contact-image">
+                    <img src="./src/banners/Dacquoise.jpg" alt="Contact Us">
                 </div>
             </div>
         </div>
@@ -232,20 +341,18 @@
     <!-- 頁尾 -->
     <footer>
         <div class="container">
-            <div class="footer-grid">
+            <div class="footer-content">
                 <div class="footer-brand">
+                    <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Logo" class="footer-logo">
                     <h3>Little Sweet Tooth</h3>
-                    <p>♥ Good Food, Good Mood ♥</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                    </div>
+                    <p>Good Food, Good Mood</p>
                 </div>
                 <div class="footer-links">
                     <h4>快速連結</h4>
                     <ul>
                         <li><a href="#home">首頁</a></li>
                         <li><a href="#about">關於我們</a></li>
-                        <li><a href="#desserts">菜單</a></li>
+                        <li><a href="#desserts">甜品系列</a></li>
                         <li><a href="#contact">聯絡我們</a></li>
                     </ul>
                 </div>
@@ -256,11 +363,74 @@
         </div>
     </footer>
 
-    <!-- 返回頂部按鈕 -->
-    <div class="back-to-top">
-        <i class="fas fa-chevron-up"></i>
-    </div>
+    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
 
     <script src="scripts.js"></script>
+    <script>
+        const productData = {
+            dark: {
+                standard: {
+                    price: 'HKD$65.00',
+                    desc: '專注於內裡嘅濕潤口感，每一口都係濃郁朱古力嘅重擊。',
+                    link: 'product-dark-large.html',
+                    img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                },
+                box: {
+                    price: 'HKD$128.00',
+                    desc: '一口一個嘅精緻美味，最適合與親友分享甜蜜時刻。',
+                    link: 'product-dark-box.html',
+                    img: 'https://images.unsplash.com/photo-1582176604447-aa5144675a69?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                }
+            },
+            matcha: {
+                standard: {
+                    price: 'HKD$68.00',
+                    desc: '選用優質抹茶，專注於內裡嘅回甘口感，茶香濃郁持久。',
+                    link: 'product-matcha-large.html',
+                    img: 'https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                },
+                box: {
+                    price: 'HKD$135.00',
+                    desc: '一口一個嘅抹茶驚喜，分享裝設計，讓美味傳遞更遠。',
+                    link: 'product-matcha-box.html',
+                    img: 'https://images.unsplash.com/photo-1536184071535-78906f7172c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+                }
+            }
+        };
+
+        function switchFormat(flavor, format) {
+            const data = productData[flavor][format];
+            
+            // Update elements with transition
+            const card = document.getElementById(`card-${flavor}`);
+            const priceEl = document.getElementById(`price-${flavor}`);
+            const descEl = document.getElementById(`desc-${flavor}`);
+            const linkEl = document.getElementById(`link-${flavor}`);
+            const imgEl = document.getElementById(`img-${flavor}`);
+            
+            // Update buttons
+            const buttons = card.querySelectorAll('.format-btn');
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase() === format) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Apply fade out
+            [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '0');
+            
+            setTimeout(() => {
+                priceEl.innerText = data.price;
+                descEl.innerText = data.desc;
+                linkEl.href = data.link;
+                imgEl.src = data.img;
+                
+                // Apply fade in
+                [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '1');
+            }, 300);
+        }
+    </script>
 </body>
 </html>
