@@ -1,445 +1,395 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Little Sweet Tooth - ♥ 𝐺𝑜𝑜𝑑 𝐹𝑜𝑜𝑑, 𝐺𝑜𝑜𝑑 𝑀𝑜𝑜𝑑 ♥</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Product Grid Styling */
-        .desserts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
-            gap: 3rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        
-        .dessert-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dessert-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(140, 106, 86, 0.15);
-        }
-
-        .dessert-img-container {
-            position: relative;
-            height: 300px;
-            overflow: hidden;
-        }
-
-        .dessert-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .dessert-card:hover .dessert-img-container img {
-            transform: scale(1.1);
-        }
-
-        .format-toggle {
-            display: flex;
-            background: #f0f0f0;
-            border-radius: 30px;
-            padding: 4px;
-            margin: 1.5rem 0;
-            position: relative;
-            width: fit-content;
-            align-self: center;
-        }
-
-        .format-btn {
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            z-index: 1;
-            color: var(--text-light);
-        }
-
-        .format-btn.active {
-            color: var(--white);
-            background: var(--primary-color);
-        }
-
-        .dessert-content {
-            padding: 2rem;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dessert-content h3 {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .dessert-description {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            min-height: 3em;
-        }
-
-        .dessert-footer {
-            margin-top: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .dessert-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .know-more-btn {
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        .know-more-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Hide slider elements */
-        .slider-nav, .slider-dots, .slider-dots-container, .slider-nav-btn {
-            display: none !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Sweet Tooth · 手工布朗尼曲奇 · Good Food, Good Mood</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Nunito:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 語言切換 -->
-    <div class="language-switcher">
-        <a href="en.html" class="lang-btn">English</a>
+
+  <!-- Top strip · delivery details -->
+  <div class="top-strip">
+    <div class="strip-row">
+      <span>♥ 任何消費即可</span><span class="dot">✿</span>
+      <span>火炭港鐵站交收 / 順豐到付</span><span class="dot">✿</span>
+      <span>滿 $150 東鐵沿綫交收</span><span class="dot">✿</span>
+      <span>滿 $500 免費送貨 ✨</span><span class="dot">✿</span>
+      <span>♥ 任何消費即可</span><span class="dot">✿</span>
+      <span>火炭港鐵站交收 / 順豐到付</span><span class="dot">✿</span>
+      <span>滿 $150 東鐵沿綫交收</span><span class="dot">✿</span>
+      <span>滿 $500 免費送貨 ✨</span><span class="dot">✿</span>
     </div>
+  </div>
 
-    <!-- 頁首 -->
-    <header>
-        <div class="header-container">
-            <div class="logo-wrapper">
-                <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Little Sweet Tooth Logo" class="logo">
-            </div>
-            <div class="header-content-text">
-                <h1 class="brand-name">Little Sweet Tooth</h1>
-                <p class="brand-subtitle">Good Food, Good Mood</p>
-                <div class="header-decoration">
-                    <span></span>
-                    <i class="fas fa-heart"></i>
-                    <span></span>
-                </div>
-                <p class="header-tagline">每一口甜蜜，都係用心製作嘅回憶</p>
-            </div>
+  <div class="language-switcher"><a href="en.html" class="lang-btn">EN</a></div>
+
+  <header class="site-head">
+    <div class="head-row">
+      <a href="#home" class="head-brand">
+        <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Little Sweet Tooth">
+        <span class="bname">Little Sweet Tooth</span>
+      </a>
+      <div class="head-tag">good food, good mood ♥</div>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-link active">首頁</a>
+      <a href="#menu" class="nav-link">餐牌</a>
+      <a href="#care" class="nav-link">食用須知</a>
+      <a href="#farewell" class="nav-link">散水餅</a>
+      <a href="#contact" class="nav-link">聯絡</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <span class="doodle h1">♥</span>
+    <span class="doodle h2">✿</span>
+    <span class="doodle h3">♥</span>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">你好呀 friend</span>
+        <h1 class="hero-title">
+          <span class="line-a">一啖小小</span>
+          <em>大大滿足 <span class="heart">♥</span></em>
+        </h1>
+        <p class="hero-lede">
+          Brookie = brownie + cookie 嘅快樂結合 — 表面薄脆裂紋，內裡濃郁濕潤。<br>
+          每一盤都係用心手工烘焙，一次只整一小批 ♥
+        </p>
+        <div class="hero-ctas">
+          <a href="#menu" class="btn btn-primary">睇下今日嘅餐牌 <i class="fas fa-arrow-right"></i></a>
+          <a href="#contact" class="btn btn-ghost">即刻訂購</a>
         </div>
-    </header>
+      </div>
 
-    <!-- 導航欄 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>首頁</span></a>
-            <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>關於我們</span></a>
-            <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>甜品系列</span></a>
-            <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>聯絡我們</span></a>
+      <div class="hero-figure">
+        <div class="hero-tape"></div>
+        <div class="hero-sticker">
+          <div>
+            <span>baked</span>
+            用心<br>新鮮烘焙
+          </div>
         </div>
-    </nav>
+        <img src="./src/sea-salt-dark-chocolate-brookies.png" alt="海鹽黑朱古力布朗尼曲奇">
+      </div>
+    </div>
+  </section>
 
-    <!-- 主圖區 (Static) -->
-    <section class="hero" id="home">
-        <div class="hero-slider">
-            <div class="slider-container" style="width: 100%; transform: none;">
-                <div class="slide" style="width: 100%;"><img src="./src/banners/Cookies.JPG" alt="Banner 1"></div>
+  <!-- Menu -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">今日餐牌 ✿</span>
+        <h2>布朗尼曲奇 · <em>Brookies</em></h2>
+        <p class="menu-sub">每一款都用心手工烘焙 · 任何消費都可以下單 ♥</p>
+      </div>
+
+      <!-- Menu cards split into two sections -->
+
+      <!-- Section A: Jar -->
+      <div class="menu-section-head">
+        <div class="msh-label">每樽 · jar</div>
+        <h3 class="msh-title">入樽小餅</h3>
+        <p class="msh-sub">迷你版本，方便分享 · 每樽 ✿</p>
+      </div>
+
+      <div class="menu-grid menu-grid-jar">
+        <a class="menu-card-link" href="products/seasalt.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <span class="pc-tag signature">皇牌 ♥</span>
+              <img src="./src/sea-salt-dark-chocolate-brookies.png" alt="海鹽黑朱古力">
             </div>
-            <div class="slider-overlay"></div>
+            <div class="pc-body">
+              <div class="pc-title-zh">海鹽黑朱古力</div>
+              <div class="pc-title-en">Sea Salt Dark Chocolate</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">每樽 jar</span><span class="pc-p-val">$60</span></div>
+              </div>
+              <span class="pc-cta">看看詳情 →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/pepper.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <span class="pc-tag bold">獨特 ✦</span>
+              <img src="./src/green-sichuan-pepper-brookies.png" alt="麻香花椒">
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">麻香花椒</div>
+              <div class="pc-title-en">Green Sichuan Pepper</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">每樽 jar</span><span class="pc-p-val">$62</span></div>
+              </div>
+              <span class="pc-cta">看看詳情 →</span>
+            </div>
+          </article>
+        </a>
+      </div>
+
+      <!-- Divider -->
+      <div class="menu-divider"><span>✿</span></div>
+
+      <!-- Section B: pcs -->
+      <div class="menu-section-head">
+        <div class="msh-label">每件 · pcs</div>
+        <h3 class="msh-title">大粒裝</h3>
+        <p class="msh-sub">大件滿足款 · 每件單買 ♥</p>
+      </div>
+
+      <div class="menu-grid">
+        <a class="menu-card-link" href="products/caramel.html">
+          <article class="product-card">
+            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#e9c69a,#c9844a);">
+              <span class="pc-tag new">new ✿</span>
+              <img src="./src/Caramel Choco Brookies.png" alt="焦糖黑朱古力">
+              <div class="pc-placeholder">
+                <span class="pc-emoji">🍯</span>
+                <span class="pc-ph-label">caramel</span>
+              </div>
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">焦糖黑朱古力</div>
+              <div class="pc-title-en">Caramel Dark Chocolate</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">看看詳情 →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/marshmallow.html">
+          <article class="product-card">
+            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#fdebda,#e9d4be);">
+              <span class="pc-tag new">new ✿</span>
+              <img src="./src/Marshmallow Brookies.png" alt="棉花糖黑朱古力">
+              <div class="pc-placeholder">
+                <span class="pc-emoji">☁️</span>
+                <span class="pc-ph-label">marshmallow</span>
+              </div>
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">棉花糖黑朱古力</div>
+              <div class="pc-title-en">Marshmallow Dark Chocolate</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">看看詳情 →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/peanut.html">
+          <article class="product-card">
+            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#e9c895,#b88550);">
+              <span class="pc-tag new">new ✿</span>
+              <img src="./src/Peanut Butter Brookies.png" alt="花生黑朱古力">
+              <div class="pc-placeholder">
+                <span class="pc-emoji">🥜</span>
+                <span class="pc-ph-label">peanut</span>
+              </div>
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">花生黑朱古力</div>
+              <div class="pc-title-en">Peanut Dark Chocolate</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">看看詳情 →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/hojicha.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <img src="./src/hojicha-brookies-new.png" alt="焙茶">
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">焙茶</div>
+              <div class="pc-title-en">Hojicha</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">看看詳情 →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/matcha.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <img src="./src/matcha-brookies-new.png" alt="抹茶">
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">抹茶</div>
+              <div class="pc-title-en">Matcha</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">看看詳情 →</span>
+            </div>
+          </article>
+        </a>
+      </div>
+
+      <p class="menu-note">— 點選圖卡看每款的故事 ♥ —</p>
+    </div>
+  </section>
+
+  <!-- Care notes -->
+  <section class="care" id="care">
+    <div class="container">
+      <div class="care-card">
+        <div class="care-banner">♥ 購買須知 ♥</div>
+        <div class="care-grid">
+          <div class="care-item">
+            <div class="care-emoji">🤏</div>
+            <h3>迷你 brookie</h3>
+            <p class="care-line"><strong>5 日內</strong> 食係最佳口感</p>
+            <p class="care-line">最多可以放 <strong>一星期</strong></p>
+          </div>
+          <div class="care-divider"></div>
+          <div class="care-item">
+            <div class="care-emoji">🍪</div>
+            <h3>大 brookie</h3>
+            <p class="care-line">買返嚟 <strong>當日食</strong> 最好味</p>
+          </div>
+          <div class="care-divider"></div>
+          <div class="care-item">
+            <div class="care-emoji">☁️</div>
+            <h3>棉花糖曲奇</h3>
+            <p class="care-line">帶返屋企 <strong>叮一叮</strong> 會更好味 ♥</p>
+          </div>
         </div>
-        
-        <div class="hero-content">
-            <div class="hero-text-box">
-                <span class="hero-pretitle">Handmade with Love</span>
-                <h2>一啖入口，盡顯奢雅</h2>
-                <p>手工製作嘅甜品，將平凡時刻轉化為難忘回憶</p>
-                <div class="hero-buttons">
-                    <a href="#desserts" class="btn btn-primary">菜單</a>
-                    <a href="#contact" class="btn btn-outline">聯絡我們</a>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Farewell cookies (散水餅) -->
+  <section class="farewell" id="farewell">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">特別訂購 ✿</span>
+        <h2>♥ 散水餅 <em>♥</em></h2>
+        <p class="menu-sub">同同事好好告別 · 中 size brookie · <strong>$25 / 件</strong></p>
+      </div>
+
+      <div class="farewell-grid">
+        <div class="farewell-flavors">
+          <h3 class="fw-h">可選口味</h3>
+          <ul class="fw-list">
+            <li>焦糖黑朱古力</li>
+            <li>棉花糖黑朱古力</li>
+            <li>花生黑朱古力</li>
+            <li>香濃抹茶</li>
+            <li>杏仁焙茶</li>
+          </ul>
+          <div class="fw-sticker-tag">
+            <span class="ft-icon">✦</span>
+            <span>可轉 <em>"thank you"</em> 貼紙</span>
+          </div>
         </div>
-    </section>
 
-    <!-- 關於我們 -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Our Story</span>
-                <h2>我哋嘅甜蜜故事</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p class="lead">「Little Sweet Tooth」創立於2024年。我哋心入面藏住一個大夢想——做出好食到令人微笑嘅甜品，而且每一款都要有自己可愛嘅小故事！</p>
-                    <p>每一款甜品都經過反覆調製，只為呈現最完美嘅口感同風味層次。我哋認真製作每份甜品，就係希望當你品嚐嘅一刻，嘴角會不自覺上揚，煩惱暫時放埋一邊，享受純粹嘅甜蜜愉悅。</p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <span class="stat-num">100%</span>
-                            <span class="stat-label">手工製作</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-num">Pure</span>
-                            <span class="stat-label">純天然食材</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image-container">
-                    <div class="image-border"></div>
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="我哋嘅烘焙坊" class="about-img">
-                </div>
-            </div>
+        <div class="farewell-info">
+          <h3 class="fw-h">訂購詳情</h3>
+          <ul class="fw-info-list">
+            <li><span class="fw-k">最低訂量</span><span class="fw-v">20 件起</span></li>
+            <li><span class="fw-k">折扣優惠</span><span class="fw-v">滿 $1000 · 95 折</span></li>
+            <li><span class="fw-k">預訂時間</span><span class="fw-v">請提早 1 星期</span></li>
+            <li><span class="fw-k">急單</span><span class="fw-v">另議 · 歡迎 DM</span></li>
+          </ul>
+          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
+            <i class="fab fa-instagram"></i> Instagram 查詢訂購
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- 特色 -->
-    <section class="features">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <h3>優質食材</h3>
-                    <p>只會用最高品質嘅食材，不含人工添加劑或防腐劑。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>用心手工製作</h3>
-                    <p>每款甜品都由我哋嘅甜品師精心製作，將熱情注入每一件作品。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3>甜度適中</h3>
-                    <p>嚴格控制甜度，追求層次豐富而不膩嘅口感，讓你享受甜蜜之餘亦能保持減少負擔。</p>
-                </div>
-            </div>
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">傾兩句 ✿</span>
+        <h2>過嚟打個招呼, <em>或者落單啦</em></h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <p>有任何問題、特別訂購、或者想合作 — Instagram DM 我哋啦，通常當日就會覆 ♥</p>
+          <ul class="contact-list">
+            <li><span class="k">instagram</span><span class="v">@littlesweettooth._</span></li>
+            <li><span class="k">回覆時間</span><span class="v">10:00 — 20:00 HKT</span></li>
+            <li><span class="k">交收地點</span><span class="v">火炭港鐵站</span></li>
+            <li><span class="k">運送方式</span><span class="v">順豐到付 · 東鐵沿綫</span></li>
+          </ul>
+          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-cream">
+            <i class="fab fa-instagram"></i> 嚟搵我哋
+          </a>
         </div>
-    </section>
-
-    <!-- 甜品系列 -->
-    <section class="desserts" id="desserts">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Our Menu</span>
-                <h2>我哋嘅招牌布朗尼曲奇</h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <div class="desserts-grid">
-                <!-- 產品 1: 黑朱古力 -->
-                <div class="dessert-card" id="card-dark">
-                    <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="黑朱古力布朗尼曲奇" id="img-dark">
-                        <div class="dessert-badge">皇牌產品</div>
-                    </div>
-                    <div class="dessert-content">
-                        <h3 id="title-dark">黑朱古力布朗尼曲奇</h3>
-                        
-                        <div class="format-toggle">
-                            <button class="format-btn active" onclick="switchFormat('dark', 'standard')">Standard</button>
-                            <button class="format-btn" onclick="switchFormat('dark', 'box')">Box</button>
-                        </div>
-
-                        <p class="dessert-description" id="desc-dark">專注於內裡嘅濕潤口感，每一口都係濃郁朱古力嘅重擊。</p>
-                        
-                        <div class="dessert-footer">
-                            <span class="dessert-price" id="price-dark">HKD$65.00</span>
-                            <a href="product-dark-large.html" class="know-more-btn" id="link-dark">
-                                了解更多 <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 產品 2: 抹茶 -->
-                <div class="dessert-card" id="card-matcha">
-                    <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="抹茶布朗尼曲奇" id="img-matcha">
-                        <div class="dessert-badge">新品上市</div>
-                    </div>
-                    <div class="dessert-content">
-                        <h3 id="title-matcha">抹茶布朗尼曲奇</h3>
-
-                        <div class="format-toggle">
-                            <button class="format-btn active" onclick="switchFormat('matcha', 'standard')">Standard</button>
-                            <button class="format-btn" onclick="switchFormat('matcha', 'box')">Box</button>
-                        </div>
-
-                        <p class="dessert-description" id="desc-matcha">選用優質抹茶，專注於內裡嘅回甘口感，茶香濃郁持久。</p>
-                        
-                        <div class="dessert-footer">
-                            <span class="dessert-price" id="price-matcha">HKD$68.00</span>
-                            <a href="product-matcha-large.html" class="know-more-btn" id="link-matcha">
-                                了解更多 <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="contact-visual">
+          <div class="qr-card">
+            <img src="./src/little_sweet_tooth_ig_qrcode.jpeg" alt="Instagram QR">
+            <div class="qr-lbl">scan to follow</div>
+            <div class="qr-handle">@littlesweettooth._</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- 聯絡我們 -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="contact-card">
-                <div class="contact-info">
-                    <h2>聯絡我們</h2>
-                    <p>有任何疑問，歡迎透過 Instagram 同我哋聯絡！</p>
-                    <div class="contact-details">
-                        <div class="detail-item">
-                            <i class="fab fa-instagram"></i>
-                            <span>@littlesweettooth._</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>回覆時間：10:00 - 20:00</span>
-                        </div>
-                    </div>
-                    <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-instagram"></i> 搵我哋 !
-                    </a>
-                </div>
-                <div class="contact-visual">
-                    <div class="qr-container">
-                        <img src="./src/little_sweet_tooth_ig_qrcode.jpeg" alt="Instagram QR Code" class="qr-code">
-                        <p class="qr-text">Scan to follow us!</p>
-                    </div>
-                </div>
-            </div>
+  <!-- Footer -->
+  <footer class="site-foot">
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <h3>Little <em>Sweet</em> Tooth</h3>
+          <p>Good food, good mood. 手工 brookies — 用心烘給你 ♥</p>
+          <div class="foot-social">
+            <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
-    </section>
-
-    <!-- 頁尾 -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h3>Little Sweet Tooth</h3>
-                    <p>♥ Good Food, Good Mood ♥</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>快速連結</h4>
-                    <ul>
-                        <li><a href="#home">首頁</a></li>
-                        <li><a href="#about">關於我們</a></li>
-                        <li><a href="#desserts">菜單</a></li>
-                        <li><a href="#contact">聯絡我們</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Little Sweet Tooth. All Rights Reserved.</p>
-            </div>
+        <div class="foot-col">
+          <h4>逛邊 ✿</h4>
+          <ul>
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#menu">餐牌</a></li>
+            <li><a href="#care">食用須知</a></li>
+            <li><a href="#farewell">散水餅</a></li>
+            <li><a href="#contact">聯絡</a></li>
+          </ul>
         </div>
-    </footer>
+        <div class="foot-col">
+          <h4>送貨 ♥</h4>
+          <ul class="foot-info">
+            <li>火炭港鐵站交收</li>
+            <li>順豐到付</li>
+            <li>滿 $150 東鐵沿綫</li>
+            <li>滿 $500 免運費</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2025 Little Sweet Tooth</span>
+        <span>香港 · 手工烘焙</span>
+        <span>made with ♥</span>
+      </div>
+    </div>
+  </footer>
 
-    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
-
-    <script src="scripts.js"></script>
-    <script>
-        const productData = {
-            dark: {
-                standard: {
-                    price: 'HKD$65.00',
-                    desc: '專注於內裡嘅濕潤口感，每一口都係濃郁朱古力嘅重擊。',
-                    link: 'product-dark-large.html',
-                    img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                },
-                box: {
-                    price: 'HKD$128.00',
-                    desc: '一口一個嘅精緻美味，最適合與親友分享甜蜜時刻。',
-                    link: 'product-dark-box.html',
-                    img: 'https://images.unsplash.com/photo-1582176604447-aa5144675a69?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                }
-            },
-            matcha: {
-                standard: {
-                    price: 'HKD$68.00',
-                    desc: '選用優質抹茶，專注於內裡嘅回甘口感，茶香濃郁持久。',
-                    link: 'product-matcha-large.html',
-                    img: 'https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                },
-                box: {
-                    price: 'HKD$135.00',
-                    desc: '一口一個嘅抹茶驚喜，分享裝設計，讓美味傳遞更遠。',
-                    link: 'product-matcha-box.html',
-                    img: 'https://images.unsplash.com/photo-1536184071535-78906f7172c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                }
-            }
-        };
-
-        function switchFormat(flavor, format) {
-            const data = productData[flavor][format];
-            
-            // Update elements with transition
-            const card = document.getElementById(`card-${flavor}`);
-            const priceEl = document.getElementById(`price-${flavor}`);
-            const descEl = document.getElementById(`desc-${flavor}`);
-            const linkEl = document.getElementById(`link-${flavor}`);
-            const imgEl = document.getElementById(`img-${flavor}`);
-            
-            // Update buttons
-            const buttons = card.querySelectorAll('.format-btn');
-            buttons.forEach(btn => {
-                if (btn.innerText.toLowerCase() === format) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            // Apply fade out
-            [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '0');
-            
-            setTimeout(() => {
-                priceEl.innerText = data.price;
-                descEl.innerText = data.desc;
-                linkEl.href = data.link;
-                imgEl.src = data.img;
-                
-                // Apply fade in
-                [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '1');
-            }, 300);
-        }
-    </script>
+  <a href="#" class="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></a>
+  <script src="scripts.js"></script>
 </body>
 </html>

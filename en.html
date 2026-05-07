@@ -1,445 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Little Sweet Tooth - ♥ 𝐺𝑜𝑜𝑑 𝐹𝑜𝑜𝑑, 𝐺𝑜𝑜𝑑 𝑀𝑜𝑜𝑑 ♥</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Product Grid Styling */
-        .desserts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
-            gap: 3rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        
-        .dessert-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dessert-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(140, 106, 86, 0.15);
-        }
-
-        .dessert-img-container {
-            position: relative;
-            height: 300px;
-            overflow: hidden;
-        }
-
-        .dessert-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .dessert-card:hover .dessert-img-container img {
-            transform: scale(1.1);
-        }
-
-        .format-toggle {
-            display: flex;
-            background: #f0f0f0;
-            border-radius: 30px;
-            padding: 4px;
-            margin: 1.5rem 0;
-            position: relative;
-            width: fit-content;
-            align-self: center;
-        }
-
-        .format-btn {
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            z-index: 1;
-            color: var(--text-light);
-        }
-
-        .format-btn.active {
-            color: var(--white);
-            background: var(--primary-color);
-        }
-
-        .dessert-content {
-            padding: 2rem;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dessert-content h3 {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .dessert-description {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            min-height: 3em;
-        }
-
-        .dessert-footer {
-            margin-top: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .dessert-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .know-more-btn {
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        .know-more-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Hide slider elements */
-        .slider-nav, .slider-dots, .slider-dots-container, .slider-nav-btn {
-            display: none !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Sweet Tooth · Handmade Brookies · Good Food, Good Mood</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Nunito:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-        <a href="index.html" class="lang-btn">繁體中文</a>
+
+  <div class="top-strip">
+    <div class="strip-row">
+      <span>♥ Any purchase qualifies</span><span class="dot">✿</span>
+      <span>Pickup at Fo Tan MTR / SF Express (freight collect)</span><span class="dot">✿</span>
+      <span>Orders over $150 · pickup along East Rail Line</span><span class="dot">✿</span>
+      <span>Orders over $500 · free delivery ✨</span><span class="dot">✿</span>
+      <span>♥ Any purchase qualifies</span><span class="dot">✿</span>
+      <span>Pickup at Fo Tan MTR / SF Express (freight collect)</span><span class="dot">✿</span>
+      <span>Orders over $150 · pickup along East Rail Line</span><span class="dot">✿</span>
+      <span>Orders over $500 · free delivery ✨</span><span class="dot">✿</span>
     </div>
+  </div>
 
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo-wrapper">
-                <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Little Sweet Tooth Logo" class="logo">
-            </div>
-            <div class="header-content-text">
-                <h1 class="brand-name">Little Sweet Tooth</h1>
-                <p class="brand-subtitle">Good Food, Good Mood</p>
-                <div class="header-decoration">
-                    <span></span>
-                    <i class="fas fa-heart"></i>
-                    <span></span>
-                </div>
-                <p class="header-tagline">Every bite of sweetness is a memory made with heart</p>
-            </div>
+  <div class="language-switcher"><a href="index.html" class="lang-btn">中文</a></div>
+
+  <header class="site-head">
+    <div class="head-row">
+      <a href="#home" class="head-brand">
+        <img src="./src/Little-Sweet-Tooth-Logo.jpeg" alt="Little Sweet Tooth">
+        <span class="bname">Little Sweet Tooth</span>
+      </a>
+      <div class="head-tag">Good food, good mood ♥</div>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#menu" class="nav-link">Menu</a>
+      <a href="#care" class="nav-link">Care Notes</a>
+      <a href="#farewell" class="nav-link">Farewell Box</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <span class="doodle h1">♥</span>
+    <span class="doodle h2">✿</span>
+    <span class="doodle h3">♥</span>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Hello, friend</span>
+        <h1 class="hero-title">
+          <span class="line-a">A little bite,</span>
+          <em>A big smile <span class="heart">♥</span></em>
+        </h1>
+        <p class="hero-lede">
+          Brookie = brownie + cookie. A crackled top, a fudgy middle.<br>
+          Baked one small batch at a time, with honest ingredients and a whole lot of heart ♥
+        </p>
+        <div class="hero-ctas">
+          <a href="#menu" class="btn btn-primary">Today's Menu <i class="fas fa-arrow-right"></i></a>
+          <a href="#contact" class="btn btn-ghost">Order Now</a>
         </div>
-    </header>
+      </div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
-            <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i><span>About</span></a>
-            <a href="#desserts" class="nav-link"><i class="fas fa-utensils"></i><span>Desserts</span></a>
-            <a href="#contact" class="nav-link"><i class="fas fa-instagram"></i><span>Contact</span></a>
+      <div class="hero-figure">
+        <div class="hero-tape"></div>
+        <div class="hero-sticker">
+          <div>
+            <span>Baked</span>
+            freshly<br>with love
+          </div>
         </div>
-    </nav>
+        <img src="./src/sea-salt-dark-chocolate-brookies.png" alt="Sea-salt dark chocolate brookie">
+      </div>
+    </div>
+  </section>
 
-    <!-- Hero Section (Static) -->
-    <section class="hero" id="home">
-        <div class="hero-slider">
-            <div class="slider-container" style="width: 100%; transform: none;">
-                <div class="slide" style="width: 100%;"><img src="./src/banners/Cookies.JPG" alt="Banner 1"></div>
+  <!-- Menu -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Today's Menu ✿</span>
+        <h2>Brookies · <em>Handmade</em></h2>
+        <p class="menu-sub">Every batch baked by hand · any purchase qualifies ♥</p>
+      </div>
+
+      <!-- Menu cards split into two sections -->
+
+      <!-- Section A: Jar -->
+      <div class="menu-section-head">
+        <div class="msh-label">Per Jar · 每樽</div>
+        <h3 class="msh-title">In a Jar</h3>
+        <p class="msh-sub">Mini brookies, made for sharing · per jar ✿</p>
+      </div>
+
+      <div class="menu-grid menu-grid-jar">
+        <a class="menu-card-link" href="products/seasalt-en.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <span class="pc-tag signature">Signature ♥</span>
+              <img src="./src/sea-salt-dark-chocolate-brookies.png" alt="Sea Salt Dark Chocolate">
             </div>
-            <div class="slider-overlay"></div>
+            <div class="pc-body">
+              <div class="pc-title-zh">Sea Salt Dark Chocolate</div>
+              <div class="pc-title-en">海鹽黑朱古力</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">Per Jar</span><span class="pc-p-val">$60</span></div>
+              </div>
+              <span class="pc-cta">Peek Inside →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/pepper-en.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <span class="pc-tag bold">Bold ✦</span>
+              <img src="./src/green-sichuan-pepper-brookies.png" alt="Green Sichuan Pepper">
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">Green Sichuan Pepper</div>
+              <div class="pc-title-en">麻香花椒</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">Per Jar</span><span class="pc-p-val">$62</span></div>
+              </div>
+              <span class="pc-cta">Peek Inside →</span>
+            </div>
+          </article>
+        </a>
+      </div>
+
+      <!-- Divider -->
+      <div class="menu-divider"><span>✿</span></div>
+
+      <!-- Section B: pcs -->
+      <div class="menu-section-head">
+        <div class="msh-label">Per Piece · 每件</div>
+        <h3 class="msh-title">Single Brookies</h3>
+        <p class="msh-sub">Big & generous · per piece ♥</p>
+      </div>
+
+      <div class="menu-grid">
+        <a class="menu-card-link" href="products/caramel-en.html">
+          <article class="product-card">
+            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#e9c69a,#c9844a);">
+              <span class="pc-tag new">New ✿</span>
+              <img src="./src/Caramel Choco Brookies.png" alt="焦糖黑朱古力">
+              <div class="pc-placeholder">
+                <span class="pc-emoji">🍯</span>
+                <span class="pc-ph-label">Caramel</span>
+              </div>
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">Caramel Dark Chocolate</div>
+              <div class="pc-title-en">焦糖黑朱古力</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">Per Piece</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">Peek Inside →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/marshmallow-en.html">
+          <article class="product-card">
+            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#fdebda,#e9d4be);">
+              <span class="pc-tag new">New ✿</span>
+              <img src="./src/Marshmallow Brookies.png" alt="棉花糖黑朱古力">
+              <div class="pc-placeholder">
+                <span class="pc-emoji">☁️</span>
+                <span class="pc-ph-label">Marshmallow</span>
+              </div>
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">Marshmallow Dark Chocolate</div>
+              <div class="pc-title-en">棉花糖黑朱古力</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">Per Piece</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">Peek Inside →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/peanut-en.html">
+          <article class="product-card">
+            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#e9c895,#b88550);">
+              <span class="pc-tag new">New ✿</span>
+              <img src="./src/Peanut Butter Brookies.png" alt="花生黑朱古力">
+              <div class="pc-placeholder">
+                <span class="pc-emoji">🥜</span>
+                <span class="pc-ph-label">Peanut</span>
+              </div>
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">Peanut Dark Chocolate</div>
+              <div class="pc-title-en">花生黑朱古力</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">Per Piece</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">Peek Inside →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/hojicha-en.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <img src="./src/hojicha-brookies-new.png" alt="Hojicha">
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">Hojicha</div>
+              <div class="pc-title-en">焙茶</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">Per Piece</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">Peek Inside →</span>
+            </div>
+          </article>
+        </a>
+
+        <a class="menu-card-link" href="products/matcha-en.html">
+          <article class="product-card">
+            <div class="pc-img-wrap">
+              <img src="./src/matcha-brookies-new.png" alt="Matcha">
+            </div>
+            <div class="pc-body">
+              <div class="pc-title-zh">Matcha</div>
+              <div class="pc-title-en">抹茶</div>
+              <div class="pc-prices">
+                <div class="pc-price"><span class="pc-p-lbl">Per Piece</span><span class="pc-p-val">$35</span></div>
+              </div>
+              <span class="pc-cta">Peek Inside →</span>
+            </div>
+          </article>
+        </a>
+      </div>
+
+      <p class="menu-note">— Click any card to read its little story ♥ —</p>
+    </div>
+  </section>
+
+  <!-- Care notes -->
+  <section class="care" id="care">
+    <div class="container">
+      <div class="care-card">
+        <div class="care-banner">♥ How to Enjoy ♥</div>
+        <div class="care-grid">
+          <div class="care-item">
+            <div class="care-emoji">🤏</div>
+            <h3>Mini Brookies</h3>
+            <p class="care-line">Best within <strong>5 days</strong></p>
+            <p class="care-line">Keep up to <strong>1 week</strong></p>
+          </div>
+          <div class="care-divider"></div>
+          <div class="care-item">
+            <div class="care-emoji">🍪</div>
+            <h3>Large Brookies</h3>
+            <p class="care-line">Tastes best <strong>same day</strong></p>
+          </div>
+          <div class="care-divider"></div>
+          <div class="care-item">
+            <div class="care-emoji">☁️</div>
+            <h3>Marshmallow</h3>
+            <p class="care-line">Give it a quick <strong>microwave warm-up</strong> at home — even better ♥</p>
+          </div>
         </div>
-        
-        <div class="hero-content">
-            <div class="hero-text-box">
-                <span class="hero-pretitle">Handmade with Love</span>
-                <h2>Elegance in Every Bite</h2>
-                <p>Handcrafted desserts that turn ordinary moments into unforgettable memories</p>
-                <div class="hero-buttons">
-                    <a href="#desserts" class="btn btn-primary">Menu</a>
-                    <a href="#contact" class="btn btn-outline">Contact Us</a>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Farewell box -->
+  <section class="farewell" id="farewell">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Special Order ✿</span>
+        <h2>♥ Farewell Box <em>♥</em></h2>
+        <p class="menu-sub">Say goodbye to colleagues with style · medium-size brookies · <strong>$25 each</strong></p>
+      </div>
+
+      <div class="farewell-grid">
+        <div class="farewell-flavors">
+          <h3 class="fw-h">Choose Your Flavours</h3>
+          <ul class="fw-list">
+            <li>Caramel Dark Chocolate</li>
+            <li>Marshmallow Dark Chocolate</li>
+            <li>Peanut Dark Chocolate</li>
+            <li>Rich Matcha</li>
+            <li>Almond Hojicha</li>
+          </ul>
+          <div class="fw-sticker-tag">
+            <span class="ft-icon">✦</span>
+            <span>Swap on a <em>"thank you"</em> sticker</span>
+          </div>
         </div>
-    </section>
 
-    <!-- About Us -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Our Story</span>
-                <h2>Our Sweet Story</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p class="lead">"Little Sweet Tooth" was founded in 2024. We have a big dream in our hearts—to make desserts so delicious they make you smile, and each one has its own lovely little story!</p>
-                    <p>Every dessert is repeatedly refined to present the most perfect texture and flavor layers. We make every dessert with heart, hoping that when you taste it, the corners of your mouth will naturally rise, worries will be temporarily set aside, and you'll enjoy pure sweet pleasure.</p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <span class="stat-num">100%</span>
-                            <span class="stat-label">Handmade</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-num">Pure</span>
-                            <span class="stat-label">Natural Ingredients</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image-container">
-                    <div class="image-border"></div>
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Our Bakery" class="about-img">
-                </div>
-            </div>
+        <div class="farewell-info">
+          <h3 class="fw-h">How to Order</h3>
+          <ul class="fw-info-list">
+            <li><span class="fw-k">Minimum</span><span class="fw-v">20 pieces</span></li>
+            <li><span class="fw-k">Discount</span><span class="fw-v">5% off over $1000</span></li>
+            <li><span class="fw-k">Lead Time</span><span class="fw-v">1 week ahead</span></li>
+            <li><span class="fw-k">Rush Orders</span><span class="fw-v">DM us · case-by-case</span></li>
+          </ul>
+          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
+            <i class="fab fa-instagram"></i> DM us on Instagram
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <h3>Premium Ingredients</h3>
-                    <p>We only use the highest quality ingredients, free from artificial additives or preservatives.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>Handmade with Heart</h3>
-                    <p>Each dessert is carefully crafted by our pastry chefs, pouring passion into every piece.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3>Balanced Sweetness</h3>
-                    <p>Strictly controlled sweetness for a rich yet not greasy taste, allowing you to enjoy sweetness with less burden.</p>
-                </div>
-            </div>
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Say Hello ✿</span>
+        <h2>Come Say Hi, <em>or Order a Batch</em></h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <p>Questions, custom orders, or pop-up invites — DM us on Instagram. We usually reply same day ♥</p>
+          <ul class="contact-list">
+            <li><span class="k">Instagram</span><span class="v">@littlesweettooth._</span></li>
+            <li><span class="k">Reply Hours</span><span class="v">10:00 — 20:00 HKT</span></li>
+            <li><span class="k">Pickup</span><span class="v">Fo Tan MTR Station</span></li>
+            <li><span class="k">Delivery</span><span class="v">SF Express · East Rail Line</span></li>
+          </ul>
+          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-cream">
+            <i class="fab fa-instagram"></i> find us
+          </a>
         </div>
-    </section>
-
-    <!-- Desserts Menu -->
-    <section class="desserts" id="desserts">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Our Menu</span>
-                <h2>Our Signature Brownie Cookies</h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <div class="desserts-grid">
-                <!-- Product 1: Dark Chocolate -->
-                <div class="dessert-card" id="card-dark">
-                    <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dark Chocolate Brownie Cookie" id="img-dark">
-                        <div class="dessert-badge">Best Seller</div>
-                    </div>
-                    <div class="dessert-content">
-                        <h3 id="title-dark">Dark Chocolate Brownie Cookie</h3>
-                        
-                        <div class="format-toggle">
-                            <button class="format-btn active" onclick="switchFormat('dark', 'standard')">Standard</button>
-                            <button class="format-btn" onclick="switchFormat('dark', 'box')">Box</button>
-                        </div>
-
-                        <p class="dessert-description" id="desc-dark">Focusing on the moist texture inside, every bite is a rich chocolate impact.</p>
-                        
-                        <div class="dessert-footer">
-                            <span class="dessert-price" id="price-dark">HKD$65.00</span>
-                            <a href="product-dark-large-en.html" class="know-more-btn" id="link-dark">
-                                Know More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 2: Matcha -->
-                <div class="dessert-card" id="card-matcha">
-                    <div class="dessert-img-container">
-                        <img src="https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Matcha Brownie Cookie" id="img-matcha">
-                        <div class="dessert-badge">New Arrival</div>
-                    </div>
-                    <div class="dessert-content">
-                        <h3 id="title-matcha">Matcha Brownie Cookie</h3>
-
-                        <div class="format-toggle">
-                            <button class="format-btn active" onclick="switchFormat('matcha', 'standard')">Standard</button>
-                            <button class="format-btn" onclick="switchFormat('matcha', 'box')">Box</button>
-                        </div>
-
-                        <p class="dessert-description" id="desc-matcha">Selected premium matcha, focusing on the lingering sweet aftertaste and long-lasting tea aroma.</p>
-                        
-                        <div class="dessert-footer">
-                            <span class="dessert-price" id="price-matcha">HKD$68.00</span>
-                            <a href="product-matcha-large-en.html" class="know-more-btn" id="link-matcha">
-                                Know More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="contact-visual">
+          <div class="qr-card">
+            <img src="./src/little_sweet_tooth_ig_qrcode.jpeg" alt="Instagram QR">
+            <div class="qr-lbl">Scan to follow</div>
+            <div class="qr-handle">@littlesweettooth._</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Us -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="contact-card">
-                <div class="contact-info">
-                    <h2>Contact Us</h2>
-                    <p>Have questions? Feel free to contact us via Instagram!</p>
-                    <div class="contact-details">
-                        <div class="detail-item">
-                            <i class="fab fa-instagram"></i>
-                            <span>@littlesweettooth._</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Reply Time: 10:00 - 20:00</span>
-                        </div>
-                    </div>
-                    <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-instagram"></i> Message Us
-                    </a>
-                </div>
-                <div class="contact-visual">
-                    <div class="qr-container">
-                        <img src="./src/little_sweet_tooth_ig_qrcode.jpeg" alt="Instagram QR Code" class="qr-code">
-                        <p class="qr-text">Scan to follow us!</p>
-                    </div>
-                </div>
-            </div>
+  <footer class="site-foot">
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <h3>Little <em>Sweet</em> Tooth</h3>
+          <p>Good food, good mood. Handmade brookies, baked with love ♥</p>
+          <div class="foot-social">
+            <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h3>Little Sweet Tooth</h3>
-                    <p>♥ Good Food, Good Mood ♥</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#desserts">Menu</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Little Sweet Tooth. All Rights Reserved.</p>
-            </div>
+        <div class="foot-col">
+          <h4>Around Here ✿</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#care">Care Notes</a></li>
+            <li><a href="#farewell">Farewell Box</a></li>
+            <li><a href="#contact">Say Hello</a></li>
+          </ul>
         </div>
-    </footer>
+        <div class="foot-col">
+          <h4>Delivery ♥</h4>
+          <ul class="foot-info">
+            <li>Pickup at Fo Tan MTR</li>
+            <li>SF Express · freight collect</li>
+            <li>$150+ · East Rail Line</li>
+            <li>$500+ · free delivery</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2025 Little Sweet Tooth</span>
+        <span>Hong Kong · Handmade</span>
+        <span>made with ♥</span>
+      </div>
+    </div>
+  </footer>
 
-    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
-
-    <script src="scripts.js"></script>
-    <script>
-        const productData = {
-            dark: {
-                standard: {
-                    price: 'HKD$65.00',
-                    desc: 'Focusing on the moist texture inside, every bite is a rich chocolate impact.',
-                    link: 'product-dark-large-en.html',
-                    img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                },
-                box: {
-                    price: 'HKD$128.00',
-                    desc: 'Exquisite bite-sized deliciousness, perfect for sharing sweet moments with friends and family.',
-                    link: 'product-dark-box-en.html',
-                    img: 'https://images.unsplash.com/photo-1582176604447-aa5144675a69?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                }
-            },
-            matcha: {
-                standard: {
-                    price: 'HKD$68.00',
-                    desc: 'Selected premium matcha, focusing on the lingering sweet aftertaste and long-lasting tea aroma.',
-                    link: 'product-matcha-large-en.html',
-                    img: 'https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                },
-                box: {
-                    price: 'HKD$135.00',
-                    desc: 'Bite-sized matcha surprises in a sharing pack design, letting deliciousness travel further.',
-                    link: 'product-matcha-box-en.html',
-                    img: 'https://images.unsplash.com/photo-1536184071535-78906f7172c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-                }
-            }
-        };
-
-        function switchFormat(flavor, format) {
-            const data = productData[flavor][format];
-            
-            // Update elements with transition
-            const card = document.getElementById(`card-${flavor}`);
-            const priceEl = document.getElementById(`price-${flavor}`);
-            const descEl = document.getElementById(`desc-${flavor}`);
-            const linkEl = document.getElementById(`link-${flavor}`);
-            const imgEl = document.getElementById(`img-${flavor}`);
-            
-            // Update buttons
-            const buttons = card.querySelectorAll('.format-btn');
-            buttons.forEach(btn => {
-                if (btn.innerText.toLowerCase() === format) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            // Apply fade out
-            [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '0');
-            
-            setTimeout(() => {
-                priceEl.innerText = data.price;
-                descEl.innerText = data.desc;
-                linkEl.href = data.link;
-                imgEl.src = data.img;
-                
-                // Apply fade in
-                [priceEl, descEl, imgEl].forEach(el => el.style.opacity = '1');
-            }, 300);
-        }
-    </script>
+  <a href="#" class="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></a>
+  <script src="scripts.js"></script>
 </body>
 </html>
