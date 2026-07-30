@@ -86,4 +86,29 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', setActive);
     setActive();
   }
+
+  // Nav is horizontally scrollable on phones: show a fade while more tabs
+  // remain, and keep the active tab in view as the page scrolls.
+  const navBar = document.querySelector('.navbar');
+  const navBox = document.querySelector('.nav-container');
+  if (navBar && navBox) {
+    const fade = () => {
+      const more = navBox.scrollWidth - navBox.clientWidth - navBox.scrollLeft > 4;
+      navBar.classList.toggle('can-scroll', more);
+    };
+    navBox.addEventListener('scroll', fade, { passive: true });
+    window.addEventListener('resize', fade);
+    fade();
+
+    let lastActive = null;
+    const keepVisible = () => {
+      const a = navBox.querySelector('.nav-link.active');
+      if (!a || a === lastActive) return;
+      lastActive = a;
+      if (navBox.scrollWidth <= navBox.clientWidth) return;
+      const target = a.offsetLeft - (navBox.clientWidth - a.offsetWidth) / 2;
+      navBox.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+    };
+    window.addEventListener('scroll', keepVisible, { passive: true });
+  }
 });
