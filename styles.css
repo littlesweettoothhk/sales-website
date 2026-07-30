@@ -1828,3 +1828,147 @@ body.cart-open { overflow: hidden; }
    declaration outranks — several toggled elements here set flex/inline-flex,
    so they stayed visible when hidden. Restore the intent. */
 [hidden] { display: none !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Visual pass
+   ═══════════════════════════════════════════════════════════════ */
+
+/* An img's width/height attributes are presentational hints. Where CSS sizes
+   an image with aspect-ratio and an auto height, that hint wins and pins the
+   height — which stretched the QR card to 767px tall. */
+.qr-card img { height: auto; }
+
+/* ——— Contact card ——— */
+.contact-grid { align-items: start; }
+.contact-copy { align-self: center; }
+.qr-card {
+  width: 268px;
+  padding: 1.5rem 1.5rem 1.2rem;
+  background: var(--butter);
+}
+.qr-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--butter);
+}
+.qr-card .qr-lbl { margin-top: 14px; }
+
+@media (max-width: 900px) {
+  .contact-grid { align-items: center; }
+  .qr-card { width: min(268px, 78vw); }
+}
+
+/* ——— Section headers: a small drawn rule under the title ——— */
+.section-header { position: relative; }
+.section-header h2 + .menu-sub { margin-top: .9rem; }
+.section-header h2::after {
+  content: "";
+  display: block;
+  width: 74px; height: 3px;
+  margin: 1rem auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--peach-2), var(--accent), var(--peach-2), transparent);
+  opacity: .75;
+}
+
+/* ——— How to order: three steps ——— */
+.how { padding: 1rem 0 3.5rem; }
+.how-grid {
+  max-width: 980px; margin: 2.4rem auto 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem;
+}
+.how-step {
+  position: relative;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  padding: 2.1rem 1.3rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.how-step:hover { transform: translateY(-5px); box-shadow: 0 22px 44px -18px rgba(180,90,50,.3); }
+.how-n {
+  position: absolute; top: -17px; left: 50%; transform: translateX(-50%);
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--accent); color: var(--cream);
+  font-family: var(--font-sans); font-weight: 800; font-size: 15px;
+  box-shadow: 0 8px 18px -6px rgba(180,90,50,.6);
+  border: 3px solid var(--butter);
+}
+.how-step h3 { font-size: 1.2rem; margin-bottom: .4rem; }
+.how-step p { font-size: 14.5px; color: var(--cocoa); line-height: 1.6; }
+.how-emoji { font-size: 1.8rem; display: block; margin-bottom: .5rem; }
+
+@media (max-width: 780px) {
+  .how-grid { grid-template-columns: 1fr; gap: 1.6rem; max-width: 420px; }
+}
+
+/* ——— Product cards: clearer price, calmer tags ——— */
+.pc-prices { align-items: center; }
+.pc-p-val { font-size: 1.45rem; letter-spacing: -.01em; }
+.pc-tag {
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 16px -6px rgba(58,36,24,.45);
+  letter-spacing: .02em;
+}
+.product-card {
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
+}
+/* a soft warm wash appears behind the photo on hover */
+.pc-img-wrap::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(58,36,24,.22));
+  opacity: 0; transition: opacity .4s var(--ease);
+  pointer-events: none;
+}
+.product-card:hover .pc-img-wrap::after { opacity: 1; }
+.product-card.in-order { box-shadow: 0 0 0 2px var(--accent), var(--shadow-soft); }
+
+/* ——— Trust row: tighter, scrollable rather than wrapping on small screens ——— */
+@media (max-width: 620px) {
+  .trust {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    scroll-snap-type: x proximity;
+    padding: 0 1.2rem .4rem;
+    scrollbar-width: none;
+  }
+  .trust::-webkit-scrollbar { display: none; }
+  .trust-item { flex: none; scroll-snap-align: center; }
+}
+
+/* ——— Care + farewell cards: consistent lift with the rest ——— */
+.care-card, .farewell-grid, .contact-grid { transition: box-shadow .4s var(--ease); }
+.care-item { transition: transform .3s var(--ease); }
+.care-item:hover { transform: translateY(-4px); }
+
+/* ——— Order bar / drawer polish ——— */
+.ob-btn { letter-spacing: .01em; }
+.order-bar.show .ob-icon svg { animation: bagIn .5s var(--ease); }
+@keyframes bagIn {
+  0%   { transform: scale(.6) rotate(-12deg); }
+  60%  { transform: scale(1.12) rotate(4deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+.cart-checkout .i { width: 1.15em; height: 1.15em; }
+.cart-item { transition: border-color .25s var(--ease); }
+.cart-item:hover { border-color: var(--peach-2); }
+
+/* ——— Footer: a little more breathing room ——— */
+.foot-bottom { padding-top: 1.6rem; }
+
+/* ——— Type scale: slightly tighter headings on small screens ——— */
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .section-header h2 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+  .container { padding: 0 1.15rem; }
+  .contact-grid, .farewell-grid { padding: 2rem 1.3rem; }
+  .care-card { padding: 0 1.2rem 1.8rem; }
+}
