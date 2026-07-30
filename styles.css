@@ -2026,24 +2026,6 @@ body::before {
 .hero-title .line-a { color: var(--cocoa-d); }
 .hero-lede { max-width: 46ch; }
 
-/* rotating stamp on the hero photo */
-.hero-seal {
-  position: absolute;
-  left: -22px; bottom: 26px;
-  width: 104px; height: 104px;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--cream);
-  box-shadow: 0 14px 30px -10px rgba(143,74,38,.7);
-  border: 3px dashed rgba(255,248,236,.65);
-  text-align: center;
-  font-family: var(--font-script);
-  font-size: 1.05rem; line-height: 1.15;
-  transform: rotate(-9deg);
-  z-index: 4;
-}
-.hero-seal b { display: block; font-family: var(--font-sans); font-weight: 800; font-size: .78rem; letter-spacing: .12em; }
 .hero-figure { border: 10px solid var(--cream); }
 
 /* CTA buttons: warm gradient + a light sweep on hover */
@@ -2164,7 +2146,6 @@ footer.site-foot::before {
 /* ——— Mobile tuning for the new look ——— */
 @media (max-width: 760px) {
   .hero { padding: 2rem 0 3rem; }
-  .hero-seal { width: 80px; height: 80px; font-size: .9rem; left: -8px; bottom: 12px; }
   .hero-figure { border-width: 7px; }
   footer.site-foot { border-radius: 34px 34px 0 0; padding: 3.2rem 0 1.6rem; }
   .product-card { border-radius: 26px; }
@@ -2180,3 +2161,150 @@ footer.site-foot::before {
    footer made it two lines stacked. Keep one, tinted for the dark ground. */
 .foot-grid { border-bottom-color: rgba(244,227,205,.22); margin-bottom: 0; }
 .foot-bottom { border-top: none; margin-top: 0; padding-top: 1.9rem; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Refined pass — a real type scale, a disciplined palette, and an
+   editorial menu. Warm and handmade, but confident rather than cute.
+   Uses only photography already referenced by the pages.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Six near-identical creams flattened everything. Three tones, clearly
+     separated, so sections can be told apart without going dark. */
+  --paper:  #fffcf6;   /* lightest — cards, raised surfaces */
+  --sand:   #f6ead4;   /* mid — alternating section grounds */
+  --clay:   #ecd9ba;   /* deepest warm — rules, edges, insets */
+
+  /* Type scale (1.28 ratio), fluid where it matters */
+  --t-display: clamp(3.1rem, 8.5vw, 6.6rem);
+  --t-h2:      clamp(2.1rem, 4.4vw, 3.5rem);
+  --t-h3:      clamp(1.35rem, 2.2vw, 1.75rem);
+  --t-lede:    clamp(1.05rem, 1.5vw, 1.22rem);
+  --t-label:   11.5px;
+
+  /* One vertical rhythm for every section */
+  --s-section: clamp(4rem, 9vw, 7.5rem);
+  --s-block:   clamp(2rem, 4vw, 3.2rem);
+
+  --edge: 1px solid var(--clay);
+}
+
+/* ——— Typography ——— */
+.section-header h2 {
+  font-size: var(--t-h2);
+  letter-spacing: -.025em;
+  line-height: 1.06;
+}
+.hero-title { font-size: var(--t-display); line-height: .98; letter-spacing: -.03em; }
+.hero-lede  { font-size: var(--t-lede); line-height: 1.7; color: var(--cocoa); }
+
+/* small-caps labels carry the "considered" feel more than any ornament */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transform: none;
+  gap: .5rem;
+}
+.eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--accent); opacity: .6; }
+.msh-label {
+  font-family: var(--font-sans);
+  font-size: var(--t-label); font-weight: 800;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent-d);
+}
+
+/* ——— Vertical rhythm ——— */
+.menu-section, .farewell, .contact { padding: var(--s-section) 0; }
+.how, .faq { padding: var(--s-section) 0; }
+.care { padding: 0 0 var(--s-section); }
+.section-header { margin-bottom: var(--s-block); }
+
+/* ——— Tonal separation without going dark ——— */
+.how  { background: var(--sand); border-block: var(--edge); }
+.faq  { background: var(--sand); border-block: var(--edge); }
+.menu-section, .farewell, .contact { background: transparent; }
+
+/* ——— Editorial menu: the signature gets the room it deserves ——— */
+@media (min-width: 900px) {
+  .menu-grid-jar {
+    grid-template-columns: 1.55fr 1fr;
+    max-width: 1100px;
+    align-items: stretch;
+  }
+  /* the flagship runs horizontally: photo left, everything else right */
+  .product-card.is-featured { grid-row: span 1; }
+  .product-card.is-featured .menu-card-link {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    align-items: stretch;
+    flex: 1;
+  }
+  .product-card.is-featured .pc-img-wrap { aspect-ratio: auto; height: 100%; }
+  .product-card.is-featured .pc-body { padding: 2.4rem 2.2rem 1.4rem; justify-content: center; }
+  .product-card.is-featured .pc-title-main { font-size: 2rem; }
+  .product-card.is-featured .pc-p-val { font-size: 2rem; }
+  .product-card.is-featured .pc-add { padding: 0 2.2rem 2rem; }
+}
+
+/* price reads as a number, not a chip */
+.pc-price {
+  background: none; border: none; padding: 0;
+  flex-direction: column; align-items: flex-start; gap: .05rem;
+}
+.pc-p-lbl { font-size: var(--t-label); letter-spacing: .16em; }
+.pc-p-val { font-family: var(--font-serif); font-weight: 600; font-size: 1.75rem; color: var(--cocoa-d); line-height: 1; }
+.pc-prices { border-top: var(--edge); padding-top: 1rem; }
+
+/* ——— Cards: quieter edges, deeper shadow, less rotation ——— */
+.product-card, .how-step, .faq-item, .care-card, .farewell-grid, .contact-grid, .qr-card {
+  background: var(--paper);
+  border: var(--edge);
+}
+.product-card:nth-child(odd), .product-card:nth-child(even) { transform: none; }
+.product-card:hover { transform: translateY(-6px); }
+.farewell-flavors, .farewell-info { transform: none; }
+.product-card {
+  border-radius: 24px;
+  box-shadow: 0 1px 2px rgba(90,59,39,.05), 0 18px 36px -22px rgba(90,59,39,.42);
+}
+.how-step, .faq-item { border-radius: 20px; }
+.care-card, .farewell-grid, .contact-grid { border-radius: 32px; }
+
+/* ——— Buttons ——— */
+.btn { border-radius: 999px; font-weight: 800; letter-spacing: .01em; }
+.pc-add-btn { border-radius: 14px; background: var(--cocoa-d); }
+.pc-add-btn:hover { background: var(--accent); }
+.qty { border-radius: 14px; }
+.qty-btn { border-radius: 10px; }
+
+/* ——— Dial back the scattered ornament; keep the warmth ——— */
+.doodle { opacity: .28; }
+.hero-tape { opacity: .45; }
+.menu-divider { opacity: .6; }
+.section-header h2::after { width: 52px; height: 2px; opacity: .55; }
+
+/* ——— Motion: directional, staggered choreography ——— */
+@keyframes riseIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.reveal.in { animation: riseIn .75s var(--ease) both; }
+.menu-grid > *:nth-child(1) { animation-delay: .00s }
+.menu-grid > *:nth-child(2) { animation-delay: .07s }
+.menu-grid > *:nth-child(3) { animation-delay: .14s }
+.menu-grid > *:nth-child(4) { animation-delay: .21s }
+.menu-grid > *:nth-child(5) { animation-delay: .28s }
+.how-grid > *:nth-child(2) { animation-delay: .1s }
+.how-grid > *:nth-child(3) { animation-delay: .2s }
+
+@media (max-width: 899px) {
+  .product-card.is-featured .pc-title-main { font-size: 1.5rem; }
+}
+
+/* The title's second line is an inline-block, so at the new display size the
+   trailing heart wrapped inside it and sat orphaned on its own row. Keep the
+   line intact and size it to fit the column. */
+:root { --t-display: clamp(2.7rem, 6.6vw, 5.4rem); }
+.hero-title em { white-space: nowrap; }
+.hero-title { margin-bottom: 1.8rem; }
