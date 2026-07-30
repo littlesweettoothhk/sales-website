@@ -3,8 +3,12 @@
 
   Static, no backend: the visitor builds an order on the page, it is kept in
   localStorage, and checkout hands off to WhatsApp with an itemised message.
-  All UI below is injected from JS so the 16 HTML pages only have to carry
-  data attributes on their product cards.
+  The UI is injected from JS so the 16 HTML pages carry almost no markup.
+
+  The catalogue lives here rather than being read off the page. A product page
+  only renders one flavour, so a DOM-derived catalogue made every *other* line
+  in the order look unknown — and an earlier version pruned those lines, which
+  silently emptied the order as soon as you opened a flavour page.
 */
 (function () {
   'use strict';
@@ -15,31 +19,50 @@
   var RAIL_PICKUP  = 150;     // 東鐵沿綫交收
 
   var isZH = !/^en/i.test(document.documentElement.lang || '');
+  // Product pages live one level down, so asset paths need a prefix.
+  var DEPTH = /\/products\//.test(location.pathname) ? '../' : './';
+
+  var PRODUCTS = [
+    { id: 'seasalt',     zh: '海鹽黑朱古力',   en: 'Sea Salt Dark Chocolate',    price: 60, unit: 'jar', img: 'sea-salt-dark-chocolate-brookies.webp' },
+    { id: 'pepper',      zh: '麻香花椒',       en: 'Green Sichuan Pepper',       price: 62, unit: 'jar', img: 'green-sichuan-pepper-brookies.webp' },
+    { id: 'caramel',     zh: '焦糖黑朱古力',   en: 'Caramel Dark Chocolate',     price: 35, unit: 'pcs', img: 'caramel-brookies.webp' },
+    { id: 'marshmallow', zh: '棉花糖黑朱古力', en: 'Marshmallow Dark Chocolate', price: 35, unit: 'pcs', img: 'marshmallow-brookies.webp' },
+    { id: 'peanut',      zh: '花生黑朱古力',   en: 'Peanut Dark Chocolate',      price: 35, unit: 'pcs', img: 'peanut-butter-brookies.webp' },
+    { id: 'hojicha',     zh: '焙茶',           en: 'Hojicha',                    price: 35, unit: 'pcs', img: 'hojicha-brookies-new.webp' },
+    { id: 'matcha',      zh: '抹茶',           en: 'Matcha',                     price: 35, unit: 'pcs', img: 'matcha-brookies-new.webp' }
+  ];
+
+  var catalog = {};
+  PRODUCTS.forEach(function (p) {
+    catalog[p.id] = {
+      id: p.id,
+      name: isZH ? p.zh : p.en,
+      price: p.price,
+      unit: p.unit,
+      img: DEPTH + 'src/' + p.img
+    };
+  });
 
   var T = isZH ? {
-    add: '加入訂單', added: '已加入', qty: '數量',
+    add: '加入訂單',
     order: '我的訂單', open: '查看訂單', close: '關閉',
     empty: '訂單仲係空嘅', emptyHint: '喺餐牌撳「加入訂單」就可以開始 ♥',
-    subtotal: '小計', items: '件', checkout: 'WhatsApp 落單',
-    remove: '移除', clear: '清空',
+    subtotal: '小計', items: '件', checkout: 'WhatsApp 落單', clear: '清空',
     railLeft: function (n) { return '再買 $' + n + ' 就可以東鐵沿綫交收 ✿'; },
     freeLeft: function (n) { return '再買 $' + n + ' 即可免費送貨 ✨'; },
-    railGot: '已達東鐵沿綫交收 ✿',
-    freeGot: '已達免費送貨 ✨',
+    freeGot: '已達免費送貨 ✨ 多謝你 ♥',
     note: '落單後我哋會 WhatsApp 同你確認交收時間同地點 ♥',
     unitJar: '每樽', unitPcs: '每件',
     greet: '你好 Little Sweet Tooth ♥\n我想訂：',
     tail: '\n交收方式：\n希望交收日期：'
   } : {
-    add: 'Add to order', added: 'Added', qty: 'Quantity',
+    add: 'Add to order',
     order: 'My Order', open: 'View order', close: 'Close',
     empty: 'Your order is empty', emptyHint: 'Tap "Add to order" on the menu to start ♥',
-    subtotal: 'Subtotal', items: 'items', checkout: 'Order on WhatsApp',
-    remove: 'Remove', clear: 'Clear',
+    subtotal: 'Subtotal', items: 'items', checkout: 'Order on WhatsApp', clear: 'Clear',
     railLeft: function (n) { return '$' + n + ' more for East Rail Line pickup ✿'; },
     freeLeft: function (n) { return '$' + n + ' more for free delivery ✨'; },
-    railGot: 'East Rail Line pickup unlocked ✿',
-    freeGot: 'Free delivery unlocked ✨',
+    freeGot: 'Free delivery unlocked ✨ thank you ♥',
     note: "We'll confirm pickup time and place with you on WhatsApp ♥",
     unitJar: 'per jar', unitPcs: 'per piece',
     greet: 'Hi Little Sweet Tooth ♥\nI would like to order:',
@@ -50,19 +73,22 @@
     bag: '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
     plus: '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
     minus: '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>',
-    x: '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+    x: '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    trash: '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>'
   };
 
   /* ---------- state ---------- */
 
   var cart = load();
-  var catalog = {};          // id -> {id,name,price,unit,img,url}
 
   function load() {
     try {
       var raw = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
       var out = {};
       Object.keys(raw).forEach(function (k) {
+        // Only ids we still sell survive, but the check is against the built-in
+        // catalogue — never against whatever happens to be on this page.
+        if (!catalog[k]) return;
         var n = parseInt(raw[k], 10);
         if (n > 0) out[k] = Math.min(n, 99);
       });
@@ -78,34 +104,15 @@
   }
   function total() {
     return Object.keys(cart).reduce(function (s, k) {
-      var p = catalog[k];
-      return s + (p ? p.price * cart[k] : 0);
+      return s + catalog[k].price * cart[k];
     }, 0);
   }
   function setQty(id, n) {
+    if (!catalog[id]) return;
     n = Math.max(0, Math.min(99, n));
     if (n === 0) delete cart[id]; else cart[id] = n;
     save();
     render();
-  }
-
-  /* ---------- catalog from the DOM ---------- */
-
-  function readCatalog() {
-    document.querySelectorAll('[data-product]').forEach(function (el) {
-      var id = el.getAttribute('data-id');
-      if (!id) return;
-      catalog[id] = {
-        id: id,
-        name: el.getAttribute('data-name') || id,
-        price: parseFloat(el.getAttribute('data-price')) || 0,
-        unit: el.getAttribute('data-unit') || 'pcs',
-        img: el.getAttribute('data-img') || '',
-        url: el.getAttribute('data-url') || ''
-      };
-    });
-    // Drop anything saved from an older menu so totals stay honest.
-    Object.keys(cart).forEach(function (k) { if (!catalog[k]) delete cart[k]; });
   }
 
   function unitLabel(u) { return u === 'jar' ? T.unitJar : T.unitPcs; }
@@ -114,8 +121,8 @@
 
   function buildSteppers() {
     document.querySelectorAll('[data-product]').forEach(function (card) {
-      if (card.querySelector('.pc-add')) return;
       var id = card.getAttribute('data-id');
+      if (!catalog[id] || card.querySelector('.pc-add')) return;
       var wrap = document.createElement('div');
       wrap.className = 'pc-add';
       wrap.innerHTML =
@@ -175,7 +182,7 @@
           '<p class="cp-msg"></p>' +
         '</div>' +
         '<div class="cart-total"><span>' + T.subtotal + '</span><strong class="ct-val">$0</strong></div>' +
-        '<a class="cart-checkout" href="#" target="_blank" rel="noopener">' + T.checkout + '</a>' +
+        '<a class="cart-checkout" href="#" target="_blank" rel="noopener">' + SVG.bag + T.checkout + '</a>' +
         '<button type="button" class="cart-clear" data-cart-clear>' + T.clear + '</button>' +
         '<p class="cart-note">' + T.note + '</p>' +
       '</div>';
@@ -221,7 +228,6 @@
     var lines = [T.greet, ''];
     Object.keys(cart).forEach(function (id) {
       var p = catalog[id];
-      if (!p) return;
       lines.push('• ' + p.name + ' (' + unitLabel(p.unit) + ') × ' + cart[id] +
                  ' — $' + (p.price * cart[id]));
     });
@@ -234,7 +240,6 @@
   function render() {
     var n = count(), sum = total();
 
-    // steppers
     Object.keys(catalog).forEach(function (id) {
       var q = cart[id] || 0;
       document.querySelectorAll('[data-qty-for="' + id + '"]').forEach(function (box) {
@@ -265,17 +270,17 @@
     list.innerHTML = '';
     Object.keys(cart).forEach(function (id) {
       var p = catalog[id];
-      if (!p) return;
       var li = document.createElement('li');
       li.className = 'cart-item';
       li.innerHTML =
-        (p.img ? '<img src="' + p.img + '" alt="" width="64" height="64" loading="lazy" decoding="async">' : '') +
+        '<img src="' + p.img + '" alt="" width="64" height="64" loading="lazy" decoding="async">' +
         '<div class="ci-info">' +
           '<span class="ci-name">' + p.name + '</span>' +
           '<span class="ci-unit">' + unitLabel(p.unit) + ' · $' + p.price + '</span>' +
         '</div>' +
         '<div class="qty ci-qty">' +
-          '<button type="button" class="qty-btn" data-dec="' + id + '" aria-label="−1">' + SVG.minus + '</button>' +
+          '<button type="button" class="qty-btn" data-dec="' + id + '" aria-label="−1">' +
+            (cart[id] === 1 ? SVG.trash : SVG.minus) + '</button>' +
           '<span class="qty-n">' + cart[id] + '</span>' +
           '<button type="button" class="qty-btn" data-inc="' + id + '" aria-label="+1">' + SVG.plus + '</button>' +
         '</div>' +
@@ -288,13 +293,12 @@
     drawer.querySelector('.ct-val').textContent = '$' + sum;
     drawer.querySelector('.cart-checkout').href = waLink();
 
-    // delivery progress
     var fill = drawer.querySelector('.cp-fill');
     var msg = drawer.querySelector('.cp-msg');
     var pct, text;
-    if (sum >= FREE_DELIVERY)      { pct = 100; text = T.freeGot; }
-    else if (sum >= RAIL_PICKUP)   { pct = Math.round(sum / FREE_DELIVERY * 100); text = T.freeLeft(FREE_DELIVERY - sum); }
-    else                           { pct = Math.round(sum / RAIL_PICKUP * 100 * 0.4); text = T.railLeft(RAIL_PICKUP - sum); }
+    if (sum >= FREE_DELIVERY)    { pct = 100; text = T.freeGot; }
+    else if (sum >= RAIL_PICKUP) { pct = Math.round(sum / FREE_DELIVERY * 100); text = T.freeLeft(FREE_DELIVERY - sum); }
+    else                         { pct = Math.round(sum / RAIL_PICKUP * 40); text = T.railLeft(RAIL_PICKUP - sum); }
     fill.style.width = Math.max(4, pct) + '%';
     fill.classList.toggle('done', sum >= FREE_DELIVERY);
     msg.textContent = text;
@@ -325,12 +329,22 @@
     }
   }
 
+  // Another tab (or the other language) may change the order; stay in sync.
+  function onStorage(e) {
+    if (e.key !== STORE_KEY) return;
+    cart = load();
+    render();
+  }
+
   function init() {
-    readCatalog();
-    if (!Object.keys(catalog).length) return;
     buildSteppers();
     buildChrome();
     document.addEventListener('click', onClick);
+    window.addEventListener('storage', onStorage);
+    // bfcache restores can hand back a stale DOM with a newer stored order
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) { cart = load(); render(); }
+    });
     render();
   }
 
