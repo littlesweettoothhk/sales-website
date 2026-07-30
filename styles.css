@@ -1972,3 +1972,211 @@ body.cart-open { overflow: hidden; }
   .contact-grid, .farewell-grid { padding: 2rem 1.3rem; }
   .care-card { padding: 0 1.2rem 1.8rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Visual identity v2 — paper texture, section rhythm, richer depth
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --panel: #fffaf0;
+  --panel-2: #f7e8cf;
+  --radius-xl: 44px;
+}
+
+/* Fine paper grain over the whole page — the single biggest lift from flat
+   colour to something that reads as printed/handmade. */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background-image: var(--grain);
+  opacity: .05;
+  mix-blend-mode: multiply;
+  z-index: 9999;
+}
+/* The grain sits above everything instead, so no element needs its position
+   changed — forcing `relative` here previously broke the fixed order bar,
+   drawer and back-to-top, which then rendered in the page flow. */
+
+/* Warmer, deeper ambient wash */
+body::before {
+  background:
+    radial-gradient(720px 520px at 8% 0%,   rgba(217,176,131,.55), transparent 62%),
+    radial-gradient(620px 480px at 98% 12%, rgba(181,102,56,.22),  transparent 64%),
+    radial-gradient(820px 620px at 88% 92%, rgba(243,226,196,.75), transparent 62%),
+    radial-gradient(600px 480px at 2% 78%,  rgba(236,206,170,.48), transparent 62%),
+    radial-gradient(500px 400px at 50% 45%, rgba(255,250,240,.5),  transparent 70%);
+}
+
+/* ——— Section rhythm: alternating panels give the page a spine ——— */
+.section-panel {
+  position: relative;
+  background: linear-gradient(180deg, var(--panel), #fdf4e4);
+  border-block: 1px solid var(--rule);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+.how { background: linear-gradient(180deg, rgba(255,250,240,.85), rgba(253,244,228,.85)); }
+.how, .faq { border-block: 1px solid var(--rule); }
+.faq { background: linear-gradient(180deg, rgba(253,244,228,.7), rgba(255,250,240,.9)); }
+
+/* ——— Hero ——— */
+.hero { padding: 3.5rem 0 4.5rem; }
+.hero-title { letter-spacing: -.025em; }
+.hero-title .line-a { color: var(--cocoa-d); }
+.hero-lede { max-width: 46ch; }
+
+/* rotating stamp on the hero photo */
+.hero-seal {
+  position: absolute;
+  left: -22px; bottom: 26px;
+  width: 104px; height: 104px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--cream);
+  box-shadow: 0 14px 30px -10px rgba(143,74,38,.7);
+  border: 3px dashed rgba(255,248,236,.65);
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: 1.05rem; line-height: 1.15;
+  transform: rotate(-9deg);
+  z-index: 4;
+}
+.hero-seal b { display: block; font-family: var(--font-sans); font-weight: 800; font-size: .78rem; letter-spacing: .12em; }
+.hero-figure { border: 10px solid var(--cream); }
+
+/* CTA buttons: warm gradient + a light sweep on hover */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-d));
+  position: relative; overflow: hidden;
+}
+.btn-primary::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.34), transparent);
+  transform: skewX(-18deg);
+  transition: left .6s var(--ease);
+}
+.btn-primary:hover::after { left: 130%; }
+.btn { will-change: transform; }
+
+/* ——— Section headers ——— */
+.section-header h2 { letter-spacing: -.02em; }
+.eyebrow { font-size: 1.5rem; }
+
+/* ——— Menu cards ——— */
+.menu-grid { gap: 1.9rem; }
+.product-card {
+  border-radius: 30px;
+  border: 1px solid rgba(232,212,174,.9);
+  background: linear-gradient(180deg, var(--panel), var(--cream));
+  box-shadow: 0 4px 12px rgba(80,45,20,.07), 0 26px 48px -28px rgba(80,45,20,.4);
+}
+.product-card:hover { box-shadow: 0 10px 22px rgba(80,45,20,.1), 0 34px 60px -26px rgba(150,80,40,.5); }
+.pc-img-wrap { aspect-ratio: 1 / 1; }
+.pc-img-wrap img { transition: transform 1s var(--ease); }
+.product-card:hover .pc-img-wrap img { transform: scale(1.09); }
+
+/* price as a stamped chip rather than loose text */
+.pc-prices {
+  border-top: 1px dashed var(--rule);
+  padding-top: .9rem;
+  justify-content: space-between;
+}
+.pc-price {
+  display: inline-flex; align-items: baseline; gap: .5rem;
+  background: var(--butter-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: .3rem .85rem;
+}
+.pc-p-lbl { font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--mute); }
+.pc-p-val { font-size: 1.25rem; color: var(--accent-d); font-weight: 800; }
+.pc-cta { font-weight: 700; }
+
+.pc-tag {
+  border-radius: 999px;
+  padding: .4rem .9rem;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* ——— Section head chips (每樽 / 每件) ——— */
+.msh-title { font-size: clamp(1.8rem, 4vw, 2.3rem); }
+.menu-section-head { margin-bottom: 2rem; }
+
+/* ——— How to order ——— */
+.how-step { border-radius: 28px; background: linear-gradient(180deg, var(--panel), var(--cream)); }
+.how-emoji { font-size: 2.1rem; }
+
+/* ——— Care card ——— */
+.care-card { border-radius: 36px; background: linear-gradient(180deg, var(--panel), var(--cream)); }
+
+/* ——— FAQ ——— */
+.faq-item { border-radius: 22px; background: linear-gradient(180deg, var(--panel), var(--cream)); }
+
+/* ——— Farewell + contact panels ——— */
+.farewell-grid, .contact-grid {
+  background: linear-gradient(180deg, var(--panel), var(--cream));
+  border-radius: var(--radius-xl);
+}
+
+/* ——— Footer: a deep chocolate close ——— */
+footer.site-foot {
+  margin-top: 4rem;
+  background: linear-gradient(180deg, var(--cocoa-d), var(--choco));
+  color: #f4e3cd;
+  border-radius: 48px 48px 0 0;
+  padding: 4.5rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+}
+footer.site-foot::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: var(--grain);
+  opacity: .08; mix-blend-mode: overlay; pointer-events: none;
+}
+.site-foot h3, .site-foot h4 { color: #fff6e6; }
+.site-foot h3 em { color: var(--peach); }
+.site-foot p, .site-foot li, .foot-info li { color: rgba(244,227,205,.82); }
+.site-foot a { color: rgba(244,227,205,.9); }
+.site-foot a:hover { color: var(--peach); }
+.foot-social a {
+  background: rgba(255,248,236,.1);
+  border: 1px solid rgba(244,227,205,.25);
+  border-radius: 50%;
+  transition: all .3s var(--ease);
+}
+.foot-social a:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-3px); }
+.foot-bottom {
+  border-top: 1px solid rgba(244,227,205,.18);
+  color: rgba(244,227,205,.62);
+  margin-top: 2.6rem;
+}
+
+/* ——— Staggered reveal ——— */
+.menu-grid .product-card { transition-delay: calc(var(--i, 0) * 60ms); }
+.reveal.in { animation-fill-mode: forwards; }
+
+/* ——— Mobile tuning for the new look ——— */
+@media (max-width: 760px) {
+  .hero { padding: 2rem 0 3rem; }
+  .hero-seal { width: 80px; height: 80px; font-size: .9rem; left: -8px; bottom: 12px; }
+  .hero-figure { border-width: 7px; }
+  footer.site-foot { border-radius: 34px 34px 0 0; padding: 3.2rem 0 1.6rem; }
+  .product-card { border-radius: 26px; }
+  .menu-grid { gap: 1.4rem; }
+}
+
+/* the seal is absolutely positioned against this wrapper, which sits outside
+   .hero-figure so the figure's overflow:hidden can't clip it */
+.hero-media { position: relative; display: block; }
+@media (max-width: 900px) { .hero-media { max-width: 420px; margin: 0 auto; } }
+
+/* .foot-grid already draws a dashed rule; the solid one added with the dark
+   footer made it two lines stacked. Keep one, tinted for the dark ground. */
+.foot-grid { border-bottom-color: rgba(244,227,205,.22); margin-bottom: 0; }
+.foot-bottom { border-top: none; margin-top: 0; padding-top: 1.9rem; }
