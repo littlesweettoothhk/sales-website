@@ -1109,7 +1109,9 @@ footer.site-foot {
 .pc-tag.new { background: var(--leaf); }
 
 .pc-body { padding: 1.3rem 1.4rem 1.4rem; display: flex; flex-direction: column; gap: .55rem; flex: 1; }
-.pc-title-zh {
+/* Card titles are named by role, not language: -main is the headline in the
+   page's own language, -sub is the same name in the other language. */
+.pc-title-main {
   font-family: var(--font-serif);
   font-weight: 500;
   font-variation-settings: "opsz" 144, "SOFT" 100;
@@ -1117,7 +1119,7 @@ footer.site-foot {
   color: var(--cocoa-d);
   line-height: 1.15;
 }
-.pc-title-en {
+.pc-title-sub {
   font-family: var(--font-sans);
   font-size: .82rem;
   font-weight: 700;
@@ -1125,6 +1127,8 @@ footer.site-foot {
   letter-spacing: .04em;
   text-transform: uppercase;
 }
+/* uppercase does nothing for Chinese and the extra tracking hurts it */
+.pc-title-sub:lang(zh-Hant) { text-transform: none; letter-spacing: .02em; }
 .pc-prices {
   display: flex; gap: .8rem; align-items: baseline;
   margin-top: .4rem;

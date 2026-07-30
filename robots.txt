@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.littlesweettoothhk.com/sitemap.xml
