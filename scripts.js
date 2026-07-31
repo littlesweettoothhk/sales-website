@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const tgt = document.querySelector(id);
       if (!tgt) return;
       e.preventDefault();
-      const navH = document.querySelector('.navbar')?.offsetHeight || 0;
+      const navH = document.querySelector('.topbar')?.offsetHeight || 0;
       window.scrollTo({ top: tgt.offsetTop - navH - 10, behavior: 'smooth' });
       if (this.classList.contains('nav-link')) {
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (sections.length) {
     const setActive = () => {
-      const navH = document.querySelector('.navbar')?.offsetHeight || 0;
+      const navH = document.querySelector('.topbar')?.offsetHeight || 0;
       const line = window.scrollY + navH + 20;
       // Last section whose top has passed the nav line; falls back to the first.
       let current = sections[0];
@@ -110,5 +110,43 @@ document.addEventListener('DOMContentLoaded', function() {
       navBox.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
     };
     window.addEventListener('scroll', keepVisible, { passive: true });
+  }
+
+  // ── scroll progress rail ────────────────────────────────────────────────
+  const rail = document.querySelector('.scroll-rail span');
+  if (rail) {
+    const draw = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      rail.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    };
+    window.addEventListener('scroll', draw, { passive: true });
+    window.addEventListener('resize', draw);
+    draw();
+  }
+
+  // ── hero parallax: the photo drifts slower than the headline ────────────
+  const heroFig = document.querySelector('.hero-figure');
+  if (heroFig && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    const drift = () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight * 1.4) {
+        heroFig.style.transform = 'translate3d(0,' + (y * 0.09).toFixed(1) + 'px,0)';
+      }
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(drift); }
+    }, { passive: true });
+  }
+
+  // Header height drives anchor offsets and the sticky product image.
+  const topbarEl = document.querySelector('.topbar');
+  if (topbarEl) {
+    const setH = () => document.documentElement.style.setProperty(
+      '--topbar-h', topbarEl.offsetHeight + 'px');
+    setH();
+    window.addEventListener('resize', setH);
+    if (window.ResizeObserver) new ResizeObserver(setH).observe(topbarEl);
   }
 });
