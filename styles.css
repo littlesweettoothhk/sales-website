@@ -2308,3 +2308,8 @@ footer.site-foot::before {
 :root { --t-display: clamp(2.7rem, 6.6vw, 5.4rem); }
 .hero-title em { white-space: nowrap; }
 .hero-title { margin-bottom: 1.8rem; }
+
+/* Titles wrap to different line counts, so prices and CTAs sat at different
+   heights across a row. Push the price block to the bottom of every card. */
+.product-card:not(.is-featured) .pc-prices { margin-top: auto; }
+.pc-body { gap: .5rem; }

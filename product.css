@@ -1,254 +1,215 @@
-/* ——— Product page (cozy, warm) ——— */
-.product-page {
-  background: var(--peach);
-}
-.product-page .navbar { max-width: 720px; }
+/* ═══════════════════════════════════════════════════════════════
+   Product page — same design system as the rest of the site.
+   Tokens (--paper/--sand/--clay, the type scale, --s-section) all come
+   from styles.css so the two stylesheets cannot drift apart again.
+   ═══════════════════════════════════════════════════════════════ */
 
-.pp-main { padding: 2rem 0 5rem; }
+/* This used to set `background: var(--peach)`, which overrode the body and
+   made every flavour page render noticeably more orange than the homepage.
+   It needs the same base colour as the homepage, not `transparent` — the
+   ambient gradients don't cover the full page, so a transparent body leaves
+   white showing through between them. */
+.product-page { background: var(--butter); }
+.product-page .navbar { max-width: 760px; }
+
+.pp-main { padding: 2rem 0 var(--s-section); }
 
 .pp-back {
-  display: inline-flex; align-items: center;
-  font-family: var(--font-script);
-  font-size: 1.4rem;
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
   color: var(--accent);
   text-decoration: none;
-  margin-bottom: 2rem;
-  transition: transform .25s var(--ease);
+  margin-bottom: 2.2rem;
+  min-height: 44px;
+  transition: color .25s var(--ease), transform .25s var(--ease);
 }
 .pp-back:hover { transform: translateX(-4px); color: var(--cocoa-d); }
 
 .pp-grid {
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-columns: 1.02fr 1fr;
   gap: 4rem;
   align-items: start;
   max-width: 1100px;
   margin: 0 auto;
 }
-@media (max-width: 880px) {
-  .pp-grid { grid-template-columns: 1fr; gap: 2rem; }
-}
+@media (max-width: 880px) { .pp-grid { grid-template-columns: 1fr; gap: 2.2rem; } }
 
 .pp-img-col { position: sticky; top: 100px; }
 @media (max-width: 880px) { .pp-img-col { position: static; } }
 
+/* matches the menu card treatment exactly */
 .pp-hero {
-  border-radius: 32px;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 24px 50px -16px rgba(180,90,50,.28);
-  border: 1px solid var(--rule);
-  background: var(--cream);
+  border: var(--edge);
+  background: var(--paper);
   aspect-ratio: 1 / 1;
   position: relative;
-  transform: rotate(-1deg);
+  box-shadow: 0 1px 2px rgba(90,59,39,.05), 0 22px 44px -24px rgba(90,59,39,.45);
 }
-.pp-hero::before {
-  content: "♥";
-  position: absolute;
-  top: -22px; left: 30px;
-  font-size: 2.4rem;
-  color: var(--rose);
-  transform: rotate(-12deg);
-  z-index: 3;
-}
-.pp-hero img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-
-.pp-placeholder {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.pp-placeholder::before {
-  content: "";
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.4), transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(0,0,0,.1), transparent 50%);
-}
-.pp-emoji {
-  font-size: 8rem;
-  line-height: 1;
-  z-index: 1;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,.15));
-}
+.pp-hero img { width: 100%; height: 100%; object-fit: cover; }
 
 .pp-tag {
   position: absolute;
-  top: 18px; right: 18px;
+  top: 16px; left: 16px;
   background: var(--accent);
   color: var(--cream);
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 800;
-  padding: 7px 14px;
+  font-size: 12px; font-weight: 800;
+  padding: .4rem .9rem;
   border-radius: 999px;
-  box-shadow: 0 6px 14px -2px rgba(212,123,90,.5);
-  transform: rotate(3deg);
-  letter-spacing: .04em;
+  letter-spacing: .02em;
+  box-shadow: 0 6px 16px -6px rgba(58,36,24,.45);
   z-index: 2;
 }
 
-.pp-info-col { padding-top: .5rem; }
+.pp-info-col { padding-top: .25rem; }
 
 .pp-eyebrow {
-  font-family: var(--font-script);
-  font-size: 1.5rem;
-  color: var(--rose);
-  margin-bottom: .4rem;
-  transform: rotate(-1deg);
-  display: inline-block;
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .9rem;
 }
+.pp-eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--accent); opacity: .6; }
 
 .pp-title {
   font-family: var(--font-serif);
   font-weight: 500;
-  font-style: italic;
   font-variation-settings: "opsz" 144, "SOFT" 100;
-  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-size: clamp(2.2rem, 4.6vw, 3.2rem);
   color: var(--cocoa-d);
-  line-height: 1.05;
-  margin-bottom: .3rem;
+  line-height: 1.04;
+  letter-spacing: -.02em;
+  margin-bottom: .5rem;
 }
 
 .pp-subtitle {
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: .82rem;
   font-weight: 700;
   color: var(--mute);
-  letter-spacing: .04em;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.7rem;
 }
 
 .pp-desc {
   font-family: var(--font-sans);
-  font-size: 1.06rem;
-  line-height: 1.75;
+  font-size: var(--t-lede);
+  line-height: 1.78;
   color: var(--cocoa);
   margin-bottom: 2rem;
   text-wrap: pretty;
+  max-width: 46ch;
 }
 
 .pp-notes-card {
-  background: var(--cream);
-  border-radius: 22px;
-  padding: 1.4rem 1.6rem;
-  border: 1px solid var(--rule);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 1.8rem;
-  position: relative;
-}
-.pp-notes-card::before {
-  content: "✿";
-  position: absolute;
-  top: -14px; right: 22px;
-  font-size: 1.4rem;
-  color: var(--peach-2);
-  background: var(--peach);
-  padding: 0 8px;
-  border-radius: 999px;
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 1.5rem 1.7rem;
+  border: var(--edge);
+  margin-bottom: 1.9rem;
 }
 .pp-notes-title {
-  font-family: var(--font-script);
-  font-size: 1.4rem;
-  color: var(--accent);
-  margin-bottom: .6rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent-d);
+  margin-bottom: .9rem;
 }
-.pp-notes {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .5rem .9rem;
-}
+.pp-notes { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: .55rem 1rem; }
 .pp-notes li {
   font-family: var(--font-sans);
   font-size: .95rem;
   color: var(--cocoa);
   font-weight: 600;
   position: relative;
-  padding-left: 1.2rem;
+  padding-left: 1.15rem;
 }
 .pp-notes li::before {
-  content: "♥";
-  position: absolute;
-  left: 0; top: 1px;
-  color: var(--rose);
-  font-size: .85rem;
+  content: "";
+  position: absolute; left: 0; top: .62em;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); opacity: .75;
 }
-@media (max-width: 480px) {
-  .pp-notes { grid-template-columns: 1fr; }
-}
+@media (max-width: 480px) { .pp-notes { grid-template-columns: 1fr; } }
 
+/* one price, presented as a serif numeral like the menu */
 .pp-prices-block {
-  display: flex;
-  gap: 1.5rem;
-  padding: 1rem 0 1.4rem;
-  border-top: 2px dashed var(--rule);
-  border-bottom: 2px dashed var(--rule);
-  margin-bottom: 1.6rem;
+  display: flex; align-items: baseline; gap: .7rem;
+  padding: 1.1rem 0 1.3rem;
+  border-top: var(--edge);
+  border-bottom: var(--edge);
+  margin-bottom: 1.7rem;
 }
-.pp-price-row {
-  display: flex; flex-direction: column;
-  gap: 2px;
-}
+.pp-price-row { display: flex; align-items: baseline; gap: .7rem; }
 .pp-price-row .pp-p-lbl {
-  font-family: var(--font-script);
-  font-size: 1.1rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
   color: var(--mute);
-  line-height: 1;
 }
 .pp-price-row .pp-p-val {
   font-family: var(--font-serif);
   font-variation-settings: "opsz" 144;
-  font-weight: 500;
-  font-size: 2rem;
-  color: var(--accent);
+  font-weight: 600;
+  font-size: 2.3rem;
+  color: var(--cocoa-d);
   line-height: 1;
 }
-.pp-price-row.muted .pp-p-val { color: var(--mute); }
+
+/* the add-to-order button is primary; WhatsApp is the quieter alternative */
+.pp-order { margin: 0 0 .9rem; display: grid; gap: .7rem; }
+.pp-order .pc-add-btn { min-height: 56px; font-size: 16px; border-radius: 16px; }
+.pp-order .qty { max-width: 210px; }
 
 .pp-cta-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: .5rem;
-  padding: 1rem 2rem;
-  background: var(--accent);
-  color: var(--cream);
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  min-height: 48px;
+  padding: .8rem 1.6rem;
+  background: transparent;
+  color: var(--cocoa-d);
+  border: 1.5px solid var(--clay);
   font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 14.5px; font-weight: 800;
   border-radius: 999px;
   text-decoration: none;
-  box-shadow: 0 10px 24px -8px rgba(212,123,90,.5);
-  transition: all .3s var(--ease);
-  letter-spacing: .04em;
+  transition: all .28s var(--ease);
 }
-.pp-cta-btn:hover {
-  transform: translateY(-3px) rotate(-1deg);
-  box-shadow: 0 16px 32px -10px rgba(212,123,90,.55);
-  background: var(--cocoa-d);
-}
+.pp-cta-btn:hover { background: var(--paper); border-color: var(--accent); color: var(--accent-d); transform: translateY(-2px); }
+.pp-cta-btn .i { width: 1.1em; height: 1.1em; }
 
 .pp-tiny {
-  margin-top: 1rem;
-  font-family: var(--font-script);
-  font-size: 1.1rem;
+  margin-top: 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 13px;
   color: var(--mute);
+  line-height: 1.6;
 }
 
-.footer-thanks {
-  font-family: var(--font-script);
-  font-size: 1.5rem;
-  color: var(--accent);
-  text-align: center;
-  margin-bottom: .4rem;
+/* ——— Related flavours ——— */
+.pp-more { padding: var(--s-section) 0 0; border-top: var(--edge); margin-top: var(--s-section); }
+.pp-more .section-header { margin-bottom: 2rem; }
+.pp-more-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+  max-width: 1100px;
+  margin: 0 auto;
 }
-.footer-tiny {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  color: var(--mute);
-  text-align: center;
-  letter-spacing: .04em;
-}
+@media (max-width: 900px) { .pp-more-grid { grid-template-columns: repeat(2, 1fr); gap: 1.1rem; } }
+@media (max-width: 460px) { .pp-more-grid { grid-template-columns: 1fr; } }
