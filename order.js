@@ -336,9 +336,22 @@
     render();
   }
 
+  /* Controls that appear after load — the preview sheet, the product-page
+     sticky button — are built elsewhere but must be driven from here, so the
+     order stays the single source of truth. Read-only apart from refresh(). */
+  function expose() {
+    window.LSTOrder = {
+      refresh: render,
+      qty: function (id) { return cart[id] || 0; },
+      product: function (id) { return catalog[id] || null; },
+      addLabel: T.add
+    };
+  }
+
   function init() {
     buildSteppers();
     buildChrome();
+    expose();
     document.addEventListener('click', onClick);
     window.addEventListener('storage', onStorage);
     // bfcache restores can hand back a stale DOM with a newer stored order

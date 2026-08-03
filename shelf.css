@@ -1,0 +1,954 @@
+/*
+  Little Sweet Tooth — "The Warm Bakery Shelf"
+
+  The product-browsing experience: collection shelves, an editorial counter
+  grid on desktop, snapping rails on phones, the preview sheet, the compact
+  ordering ribbon and the editorial product page.
+
+  This file is additive. styles.css keeps the original design for the hero,
+  care notes, farewell cookies, FAQ, contact and footer; nothing in here
+  redefines those. The palette, fonts and easing all come from :root in
+  styles.css so the warm handmade identity carries straight over.
+*/
+
+:root {
+  --plank:    #d8b184;      /* the shelf board */
+  --plank-d:  #b98a5c;
+  --paper:    #fffaf0;      /* card stock, a touch lighter than --cream */
+  --pv-z:     1700;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   1 · THE SHELF
+   ══════════════════════════════════════════════════════════════════ */
+
+.shelf {
+  position: relative;
+  margin: 0 0 1rem;
+}
+.shelf + .shelf { margin-top: 1.4rem; }
+
+/* A warm pool of light behind each collection. It stays inside the shelf on
+   the inline axis: bleeding sideways widened the document and put a scrollbar
+   under the whole page. */
+.shelf::before {
+  content: "";
+  position: absolute;
+  inset: -18px 0 -30px;
+  background:
+    radial-gradient(60% 55% at 22% 32%, rgba(236,206,170,.55), transparent 70%),
+    radial-gradient(55% 50% at 84% 68%, rgba(217,176,131,.42), transparent 72%);
+  filter: blur(6px);
+  z-index: 0;
+  pointer-events: none;
+}
+.shelf > * { position: relative; z-index: 1; }
+
+/* ── the toolbar above each shelf ─────────────────────────────────── */
+.shelf-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;              /* on a narrow phone the controls drop below */
+  gap: .6rem .8rem;
+  margin: 0 0 1rem;
+  min-height: 40px;
+}
+.shelf-rail-ui {
+  display: none;               /* desktop shows the grid, not the rail */
+  align-items: center;
+  gap: .55rem;
+}
+.rail-btn {
+  width: 40px; height: 40px;
+  flex: 0 0 auto;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule);
+  background: var(--paper);
+  color: var(--cocoa);
+  box-shadow: 0 4px 12px -4px rgba(120,70,35,.28);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease),
+              background .25s var(--ease), opacity .25s var(--ease);
+}
+.rail-btn .i { width: 18px; height: 18px; }
+.rail-btn:hover:not(:disabled) {
+  background: var(--accent); color: var(--cream);
+  border-color: var(--accent);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 20px -8px rgba(150,80,40,.55);
+}
+.rail-btn:active:not(:disabled) { transform: scale(.94); }
+.rail-btn:disabled { opacity: .32; cursor: default; }
+
+.rail-dots { display: flex; align-items: center; gap: 7px; padding: 0 .2rem; }
+.rail-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: var(--peach-2);
+  opacity: .5;
+  transition: transform .3s var(--ease), opacity .3s var(--ease),
+              background .3s var(--ease), width .3s var(--ease);
+}
+.rail-dot.on {
+  background: var(--accent);
+  opacity: 1;
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* "view all flavours" — a hand-written tag pinned to the shelf */
+.view-all {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .42rem 1rem;
+  border-radius: 999px;
+  border: 1.6px dashed var(--peach-2);
+  background: rgba(255,250,240,.8);
+  color: var(--cocoa);
+  font-family: var(--font-script);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;          /* never let the label break onto two lines */
+  flex: 0 0 auto;
+  transition: transform .25s var(--ease), background .25s var(--ease),
+              border-color .25s var(--ease), color .25s var(--ease);
+}
+.view-all .i { width: 15px; height: 15px; stroke-width: 2.4; transition: transform .3s var(--ease); }
+.view-all:hover {
+  background: var(--accent); color: var(--cream);
+  border-color: var(--accent);
+  transform: translateY(-2px) rotate(-1.5deg);
+}
+.shelf[data-view="all"] .view-all .i { transform: rotate(180deg); }
+
+/* ── the plank the cards stand on ─────────────────────────────────── */
+.shelf-plank {
+  position: relative;
+  height: 16px;
+  margin: 1.5rem 1.5% 0;
+  border-radius: 0 0 12px 12px;
+  background:
+    linear-gradient(180deg, var(--plank) 0%, var(--plank-d) 62%, #a2764c 100%);
+  box-shadow:
+    0 10px 22px -10px rgba(120,70,35,.55),
+    inset 0 1px 0 rgba(255,255,255,.35);
+}
+/* wood grain */
+.shelf-plank::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,.10) 0 2px, transparent 2px 34px),
+    repeating-linear-gradient(90deg,
+      rgba(90,50,20,.10) 0 1px, transparent 1px 71px);
+  opacity: .8;
+}
+/* the two little brackets holding it up */
+.shelf-plank::after {
+  content: "";
+  position: absolute;
+  left: 6%; right: 6%; top: 100%;
+  height: 10px;
+  background:
+    linear-gradient(180deg, rgba(120,70,35,.30), transparent) left  / 26px 100% no-repeat,
+    linear-gradient(180deg, rgba(120,70,35,.30), transparent) right / 26px 100% no-repeat;
+  filter: blur(.4px);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   2 · THE EDITORIAL COUNTER GRID  (desktop)
+   ══════════════════════════════════════════════════════════════════ */
+
+.shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1rem, 2.1vw, 1.9rem);
+  align-items: start;
+}
+
+/* two jars — a wide feature and a smaller companion dropped down a step */
+.shelf-grid[data-layout="pair"] > .sc:nth-child(1) { grid-column: 1 / 8; }
+.shelf-grid[data-layout="pair"] > .sc:nth-child(2) { grid-column: 8 / 13; margin-top: 3.6rem; }
+
+/* five large brookies — one hero, four arranged around it */
+.shelf-grid[data-layout="counter"] > .sc:nth-child(1) { grid-column: 1 / 7;  grid-row: 1 / 3; }
+.shelf-grid[data-layout="counter"] > .sc:nth-child(2) { grid-column: 7 / 10; grid-row: 1; }
+.shelf-grid[data-layout="counter"] > .sc:nth-child(3) { grid-column: 10 / 13; grid-row: 1; margin-top: 2.2rem; }
+.shelf-grid[data-layout="counter"] > .sc:nth-child(4) { grid-column: 7 / 10; grid-row: 2; }
+.shelf-grid[data-layout="counter"] > .sc:nth-child(5) { grid-column: 10 / 13; grid-row: 2; margin-top: 2.2rem; }
+
+/* a hand-placed tilt, different per position, never more than a degree or two */
+.shelf-grid > .sc:nth-child(odd)  { --tilt: -.9deg; }
+.shelf-grid > .sc:nth-child(even) { --tilt:  .8deg; }
+.shelf-grid > .sc:nth-child(3n)   { --tilt: -1.3deg; }
+
+/* ══════════════════════════════════════════════════════════════════
+   3 · THE PRODUCT CARD
+   ══════════════════════════════════════════════════════════════════ */
+
+.sc {
+  --tilt: 0deg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.7) inset,
+    0 14px 30px -14px rgba(120,70,35,.34);
+  transform: rotate(var(--tilt));
+  transition: transform .42s var(--ease), box-shadow .42s var(--ease),
+              border-color .3s var(--ease);
+  will-change: transform;
+}
+
+/* a second sheet of paper peeking out behind — layered, handmade */
+.sc::before {
+  content: "";
+  position: absolute; inset: 6px -6px -8px 6px;
+  border-radius: inherit;
+  background: var(--cream);
+  border: 1.5px solid var(--rule);
+  transform: rotate(1.4deg);
+  z-index: -1;
+  opacity: .75;
+  transition: transform .42s var(--ease), opacity .42s var(--ease);
+}
+.sc:nth-child(even)::before { transform: rotate(-1.6deg); }
+
+.sc:hover,
+.sc:focus-within {
+  transform: rotate(0deg) translateY(-10px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.7) inset,
+    0 30px 54px -20px rgba(120,70,35,.44);
+  border-color: var(--peach-2);
+}
+.sc:hover::before,
+.sc:focus-within::before { transform: rotate(3deg); opacity: .95; }
+
+/* chosen: a warm ring and a deeper shadow, so the shelf shows what's in the order */
+.sc.in-order {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px rgba(181,102,56,.16),
+    0 24px 46px -18px rgba(150,80,40,.5);
+}
+.sc.in-order::after {
+  content: "♥";
+  position: absolute; top: -11px; right: -9px;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--cream);
+  font-size: 15px;
+  box-shadow: 0 6px 14px -5px rgba(150,80,40,.7);
+  animation: scPop .45s var(--ease);
+  z-index: 3;
+}
+@keyframes scPop {
+  0%   { transform: scale(0) rotate(-40deg); }
+  60%  { transform: scale(1.25) rotate(8deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* the photo, and the button that opens the preview ------------------ */
+.sc-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: inherit;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+}
+.sc-frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--butter-2), var(--peach));
+  border-radius: 22px 22px 0 0;
+}
+/* the featured card gets the bakery-window arch */
+.sc.is-featured .sc-open,
+.sc.is-featured .sc-frame { border-radius: 190px 190px 6px 6px; }
+.sc.is-featured .sc-frame { aspect-ratio: 4 / 5; }
+
+.sc-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform .8s var(--ease), filter .5s var(--ease);
+}
+.sc:hover .sc-frame img { transform: scale(1.09) rotate(.6deg); filter: saturate(1.06); }
+
+/* a soft warm veil at the foot of the photo so the type sits comfortably */
+.sc-frame::after {
+  content: "";
+  position: absolute; inset: auto 0 0 0; height: 42%;
+  background: linear-gradient(180deg, transparent, rgba(90,59,39,.28));
+  opacity: .55;
+  transition: opacity .4s var(--ease);
+  pointer-events: none;
+}
+.sc:hover .sc-frame::after { opacity: .75; }
+
+/* a "look closer" cue that fades up on hover */
+.sc-peek {
+  position: absolute;
+  left: 50%; bottom: 12px;
+  transform: translate(-50%, 14px);
+  padding: .32rem .85rem;
+  border-radius: 999px;
+  background: rgba(255,250,240,.94);
+  color: var(--cocoa-d);
+  font-family: var(--font-script);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  opacity: 0;
+  box-shadow: 0 8px 18px -8px rgba(90,50,20,.55);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  pointer-events: none;
+}
+.sc:hover .sc-peek,
+.sc:focus-within .sc-peek { opacity: 1; transform: translate(-50%, 0); }
+
+/* the flavour tag, pinned on at an angle */
+.sc-tag {
+  position: absolute;
+  top: 14px; left: 14px;
+  z-index: 2;
+  padding: .28rem .78rem;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  color: var(--cream);
+  background: var(--accent);
+  box-shadow: 0 6px 14px -6px rgba(120,60,25,.75);
+  transform: rotate(-4deg);
+}
+/* The featured card's frame is an arch, and its top-left corner is cut away —
+   a tag pinned there gets clipped. On the arch it sits centred instead. */
+.sc.is-featured .sc-tag {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+/* same three tag colours the original menu used */
+.sc-tag.signature { background: var(--accent); }
+.sc-tag.bold      { background: var(--cocoa-d); }
+.sc-tag.new       { background: var(--leaf); }
+
+/* the coloured fallback behind a photo, kept from the original cards */
+.sc-frame .pc-placeholder { position: absolute; inset: 0; z-index: 0; }
+.sc-frame img { position: relative; z-index: 1; }
+.sc-frame { display: block; }
+
+/* body ------------------------------------------------------------- */
+.sc-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .28rem;
+  padding: 1.05rem 1.15rem .2rem;
+}
+.sc-name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.06rem, 1.5vw, 1.3rem);
+  line-height: 1.25;
+  color: var(--cocoa-d);
+}
+.sc.is-featured .sc-name { font-size: clamp(1.3rem, 2vw, 1.72rem); }
+.sc-sub {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.sc.is-featured .sc-sub { font-size: 13.5px; }
+
+.sc-price {
+  display: flex; align-items: baseline; gap: .5rem;
+  margin-top: .45rem;
+  padding-top: .55rem;
+  border-top: 1.5px dashed var(--rule);
+}
+.sc-lbl {
+  font-family: var(--font-sans);
+  font-size: 11.5px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--mute);
+}
+.sc-val {
+  margin-left: auto;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+.sc.is-featured .sc-val { font-size: 1.6rem; }
+
+.sc-more {
+  align-self: flex-start;
+  margin-top: .5rem;
+  font-family: var(--font-script);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent-d);
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color .25s var(--ease), transform .25s var(--ease);
+}
+.sc-more:hover { border-color: var(--accent-d); transform: translateX(3px); }
+
+/* the stepper order.js appends to every [data-product] */
+.sc .pc-add { padding: .7rem 1.15rem 1.1rem; margin-top: auto; }
+.sc .pc-add-btn { width: 100%; justify-content: center; }
+.sc .qty { width: 100%; justify-content: space-between; }
+
+/* touch feedback */
+.sc-open:active .sc-frame img { transform: scale(1.04); }
+@media (hover: none) {
+  .sc:active { transform: rotate(0deg) translateY(-4px) scale(.995); }
+  .sc-peek { opacity: .9; transform: translate(-50%, 0); }
+}
+
+/* the quantity number reacts when it changes */
+.qty-n.bump { animation: qtyBump .42s var(--ease); }
+@keyframes qtyBump {
+  0%   { transform: scale(1);   color: var(--cocoa-d); }
+  35%  { transform: scale(1.5); color: var(--accent); }
+  100% { transform: scale(1);   color: var(--cocoa-d); }
+}
+.qty-n { display: inline-block; }
+
+/* ══════════════════════════════════════════════════════════════════
+   4 · MOBILE — the swipeable rail
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .shelf-bar { justify-content: space-between; }
+  .shelf-rail-ui { display: flex; }
+
+  .shelf-grid {
+    display: flex;
+    grid-template-columns: none;
+    gap: .9rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 2px;
+    padding: 6px 2px 1.4rem;
+    /* the rail scrolls, but never shows a bar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .shelf-grid::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+  .shelf-grid > .sc {
+    flex: 0 0 82%;              /* ~18% of the next card stays in view */
+    scroll-snap-align: start;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    margin-top: 0 !important;
+  }
+  /* the tilt is set per position above, so the reset has to match that
+     specificity — otherwise a rotated card pokes out of the rail */
+  .shelf-grid > .sc:nth-child(odd),
+  .shelf-grid > .sc:nth-child(even),
+  .shelf-grid > .sc:nth-child(3n) { --tilt: 0deg; }
+  .shelf-grid > .sc::before { display: none; }
+
+  /* one card per row is the whole point — the arch stays for the feature */
+  .sc.is-featured .sc-frame { aspect-ratio: 1 / 1; }
+  .sc.is-featured .sc-open,
+  .sc.is-featured .sc-frame { border-radius: 150px 150px 6px 6px; }
+
+  /* "view all" unrolls the rail into a plain grid, nothing hidden */
+  .shelf[data-view="all"] .shelf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: .4rem;
+  }
+  .shelf[data-view="all"] .shelf-grid > .sc { flex: initial; }
+  .shelf[data-view="all"] .shelf-rail-ui { display: none; }
+  .shelf[data-view="all"] .sc-frame,
+  .shelf[data-view="all"] .sc.is-featured .sc-frame { aspect-ratio: 1 / 1; }
+  .shelf[data-view="all"] .sc.is-featured .sc-open,
+  .shelf[data-view="all"] .sc.is-featured .sc-frame { border-radius: 22px 22px 0 0; }
+  .shelf[data-view="all"] .sc.is-featured .sc-name { font-size: 1.06rem; }
+  .shelf[data-view="all"] .sc.is-featured .sc-val  { font-size: 1.3rem; }
+
+  .shelf-plank { margin-top: .2rem; height: 13px; }
+}
+
+@media (max-width: 480px) {
+  .shelf-grid > .sc { flex: 0 0 84%; }
+  .sc-body { padding: .9rem 1rem .2rem; }
+  .sc .pc-add { padding: .6rem 1rem 1rem; }
+
+  /* the toolbar has to hold the label and three controls on a narrow phone */
+  .shelf-bar { gap: .5rem .45rem; }
+  .view-all { font-size: 1rem; padding: .38rem .72rem; }
+  .rail-btn { width: 36px; height: 36px; }
+  .rail-btn .i { width: 16px; height: 16px; }
+  .rail-dots { gap: 5px; }
+  .rail-dot.on { width: 16px; }
+}
+
+/* below this the label and the five dots stop sharing a line, so the rail
+   controls take their own row and centre under the label */
+@media (max-width: 400px) {
+  .shelf-bar { justify-content: center; }
+  .view-all { flex: 1 1 100%; justify-content: center; }
+  .shelf-rail-ui { flex: 0 0 auto; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   5 · THE PREVIEW SHEET
+   ══════════════════════════════════════════════════════════════════ */
+
+.pv-backdrop {
+  position: fixed; inset: 0;
+  z-index: var(--pv-z);
+  background: rgba(58,36,24,.52);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s var(--ease);
+}
+.pv-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.pv {
+  position: fixed;
+  z-index: calc(var(--pv-z) + 10);
+  left: 50%; top: 50%;
+  width: min(880px, calc(100vw - 3rem));
+  max-height: min(88vh, 760px);
+  transform: translate(-50%, -46%) scale(.96);
+  opacity: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: 1.02fr 1fr;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  box-shadow: 0 40px 90px -30px rgba(70,40,15,.7);
+  transition: opacity .38s var(--ease), transform .38s var(--ease);
+}
+.pv.open { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+
+.pv-media {
+  position: relative;
+  background: linear-gradient(150deg, var(--butter-2), var(--peach));
+  min-height: 260px;
+}
+.pv-media img { width: 100%; height: 100%; object-fit: cover; }
+.pv-media .sc-tag { top: 18px; left: 18px; }
+
+.pv-close {
+  position: absolute; top: 12px; right: 12px;
+  z-index: 4;
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule);
+  background: rgba(255,250,240,.94);
+  color: var(--cocoa-d);
+  box-shadow: 0 6px 16px -6px rgba(90,50,20,.6);
+  transition: transform .25s var(--ease), background .25s var(--ease);
+}
+.pv-close:hover { background: var(--accent); color: var(--cream); transform: rotate(90deg); }
+.pv-close .i { width: 17px; height: 17px; stroke-width: 2.4; }
+
+.pv-info {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  padding: 1.7rem 1.7rem 1.5rem;
+  overflow-y: auto;
+}
+.pv-eyebrow {
+  font-family: var(--font-script);
+  font-size: 1.14rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.pv-name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  line-height: 1.15;
+  color: var(--cocoa-d);
+}
+.pv-sub {
+  font-family: var(--font-sans);
+  font-size: 12.5px; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--mute);
+}
+.pv-desc {
+  margin-top: .7rem;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--ink);
+}
+.pv-price {
+  display: flex; align-items: baseline; gap: .6rem;
+  margin-top: 1rem;
+  padding: .7rem 0;
+  border-top: 1.5px dashed var(--rule);
+  border-bottom: 1.5px dashed var(--rule);
+}
+.pv-price .sc-lbl { font-size: 12px; }
+.pv-price .sc-val { font-size: 1.72rem; }
+
+.pv-order { margin-top: 1rem; }
+.pv-order .pc-add { padding: 0; }
+.pv-order .pc-add-btn { width: 100%; justify-content: center; padding: .85rem 1.2rem; }
+.pv-order .qty { width: 100%; justify-content: space-between; }
+
+.pv-full {
+  align-self: flex-start;
+  margin-top: 1rem;
+  font-family: var(--font-script);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent-d);
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color .25s var(--ease), transform .25s var(--ease);
+}
+.pv-full:hover { border-color: var(--accent-d); transform: translateX(3px); }
+
+/* a mobile bottom sheet, with a grab handle */
+.pv-handle { display: none; }
+
+@media (max-width: 760px) {
+  .pv {
+    left: 0; top: auto; bottom: 0;
+    width: 100%;
+    max-height: 90vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    border-radius: 26px 26px 0 0;
+    transform: translate(0, 100%);
+    transition: transform .42s var(--ease), opacity .3s var(--ease);
+  }
+  .pv.open { transform: translate(0, 0); }
+  .pv-handle {
+    display: block;
+    position: absolute; top: 9px; left: 50%;
+    transform: translateX(-50%);
+    width: 46px; height: 5px;
+    border-radius: 999px;
+    background: rgba(255,250,240,.85);
+    z-index: 5;
+    box-shadow: 0 2px 6px rgba(90,50,20,.35);
+  }
+  .pv-media { aspect-ratio: 16 / 11; min-height: 0; }
+  .pv-info { padding: 1.2rem 1.2rem calc(1.3rem + env(safe-area-inset-bottom, 0px)); }
+  .pv-desc { margin-top: .5rem; font-size: 14.5px; }
+}
+
+body.pv-open { overflow: hidden; }
+
+/* ══════════════════════════════════════════════════════════════════
+   6 · THE ORDERING RIBBON
+   ══════════════════════════════════════════════════════════════════ */
+
+.ribbon {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  padding: 1.5rem 1.4rem;
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255,250,240,.95), rgba(253,242,225,.95));
+  border: 1.5px solid var(--rule);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.7) inset,
+    0 18px 38px -20px rgba(120,70,35,.4);
+  overflow: hidden;
+}
+.rb-step {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "badge  head"
+    "badge  copy";
+  column-gap: .85rem;
+  row-gap: .1rem;
+  align-content: start;
+  padding: 0 1rem;
+}
+/* one step leads to the next: a little arrow sitting on the dashed divider,
+   level with the numbered badges. A line running straight across the ribbon
+   cut through the sentences instead. */
+.rb-step + .rb-step { border-left: 1.5px dashed var(--rule); }
+.rb-step + .rb-step::before {
+  content: "→";
+  position: absolute;
+  left: 0; top: 26px;
+  transform: translate(-50%, -50%);
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  color: var(--accent);
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: 0 3px 8px -4px rgba(120,70,35,.5);
+}
+
+.rb-badge {
+  grid-area: badge;
+  position: relative;
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.34rem;
+  line-height: 1;
+  box-shadow: 0 8px 18px -8px rgba(150,80,40,.6);
+  transition: transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
+}
+.rb-emoji {
+  position: absolute;
+  right: -8px; bottom: -8px;
+  font-size: 1.22rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(90,50,20,.35));
+  transition: transform .35s var(--ease);
+}
+.rb-step:hover .rb-badge { transform: rotate(-8deg) scale(1.06); background: var(--accent); color: var(--cream); }
+.rb-step:hover .rb-emoji { transform: scale(1.2) rotate(10deg); }
+
+.rb-head {
+  grid-area: head;
+  align-self: center;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.13rem;
+  line-height: 1.2;
+  color: var(--cocoa-d);
+}
+.rb-copy {
+  grid-area: copy;
+  font-size: 13.6px;
+  line-height: 1.55;
+  color: var(--mute);
+}
+
+@media (max-width: 900px) {
+  .ribbon {
+    display: flex;
+    grid-template-columns: none;
+    gap: .8rem;
+    padding: 1rem .9rem 1.1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overscroll-behavior-x: contain;
+  }
+  .ribbon::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  .rb-step {
+    flex: 0 0 84%;
+    scroll-snap-align: center;
+    padding: 0;
+    column-gap: .7rem;
+  }
+  /* the steps become a swipeable sequence, so the divider and its arrow go */
+  .rb-step + .rb-step { border-left: 0; }
+  .rb-step + .rb-step::before { display: none; }
+  .rb-badge { width: 44px; height: 44px; font-size: 1.14rem; }
+  .rb-emoji { font-size: 1.05rem; right: -6px; bottom: -6px; }
+  .rb-head { font-size: 1.04rem; }
+  .rb-copy { font-size: 13px; line-height: 1.5; }
+
+  .ribbon-dots { display: flex; justify-content: center; gap: 7px; margin-top: .7rem; }
+}
+.ribbon-dots { display: none; }
+
+/* ══════════════════════════════════════════════════════════════════
+   7 · THE EDITORIAL PRODUCT PAGE
+   ══════════════════════════════════════════════════════════════════ */
+
+.pd {
+  display: grid;
+  grid-template-columns: 1.04fr 1fr;
+  gap: clamp(1.6rem, 3.6vw, 3.4rem);
+  align-items: start;
+  margin: 1rem 0 2.4rem;
+}
+
+/* ── gallery ─────────────────────────────────────────────────────── */
+.pd-gallery { position: sticky; top: calc(var(--topbar-h, 56px) + 28px); }
+
+.pd-stage {
+  position: relative;
+  /* Capped, not driven by the photo's aspect ratio. Left to grow, the gallery
+     filled the whole grid row and sticky had nothing to travel through. */
+  height: clamp(360px, 58vh, 600px);
+  border-radius: 250px 250px 26px 26px;
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--butter-2), var(--peach));
+  border: 1.5px solid var(--rule);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.6) inset,
+    0 26px 55px -24px rgba(120,70,35,.5);
+}
+.pd-track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+}
+.pd-track::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+.pd-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  height: 100%;
+  margin: 0;
+}
+.pd-slide { position: relative; }
+.pd-slide img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+/* the coloured fallback some flavours carry behind the photo */
+.pd-slide .pp-placeholder { position: absolute; inset: 0; z-index: 0; }
+
+.pd-stage .pp-tag {
+  position: absolute; top: 22px; left: 22px; z-index: 3;
+}
+
+.pd-arrow {
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule);
+  background: rgba(255,250,240,.92);
+  color: var(--cocoa-d);
+  box-shadow: 0 8px 20px -8px rgba(90,50,20,.6);
+  transition: transform .25s var(--ease), background .25s var(--ease), opacity .25s var(--ease);
+  z-index: 3;
+}
+.pd-arrow.prev { left: 12px; }
+.pd-arrow.next { right: 12px; }
+.pd-arrow:hover:not(:disabled) { background: var(--accent); color: var(--cream); border-color: var(--accent); }
+.pd-arrow:disabled { opacity: 0; pointer-events: none; }
+.pd-arrow .i { width: 18px; height: 18px; }
+
+.pd-dots { display: flex; justify-content: center; gap: 7px; margin-top: .9rem; }
+.pd-dots:empty { display: none; }
+
+/* a single-photo gallery hides its controls entirely */
+.pd-gallery[data-single] .pd-arrow,
+.pd-gallery[data-single] .pd-dots { display: none; }
+
+/* ── info column ─────────────────────────────────────────────────── */
+.pd-info { display: flex; flex-direction: column; }
+.pd-order { margin: 1.1rem 0 .3rem; }
+.pd-order .pc-add { padding: 0; }
+.pd-order .pc-add-btn { width: 100%; justify-content: center; padding: .9rem 1.3rem; font-size: 1rem; }
+.pd-order .qty { width: 100%; justify-content: space-between; padding: .45rem .6rem; }
+
+/* ── mobile ──────────────────────────────────────────────────────── */
+@media (max-width: 880px) {
+  .pd { grid-template-columns: 1fr; gap: 1.3rem; }
+  .pd-gallery { position: static; }
+  /* on a phone the photo leads the page, so it goes back to a square */
+  .pd-stage { height: auto; border-radius: 190px 190px 24px 24px; }
+  .pd-slide { height: auto; aspect-ratio: 1 / 1; }
+  .pd-arrow { width: 38px; height: 38px; }
+
+  /* On a phone the price and the add button come straight after the name,
+     instead of sitting 500px down behind the description and the notes.
+     Nothing is added or removed — only the order they are shown in. */
+  .pd-info > .pp-eyebrow      { order: 1; }
+  .pd-info > .pp-title        { order: 2; }
+  .pd-info > .pp-subtitle     { order: 3; }
+  .pd-info > .pp-prices-block { order: 4; margin-top: .9rem; }
+  .pd-info > .pd-order        { order: 5; margin: .9rem 0 .4rem; }
+  .pd-info > .pp-desc         { order: 6; }
+  .pd-info > .pp-notes-card   { order: 7; }
+  .pd-info > .pp-cta-btn      { order: 8; }
+  .pd-info > .pp-tiny         { order: 9; }
+}
+
+/* the optional sticky order button, only while the real one is off-screen
+   and only while the global order bar is not already showing */
+.pd-sticky {
+  position: fixed;
+  left: 12px; right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 1350;
+  display: none;
+  align-items: center;
+  gap: .8rem;
+  padding: .6rem .7rem .6rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255,250,240,.97);
+  border: 1.5px solid var(--rule);
+  box-shadow: 0 18px 38px -14px rgba(90,50,20,.6);
+  transform: translateY(140%);
+  transition: transform .4s var(--ease);
+}
+@media (max-width: 880px) {
+  .pd-sticky { display: flex; }
+  .pd-sticky.show { transform: translateY(0); }
+}
+.pds-price { display: flex; flex-direction: column; line-height: 1.15; }
+.pds-price .sc-lbl { font-size: 10.5px; }
+.pds-price .sc-val { font-size: 1.25rem; margin-left: 0; }
+.pds-act { flex: 1; min-width: 0; }
+.pds-act .pc-add { padding: 0; }
+.pds-act .pc-add-btn { width: 100%; justify-content: center; padding: .72rem 1rem; }
+.pds-act .qty { width: 100%; justify-content: space-between; }
+
+/* ══════════════════════════════════════════════════════════════════
+   8 · REDUCED MOTION
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .sc, .sc::before, .sc-frame img, .pv, .rb-badge, .rb-emoji,
+  .rail-btn, .rail-dot, .view-all, .pd-arrow, .pd-sticky {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+  .sc:hover { transform: rotate(var(--tilt)) translateY(-3px); }
+  .sc:hover .sc-frame img { transform: scale(1.02); }
+}

@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.reveal, .section-header, .menu-section-head, .product-card, .how-step, .care-card, .farewell-grid, .contact-grid, .hero-copy, .hero-figure, .pp-hero, .pp-info-col, .faq-item').forEach(el => {
+  document.querySelectorAll('.reveal, .section-header, .menu-section-head, .product-card, .sc, .how-step, .rb-step, .pd-info, .care-card, .farewell-grid, .contact-grid, .hero-copy, .hero-figure, .pp-hero, .pp-info-col, .faq-item').forEach(el => {
     el.classList.add('reveal');
     io.observe(el);
   });

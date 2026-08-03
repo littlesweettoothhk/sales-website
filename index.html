@@ -28,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Nunito:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="shelf.css">
   <link rel="manifest" href="./site.webmanifest">
 
   <script type="application/ld+json">
@@ -437,24 +438,21 @@
         <span class="eyebrow">落單好簡單 ✿</span>
         <h2>三步就搞掂</h2>
       </div>
-      <div class="how-grid">
-        <div class="how-step">
-          <span class="how-n">1</span>
-          <span class="how-emoji" aria-hidden="true">🍪</span>
-          <h3>揀口味</h3>
-          <p>喺餐牌撳「加入訂單」，想要幾多就撳幾多 ♥</p>
+      <div class="ribbon">
+        <div class="rb-step">
+          <span class="rb-badge">1<span class="rb-emoji" aria-hidden="true">🍪</span></span>
+          <h3 class="rb-head">揀口味</h3>
+          <p class="rb-copy">喺餐牌撳「加入訂單」，想要幾多就撳幾多 ♥</p>
         </div>
-        <div class="how-step">
-          <span class="how-n">2</span>
-          <span class="how-emoji" aria-hidden="true">🧾</span>
-          <h3>睇睇訂單</h3>
-          <p>撳底部嘅訂單掣，會顯示你揀咗嘅嘢同總數。</p>
+        <div class="rb-step">
+          <span class="rb-badge">2<span class="rb-emoji" aria-hidden="true">🧾</span></span>
+          <h3 class="rb-head">睇睇訂單</h3>
+          <p class="rb-copy">撳底部嘅訂單掣，會顯示你揀咗嘅嘢同總數。</p>
         </div>
-        <div class="how-step">
-          <span class="how-n">3</span>
-          <span class="how-emoji" aria-hidden="true">💬</span>
-          <h3>WhatsApp 落單</h3>
-          <p>一撳就會自動整好訂單訊息，send 出嚟就得 ✨</p>
+        <div class="rb-step">
+          <span class="rb-badge">3<span class="rb-emoji" aria-hidden="true">💬</span></span>
+          <h3 class="rb-head">WhatsApp 落單</h3>
+          <p class="rb-copy">一撳就會自動整好訂單訊息，send 出嚟就得 ✨</p>
         </div>
       </div>
     </div>
@@ -471,153 +469,115 @@
       <!-- Menu cards split into two sections -->
 
       <!-- Section A: Jar -->
+      <div class="shelf" data-view="rail">
       <div class="menu-section-head">
         <div class="msh-label">每樽 · jar</div>
         <h3 class="msh-title">細粒裝</h3>
         <p class="msh-sub">迷你版本，方便分享 · 每樽 ✿</p>
       </div>
-
-      <div class="menu-grid menu-grid-jar">
-        <article class="product-card is-featured" data-product data-id="seasalt" data-name="海鹽黑朱古力" data-price="60" data-unit="jar" data-img="./src/sea-salt-dark-chocolate-brookies.webp" data-url="products/seasalt.html">
-          <a class="menu-card-link" href="products/seasalt.html">
-            <div class="pc-img-wrap">
-              <span class="pc-tag signature">皇牌 ♥</span>
-              <img src="./src/sea-salt-dark-chocolate-brookies.webp" alt="海鹽黑朱古力" width="733" height="900" loading="lazy" decoding="async">
-            </div>
-            <div class="pc-body">
-              <div class="pc-title-main" lang="zh-Hant">海鹽黑朱古力</div>
-              <div class="pc-title-sub" lang="en">Sea Salt Dark Chocolate</div>
-              <div class="pc-prices">
-                <div class="pc-price"><span class="pc-p-lbl">每樽 jar</span><span class="pc-p-val">$60</span></div>
-              </div>
-              <span class="pc-cta">看看詳情 →</span>
-            </div>
-          </a>
+        <div class="shelf-bar">
+          <button type="button" class="view-all" aria-expanded="false">睇晒全部口味 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="shelf-rail-ui"></div>
+        </div>
+      <div class="shelf-grid" data-layout="pair">
+        <article class="sc is-featured" data-product data-id="seasalt" data-name="海鹽黑朱古力" data-price="None" data-unit="None" data-img="./src/sea-salt-dark-chocolate-brookies.webp" data-url="products/seasalt.html" data-sub="Sea Salt Dark Chocolate" data-price-label="每樽 jar" data-price-text="$60" data-more="看看詳情 →" data-desc="我們的招牌口味。香濃的比利時黑朱古力遇上一撮海鹽，外脆內軟，每一口都有層次。樽裝迷你款，方便分享，也適合自己慢慢吃 ♥">
+          <button type="button" class="sc-open" aria-haspopup="dialog">
+            <span class="sc-frame"><span class="sc-tag signature">皇牌 ♥</span><img src="./src/sea-salt-dark-chocolate-brookies.webp" alt="海鹽黑朱古力" width="733" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
+          </button>
+          <div class="sc-body">
+            <div class="sc-name" lang="zh-Hant">海鹽黑朱古力</div>
+            <div class="sc-sub" lang="en">Sea Salt Dark Chocolate</div>
+            <div class="sc-price"><span class="sc-lbl">每樽 jar</span><span class="sc-val">$60</span></div>
+            <a class="sc-more" href="products/seasalt.html">看看詳情 →</a>
+          </div>
         </article>
-
-        <article class="product-card" data-product data-id="pepper" data-name="麻香花椒" data-price="62" data-unit="jar" data-img="./src/green-sichuan-pepper-brookies.webp" data-url="products/pepper.html">
-          <a class="menu-card-link" href="products/pepper.html">
-            <div class="pc-img-wrap">
-              <span class="pc-tag bold">獨特 ✦</span>
-              <img src="./src/green-sichuan-pepper-brookies.webp" alt="麻香花椒" width="697" height="900" loading="lazy" decoding="async">
-            </div>
-            <div class="pc-body">
-              <div class="pc-title-main" lang="zh-Hant">麻香花椒</div>
-              <div class="pc-title-sub" lang="en">Green Sichuan Pepper</div>
-              <div class="pc-prices">
-                <div class="pc-price"><span class="pc-p-lbl">每樽 jar</span><span class="pc-p-val">$62</span></div>
-              </div>
-              <span class="pc-cta">看看詳情 →</span>
-            </div>
-          </a>
+        <article class="sc" data-product data-id="pepper" data-name="麻香花椒" data-price="None" data-unit="None" data-img="./src/green-sichuan-pepper-brookies.webp" data-url="products/pepper.html" data-sub="Green Sichuan Pepper" data-price-label="每樽 jar" data-price-text="$62" data-more="看看詳情 →" data-desc="我們最大膽的口味。青花椒的麻香，配上濃郁黑朱古力——舌尖會輕輕跳舞。試一口會驚喜 ✦">
+          <button type="button" class="sc-open" aria-haspopup="dialog">
+            <span class="sc-frame"><span class="sc-tag bold">獨特 ✦</span><img src="./src/green-sichuan-pepper-brookies.webp" alt="麻香花椒" width="697" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
+          </button>
+          <div class="sc-body">
+            <div class="sc-name" lang="zh-Hant">麻香花椒</div>
+            <div class="sc-sub" lang="en">Green Sichuan Pepper</div>
+            <div class="sc-price"><span class="sc-lbl">每樽 jar</span><span class="sc-val">$62</span></div>
+            <a class="sc-more" href="products/pepper.html">看看詳情 →</a>
+          </div>
         </article>
+      </div>
+        <div class="shelf-plank" aria-hidden="true"></div>
       </div>
 
       <!-- Divider -->
       <div class="menu-divider"><span>✿</span></div>
 
       <!-- Section B: pcs -->
+      <div class="shelf" data-view="rail">
       <div class="menu-section-head">
         <div class="msh-label">每件 · pcs</div>
         <h3 class="msh-title">大粒裝</h3>
         <p class="msh-sub">大件滿足款 · 每件單買 ♥</p>
       </div>
-
-      <div class="menu-grid">
-        <article class="product-card" data-product data-id="caramel" data-name="焦糖黑朱古力" data-price="35" data-unit="pcs" data-img="./src/caramel-brookies.webp" data-url="products/caramel.html">
-          <a class="menu-card-link" href="products/caramel.html">
-            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#e9c69a,#c9844a);">
-              <span class="pc-tag new">new ✿</span>
-              <img src="./src/caramel-brookies.webp" alt="焦糖黑朱古力" width="900" height="900" loading="lazy" decoding="async">
-              <div class="pc-placeholder">
-                <span class="pc-emoji">🍯</span>
-                <span class="pc-ph-label">caramel</span>
-              </div>
-            </div>
-            <div class="pc-body">
-              <div class="pc-title-main" lang="zh-Hant">焦糖黑朱古力</div>
-              <div class="pc-title-sub" lang="en">Caramel Dark Chocolate</div>
-              <div class="pc-prices">
-                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
-              </div>
-              <span class="pc-cta">看看詳情 →</span>
-            </div>
-          </a>
+        <div class="shelf-bar">
+          <button type="button" class="view-all" aria-expanded="false">睇晒全部口味 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="shelf-rail-ui"></div>
+        </div>
+      <div class="shelf-grid" data-layout="counter">
+        <article class="sc is-featured" data-product data-id="caramel" data-name="焦糖黑朱古力" data-price="None" data-unit="None" data-img="./src/caramel-brookies.webp" data-url="products/caramel.html" data-sub="Caramel Dark Chocolate" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="焦糖醬慢慢熬煮到金黃色，再配上濃郁的黑朱古力Brookies。甜中帶微苦。✿">
+          <button type="button" class="sc-open" aria-haspopup="dialog">
+            <span class="sc-frame" style="background: linear-gradient(135deg,#e9c69a,#c9844a);"><span class="sc-tag new">new ✿</span><span class="pc-placeholder"><span class="pc-emoji">🍯</span> <span class="pc-ph-label">caramel</span></span><img src="./src/caramel-brookies.webp" alt="焦糖黑朱古力" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
+          </button>
+          <div class="sc-body">
+            <div class="sc-name" lang="zh-Hant">焦糖黑朱古力</div>
+            <div class="sc-sub" lang="en">Caramel Dark Chocolate</div>
+            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
+            <a class="sc-more" href="products/caramel.html">看看詳情 →</a>
+          </div>
         </article>
-
-        <article class="product-card" data-product data-id="marshmallow" data-name="棉花糖黑朱古力" data-price="35" data-unit="pcs" data-img="./src/marshmallow-brookies.webp" data-url="products/marshmallow.html">
-          <a class="menu-card-link" href="products/marshmallow.html">
-            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#fdebda,#e9d4be);">
-              <span class="pc-tag new">new ✿</span>
-              <img src="./src/marshmallow-brookies.webp" alt="棉花糖黑朱古力" width="900" height="900" loading="lazy" decoding="async">
-              <div class="pc-placeholder">
-                <span class="pc-emoji">☁️</span>
-                <span class="pc-ph-label">marshmallow</span>
-              </div>
-            </div>
-            <div class="pc-body">
-              <div class="pc-title-main" lang="zh-Hant">棉花糖黑朱古力</div>
-              <div class="pc-title-sub" lang="en">Marshmallow Dark Chocolate</div>
-              <div class="pc-prices">
-                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
-              </div>
-              <span class="pc-cta">看看詳情 →</span>
-            </div>
-          </a>
+        <article class="sc" data-product data-id="marshmallow" data-name="棉花糖黑朱古力" data-price="None" data-unit="None" data-img="./src/marshmallow-brookies.webp" data-url="products/marshmallow.html" data-sub="Marshmallow Dark Chocolate" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="小朋友的最愛。手作棉花糖在黑朱古力brookies上，燒到微微焦糖化，叮一叮會更好味 ♥ ☁">
+          <button type="button" class="sc-open" aria-haspopup="dialog">
+            <span class="sc-frame" style="background: linear-gradient(135deg,#fdebda,#e9d4be);"><span class="sc-tag new">new ✿</span><span class="pc-placeholder"><span class="pc-emoji">☁️</span> <span class="pc-ph-label">marshmallow</span></span><img src="./src/marshmallow-brookies.webp" alt="棉花糖黑朱古力" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
+          </button>
+          <div class="sc-body">
+            <div class="sc-name" lang="zh-Hant">棉花糖黑朱古力</div>
+            <div class="sc-sub" lang="en">Marshmallow Dark Chocolate</div>
+            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
+            <a class="sc-more" href="products/marshmallow.html">看看詳情 →</a>
+          </div>
         </article>
-
-        <article class="product-card" data-product data-id="peanut" data-name="花生黑朱古力" data-price="35" data-unit="pcs" data-img="./src/peanut-butter-brookies.webp" data-url="products/peanut.html">
-          <a class="menu-card-link" href="products/peanut.html">
-            <div class="pc-img-wrap" style="background: linear-gradient(135deg,#e9c895,#b88550);">
-              <span class="pc-tag new">new ✿</span>
-              <img src="./src/peanut-butter-brookies.webp" alt="花生黑朱古力" width="900" height="900" loading="lazy" decoding="async">
-              <div class="pc-placeholder">
-                <span class="pc-emoji">🥜</span>
-                <span class="pc-ph-label">peanut</span>
-              </div>
-            </div>
-            <div class="pc-body">
-              <div class="pc-title-main" lang="zh-Hant">花生黑朱古力</div>
-              <div class="pc-title-sub" lang="en">Peanut Dark Chocolate</div>
-              <div class="pc-prices">
-                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
-              </div>
-              <span class="pc-cta">看看詳情 →</span>
-            </div>
-          </a>
+        <article class="sc" data-product data-id="peanut" data-name="花生黑朱古力" data-price="None" data-unit="None" data-img="./src/peanut-butter-brookies.webp" data-url="products/peanut.html" data-sub="Peanut Dark Chocolate" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="鹹香花生醬配上黑朱古力brookies，鹹香又濃郁。灑上香烤花生，口感豐富。🥜">
+          <button type="button" class="sc-open" aria-haspopup="dialog">
+            <span class="sc-frame" style="background: linear-gradient(135deg,#e9c895,#b88550);"><span class="sc-tag new">new ✿</span><span class="pc-placeholder"><span class="pc-emoji">🥜</span> <span class="pc-ph-label">peanut</span></span><img src="./src/peanut-butter-brookies.webp" alt="花生黑朱古力" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
+          </button>
+          <div class="sc-body">
+            <div class="sc-name" lang="zh-Hant">花生黑朱古力</div>
+            <div class="sc-sub" lang="en">Peanut Dark Chocolate</div>
+            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
+            <a class="sc-more" href="products/peanut.html">看看詳情 →</a>
+          </div>
         </article>
-
-        <article class="product-card" data-product data-id="hojicha" data-name="焙茶" data-price="35" data-unit="pcs" data-img="./src/hojicha-brookies-new.webp" data-url="products/hojicha.html">
-          <a class="menu-card-link" href="products/hojicha.html">
-            <div class="pc-img-wrap">
-              <img src="./src/hojicha-brookies-new.webp" alt="焙茶" width="900" height="900" loading="lazy" decoding="async">
-            </div>
-            <div class="pc-body">
-              <div class="pc-title-main" lang="zh-Hant">焙茶</div>
-              <div class="pc-title-sub" lang="en">Hojicha</div>
-              <div class="pc-prices">
-                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
-              </div>
-              <span class="pc-cta">看看詳情 →</span>
-            </div>
-          </a>
+        <article class="sc" data-product data-id="hojicha" data-name="焙茶" data-price="None" data-unit="None" data-img="./src/hojicha-brookies-new.webp" data-url="products/hojicha.html" data-sub="Hojicha" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="深焙焙茶，帶著淡淡堅果味，配上白朱古力，意想不到地合拍。☕">
+          <button type="button" class="sc-open" aria-haspopup="dialog">
+            <span class="sc-frame"><img src="./src/hojicha-brookies-new.webp" alt="焙茶" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
+          </button>
+          <div class="sc-body">
+            <div class="sc-name" lang="zh-Hant">焙茶</div>
+            <div class="sc-sub" lang="en">Hojicha</div>
+            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
+            <a class="sc-more" href="products/hojicha.html">看看詳情 →</a>
+          </div>
         </article>
-
-        <article class="product-card" data-product data-id="matcha" data-name="抹茶" data-price="35" data-unit="pcs" data-img="./src/matcha-brookies-new.webp" data-url="products/matcha.html">
-          <a class="menu-card-link" href="products/matcha.html">
-            <div class="pc-img-wrap">
-              <img src="./src/matcha-brookies-new.webp" alt="抹茶" width="900" height="900" loading="lazy" decoding="async">
-            </div>
-            <div class="pc-body">
-              <div class="pc-title-main" lang="zh-Hant">抹茶</div>
-              <div class="pc-title-sub" lang="en">Matcha</div>
-              <div class="pc-prices">
-                <div class="pc-price"><span class="pc-p-lbl">每件 pcs</span><span class="pc-p-val">$35</span></div>
-              </div>
-              <span class="pc-cta">看看詳情 →</span>
-            </div>
-          </a>
+        <article class="sc" data-product data-id="matcha" data-name="抹茶" data-price="None" data-unit="None" data-img="./src/matcha-brookies-new.webp" data-url="products/matcha.html" data-sub="Matcha" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="微苦抹茶，配上白朱古力同士多啤梨涷乾，味道剛剛好。茶控的最愛 ✿">
+          <button type="button" class="sc-open" aria-haspopup="dialog">
+            <span class="sc-frame"><img src="./src/matcha-brookies-new.webp" alt="抹茶" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
+          </button>
+          <div class="sc-body">
+            <div class="sc-name" lang="zh-Hant">抹茶</div>
+            <div class="sc-sub" lang="en">Matcha</div>
+            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
+            <a class="sc-more" href="products/matcha.html">看看詳情 →</a>
+          </div>
         </article>
+      </div>
+        <div class="shelf-plank" aria-hidden="true"></div>
       </div>
 
       <p class="menu-note">— 點選圖卡看每款的故事 ♥ —</p>
@@ -816,6 +776,7 @@
   <a href="#" class="back-to-top" aria-label="Back to top"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></a>
   <script src="scripts.js"></script>
   <script src="order.js"></script>
+  <script src="shelf.js"></script>
   <div class="scroll-rail" aria-hidden="true"><span></span></div>
 </body>
 </html>
