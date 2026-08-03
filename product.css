@@ -111,3 +111,56 @@
 }
 @media (max-width: 960px) { .pp-more-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .pp-more-grid { grid-template-columns: 1fr; } }
+
+/* ═══ warmth pass — product page matches the homepage treatment ═══ */
+.product-page { background: var(--butter); }
+
+.pp-hero {
+  border-radius: var(--dome-lg);
+  border: 1px solid var(--rule-soft);
+  padding: .7rem;
+  background: linear-gradient(180deg, var(--cream), var(--paper));
+  box-shadow: var(--sh-lift), var(--sh-inset);
+  overflow: visible;
+  aspect-ratio: 4 / 5;
+}
+.pp-hero img {
+  border-radius: var(--dome-in);
+  height: 100%;
+}
+.pp-hero::after {
+  inset: .7rem; border-radius: inherit; box-shadow: none;
+  background: linear-gradient(180deg, rgba(255,248,236,.14), transparent 45%, rgba(90,59,39,.13));
+}
+.pp-tag {
+  background: var(--cream); color: var(--terra-ink); border-color: var(--rule);
+  box-shadow: 0 4px 12px -4px rgba(122,74,38,.5); letter-spacing: .14em;
+}
+
+.pp-back { color: var(--ink-4); letter-spacing: .16em; }
+.pp-back:hover { color: var(--terra); }
+.pp-grid { border-top-color: var(--rule); }
+.pp-eyebrow { color: var(--terra-ink); letter-spacing: .18em; }
+.pp-eyebrow::before { background: var(--terra); }
+.pp-subtitle { color: var(--ink-4); letter-spacing: .15em; }
+.pp-desc { color: var(--ink-2); }
+
+/* the notes sit on their own warm card rather than bare rules */
+.pp-notes-card {
+  background: linear-gradient(180deg, var(--cream), var(--paper));
+  border: 1px solid var(--rule-soft); border-radius: 22px;
+  padding: 1.4rem 1.6rem; box-shadow: var(--sh-soft), var(--sh-inset);
+}
+.pp-notes-title { color: var(--terra-ink); letter-spacing: .18em; }
+.pp-notes li { color: var(--ink-2); }
+.pp-notes li::before { border-color: var(--terra); }
+
+.pp-prices-block { border-bottom-color: var(--rule); }
+.pp-price-row .pp-p-lbl { color: var(--ink-4); letter-spacing: .15em; }
+.pp-price-row .pp-p-val { color: var(--terra-d); }
+
+.pp-cta-btn { border-color: var(--rule); background: var(--cream); color: var(--ink-2); box-shadow: var(--sh-soft); }
+.pp-cta-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--cream); box-shadow: var(--sh-lift); }
+.pp-tiny { color: var(--ink-4); }
+
+.pp-more-grid { gap: clamp(1.6rem, 3vw, 2.6rem); }

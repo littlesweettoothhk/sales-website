@@ -12,26 +12,37 @@
 */
 
 :root {
-  /* paper — --butter is the site's original page cream, kept exactly */
+  /* paper — the original page cream, plus warm raised surfaces above it */
   --butter:    #faf2e3;
-  --paper:     #fffaf0;
-  --paper-2:   #f4e7d2;
-  --wash:      #efe0c8;
+  --cream:     #fff8ec;   /* card surface, from the original palette */
+  --paper:     #fffbf3;
+  --peach:     #f3decd;
+  --peach-2:   #e6c49b;
+  --wash:      #f7e8d2;
 
-  /* ink */
-  --ink:       #2b1d14;
-  --ink-2:     #4a3527;
-  --ink-3:     #7d6552;
-  --ink-4:     #a8917c;
+  /* ink — cocoa browns rather than near-black, so nothing reads cold */
+  --ink:       #3a2418;
+  --ink-2:     #5a3b27;
+  --ink-3:     #7a6250;   /* 5.1:1 — safe for small text */
+  --ink-4:     #9c8570;
 
-  /* accents */
-  --terra:     #a04a22;
-  --terra-d:   #7d3617;
+  /* accents — the original terracotta for decorative weight, a deeper
+     tone for small label text where 3.8:1 would not pass */
+  --terra:     #b56638;
+  --terra-ink: #9a4f27;   /* 5.4:1 on cream */
+  --terra-d:   #8f4a26;
+  --rose:      #c97b54;
   --gold:      #c2913f;
-  --leaf:      #7f8f5c;
+  --leaf:      #8a9d6a;
 
-  --rule:      #ddc9a6;
-  --rule-soft: #e8d9bd;
+  --rule:      #e8d4ae;
+  --rule-soft: #f0e2c6;
+
+  /* warm, layered depth */
+  --sh-soft:  0 2px 6px rgba(122,74,38,.05), 0 10px 24px -12px rgba(122,74,38,.20);
+  --sh-card:  0 4px 12px rgba(122,74,38,.07), 0 24px 48px -26px rgba(122,74,38,.42);
+  --sh-lift:  0 10px 24px rgba(122,74,38,.11), 0 40px 70px -30px rgba(160,90,45,.48);
+  --sh-inset: inset 0 1px 0 rgba(255,255,255,.75);
 
   --font-display: 'Fraunces', 'Noto Serif TC', 'Songti TC', Georgia, serif;
   --font-sans:    'Nunito', 'Noto Sans TC', 'PingFang TC', ui-sans-serif, system-ui, sans-serif;
@@ -41,12 +52,17 @@
   --t-h2:      clamp(2.1rem, 5vw, 4rem);
   --t-h3:      clamp(1.2rem, 2vw, 1.55rem);
   --t-lede:    clamp(1.02rem, 1.3vw, 1.18rem);
-  --t-label:   10.5px;
+  --t-label:   11px;
 
-  --rail:      clamp(0px, 8vw, 128px);   /* the manuscript margin */
+  --rail:      clamp(0px, 8vw, 128px);
   --s-sec:     clamp(4.5rem, 10vw, 9rem);
   --ease:      cubic-bezier(.22,.68,.24,1);
   --arch:      50% 50% 3px 3px / 34% 34% 3px 3px;
+
+  /* a soft dome rather than a full semicircle — warmer, less austere */
+  --dome:      50% 50% 22px 22px / 27% 27% 22px 22px;
+  --dome-lg:   50% 50% 26px 26px / 24% 24% 26px 26px;
+  --dome-in:   50% 50% 18px 18px / 26% 26% 18px 18px;
 
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -96,7 +112,7 @@ h1 em, h2 em, h3 em { font-style: normal; color: var(--terra); }
 .contact-list .k, .fw-k, .foot-col h4, .qr-lbl, .pp-eyebrow, .pp-notes-title,
 .pp-subtitle, .pp-p-lbl, .pp-back, .menu-note, .foot-bottom {
   font-family: var(--font-sans); font-weight: 800;
-  font-size: var(--t-label); letter-spacing: .24em; text-transform: uppercase;
+  font-size: var(--t-label); letter-spacing: .15em; text-transform: uppercase;
 }
 
 /* ═══ accessibility ═══ */
@@ -692,3 +708,233 @@ body.cart-open { overflow: hidden; }
 
 section[id], main[id] { scroll-margin-top: calc(var(--topbar-h, 118px) + 14px); }
 [hidden] { display: none !important; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   WARMTH PASS
+   Same layout and the same information — but the surfaces come back.
+   Cards are raised cream again, photos are matted and framed rather than
+   sitting bare on the paper, and depth comes from warm, tinted shadow.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* softer, warmer atmosphere: fewer hard rules, more bloom */
+body::before {
+  background:
+    radial-gradient(1200px 780px at 6% -10%, rgba(201,123,84,.16), transparent 62%),
+    radial-gradient(1000px 760px at 98% 2%,  rgba(230,196,155,.28), transparent 64%),
+    radial-gradient(1100px 860px at 86% 98%, rgba(181,102,56,.11), transparent 62%),
+    radial-gradient(800px 640px at 2% 78%,   rgba(243,222,205,.5),  transparent 64%),
+    repeating-linear-gradient(to bottom, transparent 0 63px, rgba(180,150,110,.035) 63px 64px);
+}
+body::after { opacity: .045; }
+
+/* ——— the ticker and the care plate warm from near-black to cocoa ——— */
+.top-strip { background: linear-gradient(100deg, var(--ink), #4a2f1e); letter-spacing: .22em; }
+.strip-row .dot { color: var(--peach-2); }
+
+/* ——— topbar sits on warm frosted cream ——— */
+.topbar { background: rgba(255,248,236,.86); box-shadow: 0 1px 0 var(--rule-soft), 0 10px 30px -24px rgba(122,74,38,.5); border-bottom-color: var(--rule-soft); }
+.head-brand img { border-radius: 50%; box-shadow: 0 3px 10px -3px rgba(122,74,38,.45); border-color: var(--rule); }
+.nav-link { letter-spacing: .1em; }
+.lang-btn { border-radius: 999px; box-shadow: var(--sh-soft); background: var(--cream); }
+.lang-btn:hover { background: var(--terra); border-color: var(--terra); color: var(--cream); }
+
+/* ——— PRODUCT PHOTOS: matted, domed, and lifted ——————————————————————
+   The photo now sits inside a cream card with a mat around it, a gentle
+   dome rather than a full semicircle, and a warm shadow beneath — so the
+   food reads as something presented rather than pasted onto the page. */
+.product-card {
+  background: linear-gradient(180deg, var(--cream), var(--paper) 60%, var(--cream));
+  border: 1px solid var(--rule-soft);
+  border-radius: 28px;
+  padding: .75rem .75rem 1.25rem;
+  box-shadow: var(--sh-card), var(--sh-inset);
+  transition: transform .55s var(--ease), box-shadow .55s var(--ease), border-color .4s var(--ease);
+}
+.product-card:hover { transform: translateY(-9px); box-shadow: var(--sh-lift), var(--sh-inset); border-color: var(--peach-2); }
+
+.pc-img-wrap {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--dome);
+  border: none;
+  background: var(--wash);
+  box-shadow: 0 6px 18px -10px rgba(122,74,38,.55);
+}
+/* a soft warm bloom over the photo, deepening slightly on hover */
+.pc-img-wrap::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,248,236,.16), transparent 42%, rgba(90,59,39,.14));
+  box-shadow: inset 0 0 0 1px rgba(255,248,236,.55);
+  transition: opacity .5s var(--ease);
+}
+.product-card:hover .pc-img-wrap::after { opacity: .55; }
+
+.pc-body { padding: 1.15rem .65rem 0; }
+.pc-body::before { top: 1.2rem; right: .65rem; color: var(--ink-4); }
+.pc-title-main { color: var(--ink); }
+.pc-title-sub { color: var(--ink-4); letter-spacing: .12em; }
+.pc-prices { border-top: 1px dashed var(--rule); padding-top: .9rem; }
+.pc-p-lbl { color: var(--ink-4); letter-spacing: .13em; }
+.pc-p-val { color: var(--terra-d); font-size: 1.7rem; }
+.pc-cta { color: var(--ink-4); letter-spacing: .12em; }
+.product-card:hover .pc-cta { color: var(--terra-ink); }
+.pc-add { padding: .9rem .65rem 0; }
+
+/* the signature keeps its wide layout, now on one warm card */
+@media (min-width: 940px) {
+  .product-card.is-featured { padding: 1.1rem 1.1rem 1.4rem; }
+  .product-card.is-featured .menu-card-link { gap: 1.8rem; align-items: center; }
+  .product-card.is-featured .pc-body { padding: 0 .4rem; }
+  .product-card.is-featured .pc-body::before { top: 0; right: .4rem; }
+  .product-card.is-featured .pc-add { padding: 1.1rem .4rem 0; }
+}
+
+.pc-tag {
+  background: var(--cream); color: var(--terra-ink); border-color: var(--rule);
+  box-shadow: 0 4px 12px -4px rgba(122,74,38,.5);
+  letter-spacing: .14em;
+}
+.pc-tag.bold { color: var(--terra-d); }
+.pc-tag.new  { color: #6f7f4d; }
+.product-card.in-order { border-color: var(--terra); box-shadow: 0 0 0 1px var(--terra), var(--sh-card); }
+.product-card.in-order .pc-img-wrap { border: none; }
+
+/* menu spacing: a touch more air between the cards */
+.menu-grid { gap: clamp(1.8rem, 3.2vw, 3.2rem) clamp(1.4rem, 2.6vw, 2.6rem); }
+
+/* ——— hero photo: matted in the same language ——— */
+.hero-figure {
+  border-radius: var(--dome-lg);
+  border: 1px solid var(--rule-soft);
+  padding: .7rem; background: linear-gradient(180deg, var(--cream), var(--paper));
+  box-shadow: var(--sh-lift), var(--sh-inset);
+  overflow: visible;
+}
+.hero-figure img { border-radius: var(--dome-in); }
+.hero-figure::after {
+  inset: .7rem; border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,248,236,.14), transparent 45%, rgba(90,59,39,.12));
+  box-shadow: none;
+}
+
+/* ——— buttons: rounded, warm, with a soft lift ——— */
+.btn { border-radius: 999px; padding: 0 1.9rem; box-shadow: var(--sh-soft); letter-spacing: .14em; }
+.btn-primary { background: linear-gradient(135deg, var(--terra), var(--terra-d)); color: var(--cream); border-color: transparent; }
+.btn-primary:hover { background: linear-gradient(135deg, var(--rose), var(--terra)); box-shadow: var(--sh-lift); }
+.btn-ghost, .btn-cream { background: var(--cream); color: var(--ink); border-color: var(--rule); }
+.btn-ghost:hover, .btn-cream:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); box-shadow: var(--sh-lift); }
+
+.pc-add-btn, .qty, .pp-cta-btn, .cart-checkout, .back-to-top, .cart-close, .foot-social a, .ob-btn {
+  border-radius: 999px;
+}
+.pc-add-btn { border-color: var(--rule); color: var(--terra-ink); background: var(--cream); box-shadow: var(--sh-soft); }
+.pc-add-btn:hover { background: linear-gradient(135deg, var(--terra), var(--terra-d)); border-color: transparent; color: var(--cream); }
+.qty { border-color: var(--rule); background: var(--cream); box-shadow: var(--sh-soft); }
+.qty-btn:hover { background: var(--terra); color: var(--cream); }
+.qty-n { color: var(--ink); }
+
+/* ——— section headers and rules soften ——— */
+.section-header { border-top-color: var(--rule); }
+.section-header::before { color: var(--terra); opacity: .28; }
+.eyebrow { color: var(--terra-ink); letter-spacing: .18em; }
+.eyebrow::before { background: var(--terra); }
+.menu-sub, .msh-sub { color: var(--ink-3); }
+.msh-label { color: var(--terra-ink); letter-spacing: .16em; }
+.menu-section-head { border-bottom-color: var(--rule); }
+
+/* ——— trust row becomes a warm ribbon ——— */
+.trust {
+  border: 1px solid var(--rule-soft); border-radius: 22px;
+  background: linear-gradient(180deg, var(--cream), var(--paper));
+  box-shadow: var(--sh-soft); overflow: hidden;
+}
+.trust-item { color: var(--ink-3); letter-spacing: .1em; border-left-color: var(--rule-soft); padding: 1.25rem 1.5rem; }
+.trust-item:first-child { padding-left: 1.5rem; }
+.trust-item span[aria-hidden] { color: var(--terra); }
+@media (max-width: 780px) { .trust-item, .trust-item:first-child { padding-left: 1.3rem; } }
+
+/* ——— how-to-order rows gain a warm hover panel ——— */
+.how-step { border-top-color: var(--rule-soft); border-radius: 18px; padding-inline: 1rem; }
+.how-step:hover { background: linear-gradient(180deg, var(--cream), var(--paper)); box-shadow: var(--sh-soft); }
+.how-n { -webkit-text-stroke: 1px var(--terra); opacity: .8; }
+.how-step p { color: var(--ink-3); }
+
+/* ——— care plate: warm cocoa, domed, with depth ——— */
+.care-card {
+  background: linear-gradient(160deg, #4a2f1e, var(--ink) 55%, #33200f);
+  border-radius: var(--dome-lg);
+  box-shadow: var(--sh-lift);
+}
+.care-banner { color: var(--peach-2); letter-spacing: .2em; }
+.care-item { border-left-color: rgba(243,222,205,.16); }
+.care-line { color: rgba(247,238,226,.78); }
+.care-line strong { color: var(--peach-2); }
+
+/* ——— farewell + FAQ + contact sit on warm cards again ——— */
+.farewell-grid, .contact-grid {
+  background: linear-gradient(180deg, var(--cream), var(--paper));
+  border: 1px solid var(--rule-soft); border-radius: 30px;
+  padding: clamp(1.6rem, 4vw, 3.2rem);
+  box-shadow: var(--sh-card), var(--sh-inset);
+}
+.fw-h { color: var(--terra-ink); letter-spacing: .18em; }
+.fw-list li { border-bottom-color: var(--rule-soft); }
+.fw-list li:hover { color: var(--terra); }
+.fw-sticker-tag { border-radius: 999px; border-color: var(--rule); color: var(--ink-3); background: var(--butter); }
+.fw-info-list li { border-bottom-color: var(--rule-soft); }
+.fw-k { color: var(--ink-4); letter-spacing: .13em; }
+
+.faq-list { border-top-color: var(--rule); }
+.faq-item { border-bottom-color: var(--rule-soft); border-radius: 16px; transition: background .4s var(--ease); }
+.faq-item:hover, .faq-item[open] { background: linear-gradient(180deg, rgba(255,248,236,.85), rgba(255,251,243,.6)); }
+.faq-item summary { padding-inline: 1rem 3rem; }
+.faq-item summary:hover { color: var(--terra); }
+.faq-answer { color: var(--ink-3); padding-inline: 1rem; }
+@media (min-width: 761px) { .faq-answer { padding-left: calc(var(--rail) + clamp(1rem, 3vw, 2.5rem) + 1rem); } }
+
+.contact-list li { border-bottom-color: var(--rule-soft); }
+.contact-list .k { color: var(--ink-4); letter-spacing: .13em; }
+.qr-card img {
+  border-radius: var(--dome); border-color: var(--rule-soft);
+  background: var(--cream); box-shadow: var(--sh-card);
+}
+.qr-lbl { color: var(--terra-ink); letter-spacing: .16em; }
+.qr-handle { color: var(--ink-3); }
+
+/* ——— footer warms ——— */
+.site-foot { border-top-color: var(--rule); }
+.foot-brand p, .foot-info li { color: var(--ink-3); }
+.foot-col h4 { color: var(--terra-ink); letter-spacing: .16em; }
+.foot-col ul a { color: var(--ink-3); }
+.foot-col ul a:hover { color: var(--terra); }
+.foot-social a { background: var(--cream); border-color: var(--rule); box-shadow: var(--sh-soft); color: var(--ink-2); }
+.foot-social a:hover { background: linear-gradient(135deg, var(--terra), var(--terra-d)); border-color: transparent; color: var(--cream); }
+.foot-grid { border-bottom-color: var(--rule-soft); }
+.foot-bottom { color: var(--ink-4); letter-spacing: .13em; }
+
+/* ——— order bar + drawer warm up ——— */
+.ob-btn { background: linear-gradient(135deg, var(--terra), var(--terra-d)); color: var(--cream); box-shadow: 0 20px 44px -16px rgba(122,74,38,.75); letter-spacing: .14em; }
+.ob-btn:hover { background: linear-gradient(135deg, var(--rose), var(--terra)); }
+.ob-count { background: var(--cream); color: var(--terra-d); }
+.cart-drawer { background: var(--butter); border-left-color: var(--rule); }
+.cart-head { border-bottom-color: var(--rule); background: var(--cream); }
+.cart-close { border-color: var(--rule); background: var(--cream); }
+.cart-close:hover { background: var(--terra); border-color: var(--terra); color: var(--cream); }
+.cart-item { border-bottom-color: var(--rule-soft); }
+.cart-item img { border-radius: 16px 16px 12px 12px / 22px 22px 12px 12px; border-color: var(--rule-soft); box-shadow: var(--sh-soft); }
+.ci-sum { color: var(--terra-d); }
+.ci-unit { color: var(--ink-4); letter-spacing: .12em; }
+.cart-foot { border-top-color: var(--rule); background: var(--cream); }
+.cp-track { background: var(--rule-soft); height: 4px; border-radius: 999px; }
+.cp-fill { background: linear-gradient(90deg, var(--peach-2), var(--terra)); border-radius: 999px; }
+.cp-msg { color: var(--ink-3); letter-spacing: .1em; }
+.cart-total { color: var(--ink-4); letter-spacing: .14em; }
+.cart-checkout { background: linear-gradient(135deg, #2fbf63, #25d366); color: #06210f; box-shadow: 0 12px 28px -10px rgba(37,211,102,.6); }
+.cart-checkout:hover { background: linear-gradient(135deg, #25d366, #57e693); }
+.back-to-top { background: var(--cream); border-color: var(--rule); box-shadow: var(--sh-card); }
+.back-to-top:hover { background: var(--terra); border-color: var(--terra); color: var(--cream); }
+
+/* ——— the arch reveal now matches the softer dome ——— */
+@keyframes archUp {
+  from { clip-path: inset(100% 0 0 0); transform: scale(1.05); }
+  to   { clip-path: inset(0 0 0 0);    transform: scale(1); }
+}
