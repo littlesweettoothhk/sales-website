@@ -27,8 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
       const tgt = document.querySelector(id);
       if (!tgt) return;
       e.preventDefault();
-      const navH = document.querySelector('.navbar')?.offsetHeight || 0;
-      window.scrollTo({ top: tgt.offsetTop - navH - 10, behavior: 'smooth' });
+      const nav = document.querySelector('.navbar');
+      const navH = nav?.offsetHeight || 0;
+      // the pill sticks 14px below the top, so clear both
+      const stickyTop = nav ? parseFloat(getComputedStyle(nav).top) || 0 : 0;
+      window.scrollTo({ top: tgt.offsetTop - navH - stickyTop - 16, behavior: 'smooth' });
       if (this.classList.contains('nav-link')) {
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         this.classList.add('active');

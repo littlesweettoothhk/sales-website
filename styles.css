@@ -1844,3 +1844,99 @@ body.cart-open { overflow: hidden; }
 
 section[id] { scroll-margin-top: 90px; }
 [hidden] { display: none !important; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   REFINEMENTS — layout, spacing and usability only.
+   No colours, type, radii, shadows or decoration are changed here.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ——— 1 · MOBILE NAVIGATION ————————————————————————————————————————
+   The pill scrolled horizontally below ~430px, showing a scrollbar and
+   clipping 首頁 and 聯絡 at rest. The six items now shrink to fit instead,
+   with the scroller kept only as a safety net and its bar hidden. */
+.nav-container { scrollbar-width: none; -ms-overflow-style: none; }
+.nav-container::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+@media (max-width: 720px) {
+  .navbar { margin: .6rem .7rem; }
+  .nav-container { gap: 0; padding: 5px; justify-content: space-between; }
+  .nav-link {
+    flex: 0 1 auto; min-width: 0;
+    font-size: clamp(11px, 3vw, 13px);
+    padding: .55rem clamp(.3rem, 1.7vw, .9rem);
+    white-space: nowrap;
+  }
+}
+@media (max-width: 400px) {
+  .navbar { margin: .5rem .5rem; }
+  .nav-container { padding: 4px; }
+  .nav-link { font-size: 10.5px; padding: .5rem .26rem; letter-spacing: 0; }
+}
+
+/* A selected item must not leave its heading under the sticky pill. The
+   navbar sticks at top:14px, so the clearance is its height plus that
+   offset — the old value only counted the height. */
+:root { --nav-clear: 14px; }
+section[id], main[id] {
+  scroll-margin-top: calc(var(--topbar-h, 56px) + var(--nav-clear) + 16px);
+}
+
+/* ——— 2 · ORDERING STEPS — same cards, tighter on small screens ——— */
+@media (max-width: 780px) {
+  .how { padding: .5rem 0 2.6rem; }
+  .how-grid { margin-top: 1.9rem; gap: 1.6rem; max-width: 460px; }
+  .how-step { padding: 1.9rem 1.1rem 1.3rem; }
+  .how-n { width: 36px; height: 36px; font-size: 1.2rem; top: -16px; }
+  .how-emoji { font-size: 1.6rem; margin-bottom: .35rem; }
+  .how-step h3 { font-size: 1.12rem; margin-bottom: .3rem; }
+  .how-step p { font-size: 14px; line-height: 1.6; }
+}
+@media (max-width: 420px) {
+  .how-grid { gap: 1.4rem; }
+  .how-step { padding: 1.75rem 1rem 1.2rem; }
+}
+
+/* ——— 3 · ORDER PANEL — compact, and it no longer covers anything ———
+   The body used flex:1, which pushed the footer to the bottom of the
+   drawer and left a gap under a short list. It now sizes to its content
+   and only scrolls once it runs out of room, so list, subtotal, progress
+   and the WhatsApp button stay together. */
+.cart-drawer { justify-content: flex-start; }
+.cart-body { flex: 0 1 auto; min-height: 0; padding: .85rem 1rem; }
+.cart-items { gap: .55rem; }
+.cart-item { padding: .65rem .7rem; border-radius: 16px; }
+.cart-item img { width: 52px; height: 52px; }
+.cart-foot { padding: .9rem 1rem 1rem; }
+.cart-progress { margin-bottom: .7rem; }
+.cart-total { padding-bottom: .6rem; }
+.cart-clear { margin-top: .5rem; }
+.cart-note { margin-top: .45rem; }
+.cart-head { padding: .95rem 1rem; }
+.cart-empty { padding: 2.2rem 1rem; }
+
+/* the fixed bar must never sit over the footer, contact block or QR */
+body:has(.order-bar.show) {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+}
+@media (max-width: 760px) {
+  body:has(.order-bar.show) { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
+}
+/* respect the phone's home indicator */
+.order-bar { bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+@media (max-width: 760px) {
+  .order-bar { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+  .back-to-top { bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important; }
+  .cart-drawer { height: min(92dvh, calc(100dvh - 24px)); }
+  .cart-foot { padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ——— 4 · CONTACT + QR — always clear of the sticky nav and the bar ——— */
+.contact { scroll-margin-top: calc(var(--topbar-h, 56px) + var(--nav-clear) + 16px); }
+.qr-card { max-width: 100%; }
+.qr-card img { max-width: 100%; height: auto; }
+
+/* ——— 5 · RESPONSIVE — nothing clipped, nothing scrolling sideways ——— */
+html, body { max-width: 100%; }
+.container, .hero-grid, .head-row { max-width: 100%; }
+img, svg { max-width: 100%; }
+.strip-row { will-change: transform; }
