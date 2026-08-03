@@ -150,12 +150,72 @@
 
     prev.addEventListener('click', function () { scrollToCard(current() - 1); });
     next.addEventListener('click', function () { scrollToCard(current() + 1); });
+    // covers every way the rail can move: arrows, dots, a trackpad swipe, a
+    // drag, a keypress or the browser restoring a position
     grid.addEventListener('scroll', function () {
       window.clearTimeout(grid._t);
       grid._t = window.setTimeout(sync, 60);
     }, { passive: true });
     window.addEventListener('resize', sync);
     sync();
+
+    // ── keyboard ────────────────────────────────────────────────────
+    grid.setAttribute('tabindex', '0');
+    grid.setAttribute('role', 'group');
+    grid.addEventListener('keydown', function (e) {
+      if (shelf.getAttribute('data-view') === 'all') return;
+      if (e.key === 'ArrowRight')     { e.preventDefault(); scrollToCard(current() + 1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); scrollToCard(current() - 1); }
+      else if (e.key === 'Home')      { e.preventDefault(); scrollToCard(0); }
+      else if (e.key === 'End')       { e.preventDefault(); scrollToCard(cards.length - 1); }
+    });
+
+    // ── mouse drag ──────────────────────────────────────────────────
+    // Snapping is switched off mid-drag: with `scroll-snap-type: x mandatory`
+    // still on, every setting of scrollLeft is yanked back to the nearest
+    // card and the rail refuses to follow the pointer.
+    var down = false, startX = 0, startLeft = 0, moved = 0;
+
+    grid.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      if (shelf.getAttribute('data-view') === 'all') return;
+      if (grid.scrollWidth <= grid.clientWidth) return;
+      down = true; moved = 0;
+      startX = e.clientX;
+      startLeft = grid.scrollLeft;
+      grid.classList.add('dragging');
+    });
+
+    grid.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 3 && !grid.hasPointerCapture(e.pointerId)) {
+        grid.setPointerCapture(e.pointerId);
+      }
+      moved = Math.max(moved, Math.abs(dx));
+      grid.scrollLeft = startLeft - dx;
+    });
+
+    var endDrag = function (e) {
+      if (!down) return;
+      down = false;
+      grid.classList.remove('dragging');
+      if (e && e.pointerId != null && grid.hasPointerCapture(e.pointerId)) {
+        grid.releasePointerCapture(e.pointerId);
+      }
+      // settle on the nearest card, then hand snapping back
+      scrollToCard(current());
+      sync();
+    };
+    grid.addEventListener('pointerup', endDrag);
+    grid.addEventListener('pointercancel', endDrag);
+    grid.addEventListener('pointerleave', endDrag);
+
+    // a drag must not also count as a click on the card underneath
+    grid.addEventListener('click', function (e) {
+      if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+    grid.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     // "view all flavours" unrolls the rail so nothing stays hidden
     var all = shelf.querySelector('.view-all');

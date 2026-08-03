@@ -54,8 +54,9 @@
   margin: 0 0 1rem;
   min-height: 40px;
 }
+/* the rail controls are shown at every width — the shelf scrolls everywhere */
 .shelf-rail-ui {
-  display: none;               /* desktop shows the grid, not the rail */
+  display: flex;
   align-items: center;
   gap: .55rem;
 }
@@ -161,38 +162,67 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   2 · THE EDITORIAL COUNTER GRID  (desktop)
+   2 · THE SHELF RAIL
+
+   One behaviour at every width: a horizontal shelf you scroll along, cards
+   in catalogue order, all on the same baseline, all the same size. Only how
+   many fit at once changes. --per is how many cards the rail shows; the
+   fraction is the slice of the next card left visible, so the shelf reads as
+   "there is more along here" before anyone touches it.
    ══════════════════════════════════════════════════════════════════ */
 
 .shelf-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: clamp(1rem, 2.1vw, 1.9rem);
-  align-items: start;
+  --gap: clamp(.9rem, 1.8vw, 1.6rem);
+  --per: 3.3;
+  --count: 99;                   /* the markup overrides this per collection */
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;          /* one baseline, equal heights */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 2px;
+  padding: 6px 2px 1.6rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+.shelf-grid::-webkit-scrollbar { width: 0; height: 0; display: none; }
+.shelf-grid.dragging { cursor: grabbing; scroll-snap-type: none; }
+.shelf-grid:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+  border-radius: 20px;
 }
 
-/* two jars — a wide feature and a smaller companion dropped down a step */
-.shelf-grid[data-layout="pair"] > .sc:nth-child(1) { grid-column: 1 / 8; }
-.shelf-grid[data-layout="pair"] > .sc:nth-child(2) { grid-column: 8 / 13; margin-top: 3.6rem; }
+.shelf-grid > .sc {
+  /* Every card the same width: the rail minus the gaps, divided by how many
+     are shown. A collection with fewer flavours than that fills the shelf
+     instead of huddling at one end, hence the min() against --count. */
+  --shown: min(var(--per), var(--count));
+  flex: 0 0 calc((100% - (var(--shown) - 1) * var(--gap)) / var(--shown));
+  scroll-snap-align: start;
+}
 
-/* five large brookies — one hero, four arranged around it */
-.shelf-grid[data-layout="counter"] > .sc:nth-child(1) { grid-column: 1 / 7;  grid-row: 1 / 3; }
-.shelf-grid[data-layout="counter"] > .sc:nth-child(2) { grid-column: 7 / 10; grid-row: 1; }
-.shelf-grid[data-layout="counter"] > .sc:nth-child(3) { grid-column: 10 / 13; grid-row: 1; margin-top: 2.2rem; }
-.shelf-grid[data-layout="counter"] > .sc:nth-child(4) { grid-column: 7 / 10; grid-row: 2; }
-.shelf-grid[data-layout="counter"] > .sc:nth-child(5) { grid-column: 10 / 13; grid-row: 2; margin-top: 2.2rem; }
-
-/* a hand-placed tilt, different per position, never more than a degree or two */
-.shelf-grid > .sc:nth-child(odd)  { --tilt: -.9deg; }
-.shelf-grid > .sc:nth-child(even) { --tilt:  .8deg; }
-.shelf-grid > .sc:nth-child(3n)   { --tilt: -1.3deg; }
+/* three cards and a slice of the fourth on a large desktop */
+@media (min-width: 1280px) { .shelf-grid { --per: 3.3; } }
+/* two and a good slice while the window is still desktop-sized — 2.7 left
+   most of a third card showing, which reads as a card that failed to fit */
+@media (min-width: 1024px) and (max-width: 1279.98px) { .shelf-grid { --per: 2.35; } }
+/* two and a slice on a tablet */
+@media (min-width: 760px) and (max-width: 1023.98px) { .shelf-grid { --per: 2.25; } }
+/* one card and a slice of the next on a phone */
+@media (max-width: 759.98px) { .shelf-grid { --per: 1.2; } }
 
 /* ══════════════════════════════════════════════════════════════════
    3 · THE PRODUCT CARD
    ══════════════════════════════════════════════════════════════════ */
 
+/* Every card is the same: same box, same photo area, same order of parts.
+   No resting rotation and no per-position offset — the shelf has to look
+   deliberately arranged, not scattered. */
 .sc {
-  --tilt: 0deg;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -202,36 +232,32 @@
   box-shadow:
     0 2px 0 rgba(255,255,255,.7) inset,
     0 14px 30px -14px rgba(120,70,35,.34);
-  transform: rotate(var(--tilt));
-  transition: transform .42s var(--ease), box-shadow .42s var(--ease),
+  transition: transform .38s var(--ease), box-shadow .38s var(--ease),
               border-color .3s var(--ease);
-  will-change: transform;
 }
 
-/* a second sheet of paper peeking out behind — layered, handmade */
+/* a second sheet of paper behind, offset the same way on every card */
 .sc::before {
   content: "";
-  position: absolute; inset: 6px -6px -8px 6px;
+  position: absolute; inset: 7px -5px -7px 5px;
   border-radius: inherit;
   background: var(--cream);
   border: 1.5px solid var(--rule);
-  transform: rotate(1.4deg);
   z-index: -1;
-  opacity: .75;
-  transition: transform .42s var(--ease), opacity .42s var(--ease);
+  opacity: .6;
+  transition: transform .38s var(--ease), opacity .38s var(--ease);
 }
-.sc:nth-child(even)::before { transform: rotate(-1.6deg); }
 
 .sc:hover,
 .sc:focus-within {
-  transform: rotate(0deg) translateY(-10px);
+  transform: translateY(-8px);
   box-shadow:
     0 2px 0 rgba(255,255,255,.7) inset,
     0 30px 54px -20px rgba(120,70,35,.44);
   border-color: var(--peach-2);
 }
 .sc:hover::before,
-.sc:focus-within::before { transform: rotate(3deg); opacity: .95; }
+.sc:focus-within::before { transform: translate(3px, 4px); opacity: .9; }
 
 /* chosen: a warm ring and a deeper shadow, so the shelf shows what's in the order */
 .sc.in-order {
@@ -277,14 +303,26 @@
   background: linear-gradient(150deg, var(--butter-2), var(--peach));
   border-radius: 22px 22px 0 0;
 }
-/* the featured card gets the bakery-window arch */
-.sc.is-featured .sc-open,
-.sc.is-featured .sc-frame { border-radius: 190px 190px 6px 6px; }
-.sc.is-featured .sc-frame { aspect-ratio: 4 / 5; }
+/* A soft bakery-window dome, identical on every card, so the photographs
+   line up. The featured flavour is marked with a ring and a word, not with
+   a different shape or a bigger photo. */
+.sc-open,
+.sc-frame { border-radius: 78px 78px 0 0; }
+
+/* the first flavour of a collection is marked with a warm ring only — same
+   card, same photo area, no extra words */
+.sc.is-featured {
+  border-color: var(--peach-2);
+  box-shadow:
+    0 0 0 2.5px rgba(217,176,131,.35),
+    0 2px 0 rgba(255,255,255,.7) inset,
+    0 14px 30px -14px rgba(120,70,35,.34);
+}
 
 .sc-frame img {
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: cover;               /* never stretched; cropped evenly */
+  object-position: center;
   transform: scale(1.02);
   transition: transform .8s var(--ease), filter .5s var(--ease);
 }
@@ -323,10 +361,11 @@
 .sc:hover .sc-peek,
 .sc:focus-within .sc-peek { opacity: 1; transform: translate(-50%, 0); }
 
-/* the flavour tag, pinned on at an angle */
+/* The flavour tag, pinned on at an angle. It sits centred because the top
+   corners of the frame are domed — pinned into a corner it gets clipped. */
 .sc-tag {
   position: absolute;
-  top: 14px; left: 14px;
+  top: 14px; left: 50%;
   z-index: 2;
   padding: .28rem .78rem;
   border-radius: 999px;
@@ -337,14 +376,8 @@
   color: var(--cream);
   background: var(--accent);
   box-shadow: 0 6px 14px -6px rgba(120,60,25,.75);
-  transform: rotate(-4deg);
-}
-/* The featured card's frame is an arch, and its top-left corner is cut away —
-   a tag pinned there gets clipped. On the arch it sits centred instead. */
-.sc.is-featured .sc-tag {
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-3deg);
+  transform: translateX(-50%) rotate(-4deg);
+  white-space: nowrap;
 }
 
 /* same three tag colours the original menu used */
@@ -372,7 +405,6 @@
   line-height: 1.25;
   color: var(--cocoa-d);
 }
-.sc.is-featured .sc-name { font-size: clamp(1.3rem, 2vw, 1.72rem); }
 .sc-sub {
   font-family: var(--font-sans);
   font-size: 12.5px;
@@ -381,7 +413,6 @@
   text-transform: uppercase;
   color: var(--mute);
 }
-.sc.is-featured .sc-sub { font-size: 13.5px; }
 
 .sc-price {
   display: flex; align-items: baseline; gap: .5rem;
@@ -402,7 +433,6 @@
   font-size: 1.3rem;
   color: var(--accent);
 }
-.sc.is-featured .sc-val { font-size: 1.6rem; }
 
 .sc-more {
   align-self: flex-start;
@@ -425,7 +455,7 @@
 /* touch feedback */
 .sc-open:active .sc-frame img { transform: scale(1.04); }
 @media (hover: none) {
-  .sc:active { transform: rotate(0deg) translateY(-4px) scale(.995); }
+  .sc:active { transform: translateY(-4px) scale(.995); }
   .sc-peek { opacity: .9; transform: translate(-50%, 0); }
 }
 
@@ -439,70 +469,37 @@
 .qty-n { display: inline-block; }
 
 /* ══════════════════════════════════════════════════════════════════
-   4 · MOBILE — the swipeable rail
+   4 · VIEW ALL, AND THE NARROW END OF THE RAIL
    ══════════════════════════════════════════════════════════════════ */
+
+/* "View all flavours" turns the shelf into a plain aligned grid: equal
+   columns, one baseline per row, no offsets and no tilts. */
+.shelf[data-view="all"] .shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: visible;
+  scroll-snap-type: none;
+  padding-bottom: .4rem;
+  cursor: default;
+}
+.shelf[data-view="all"] .shelf-grid > .sc { flex: initial; }
+.shelf[data-view="all"] .shelf-rail-ui { display: none; }
+/* the sheet behind each card would poke out of a grid that no longer clips */
+.shelf[data-view="all"] .sc::before { display: none; }
+
+@media (max-width: 1023.98px) {
+  .shelf[data-view="all"] .shelf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639.98px) {
+  .shelf[data-view="all"] .shelf-grid { grid-template-columns: minmax(0, 1fr); }
+}
 
 @media (max-width: 900px) {
   .shelf-bar { justify-content: space-between; }
-  .shelf-rail-ui { display: flex; }
-
-  .shelf-grid {
-    display: flex;
-    grid-template-columns: none;
-    gap: .9rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 2px;
-    padding: 6px 2px 1.4rem;
-    /* the rail scrolls, but never shows a bar */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-  }
-  .shelf-grid::-webkit-scrollbar { width: 0; height: 0; display: none; }
-
-  .shelf-grid > .sc {
-    flex: 0 0 82%;              /* ~18% of the next card stays in view */
-    scroll-snap-align: start;
-    grid-column: auto !important;
-    grid-row: auto !important;
-    margin-top: 0 !important;
-  }
-  /* the tilt is set per position above, so the reset has to match that
-     specificity — otherwise a rotated card pokes out of the rail */
-  .shelf-grid > .sc:nth-child(odd),
-  .shelf-grid > .sc:nth-child(even),
-  .shelf-grid > .sc:nth-child(3n) { --tilt: 0deg; }
-  .shelf-grid > .sc::before { display: none; }
-
-  /* one card per row is the whole point — the arch stays for the feature */
-  .sc.is-featured .sc-frame { aspect-ratio: 1 / 1; }
-  .sc.is-featured .sc-open,
-  .sc.is-featured .sc-frame { border-radius: 150px 150px 6px 6px; }
-
-  /* "view all" unrolls the rail into a plain grid, nothing hidden */
-  .shelf[data-view="all"] .shelf-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
-    overflow: visible;
-    scroll-snap-type: none;
-    padding-bottom: .4rem;
-  }
-  .shelf[data-view="all"] .shelf-grid > .sc { flex: initial; }
-  .shelf[data-view="all"] .shelf-rail-ui { display: none; }
-  .shelf[data-view="all"] .sc-frame,
-  .shelf[data-view="all"] .sc.is-featured .sc-frame { aspect-ratio: 1 / 1; }
-  .shelf[data-view="all"] .sc.is-featured .sc-open,
-  .shelf[data-view="all"] .sc.is-featured .sc-frame { border-radius: 22px 22px 0 0; }
-  .shelf[data-view="all"] .sc.is-featured .sc-name { font-size: 1.06rem; }
-  .shelf[data-view="all"] .sc.is-featured .sc-val  { font-size: 1.3rem; }
-
   .shelf-plank { margin-top: .2rem; height: 13px; }
 }
 
 @media (max-width: 480px) {
-  .shelf-grid > .sc { flex: 0 0 84%; }
   .sc-body { padding: .9rem 1rem .2rem; }
   .sc .pc-add { padding: .6rem 1rem 1rem; }
 
@@ -949,6 +946,6 @@ body.pv-open { overflow: hidden; }
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
   }
-  .sc:hover { transform: rotate(var(--tilt)) translateY(-3px); }
+  .sc:hover { transform: translateY(-3px); }
   .sc:hover .sc-frame img { transform: scale(1.02); }
 }
