@@ -1141,7 +1141,7 @@ footer.site-foot {
   line-height: 1;
 }
 .pc-price .pc-p-val {
-  font-family: var(--script-serif);
+  font-family: var(--font-serif);
   font-variation-settings: "opsz" 144;
   font-weight: 500;
   font-size: 1.3rem;
