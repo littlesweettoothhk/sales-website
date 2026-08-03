@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const tgt = document.querySelector(id);
       if (!tgt) return;
       e.preventDefault();
-      const navH = document.querySelector('.topbar')?.offsetHeight || 0;
+      const navH = document.querySelector('.navbar')?.offsetHeight || 0;
       window.scrollTo({ top: tgt.offsetTop - navH - 10, behavior: 'smooth' });
       if (this.classList.contains('nav-link')) {
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (sections.length) {
     const setActive = () => {
-      const navH = document.querySelector('.topbar')?.offsetHeight || 0;
+      const navH = document.querySelector('.navbar')?.offsetHeight || 0;
       const line = window.scrollY + navH + 20;
       // Last section whose top has passed the nav line; falls back to the first.
       let current = sections[0];
@@ -141,12 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Header height drives anchor offsets and the sticky product image.
-  const topbarEl = document.querySelector('.topbar');
-  if (topbarEl) {
+  const navEl = document.querySelector('.navbar');
+  if (navEl) {
     const setH = () => document.documentElement.style.setProperty(
-      '--topbar-h', topbarEl.offsetHeight + 'px');
+      '--topbar-h', navEl.offsetHeight + 'px');
     setH();
     window.addEventListener('resize', setH);
-    if (window.ResizeObserver) new ResizeObserver(setH).observe(topbarEl);
+    if (window.ResizeObserver) new ResizeObserver(setH).observe(navEl);
   }
 });
