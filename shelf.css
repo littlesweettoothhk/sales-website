@@ -100,31 +100,6 @@
   border-radius: 4px;
 }
 
-/* "view all flavours" — a hand-written tag pinned to the shelf */
-.view-all {
-  display: inline-flex; align-items: center; gap: .4rem;
-  padding: .42rem 1rem;
-  border-radius: 999px;
-  border: 1.6px dashed var(--peach-2);
-  background: rgba(255,250,240,.8);
-  color: var(--cocoa);
-  font-family: var(--font-script);
-  font-size: 1.12rem;
-  font-weight: 600;
-  line-height: 1.2;
-  white-space: nowrap;          /* never let the label break onto two lines */
-  flex: 0 0 auto;
-  transition: transform .25s var(--ease), background .25s var(--ease),
-              border-color .25s var(--ease), color .25s var(--ease);
-}
-.view-all .i { width: 15px; height: 15px; stroke-width: 2.4; transition: transform .3s var(--ease); }
-.view-all:hover {
-  background: var(--accent); color: var(--cream);
-  border-color: var(--accent);
-  transform: translateY(-2px) rotate(-1.5deg);
-}
-.shelf[data-view="all"] .view-all .i { transform: rotate(180deg); }
-
 /* ── the plank the cards stand on ─────────────────────────────────── */
 .shelf-plank {
   position: relative;
@@ -470,33 +445,10 @@
 .qty-n { display: inline-block; }
 
 /* ══════════════════════════════════════════════════════════════════
-   4 · VIEW ALL, AND THE NARROW END OF THE RAIL
+   4 · THE NARROW END OF THE RAIL
    ══════════════════════════════════════════════════════════════════ */
 
-/* "View all flavours" turns the shelf into a plain aligned grid: equal
-   columns, one baseline per row, no offsets and no tilts. */
-.shelf[data-view="all"] .shelf-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  overflow: visible;
-  scroll-snap-type: none;
-  padding-bottom: .4rem;
-  cursor: default;
-}
-.shelf[data-view="all"] .shelf-grid > .sc { flex: initial; }
-.shelf[data-view="all"] .shelf-rail-ui { display: none; }
-/* the sheet behind each card would poke out of a grid that no longer clips */
-.shelf[data-view="all"] .sc::before { display: none; }
-
-@media (max-width: 1023.98px) {
-  .shelf[data-view="all"] .shelf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 639.98px) {
-  .shelf[data-view="all"] .shelf-grid { grid-template-columns: minmax(0, 1fr); }
-}
-
 @media (max-width: 900px) {
-  .shelf-bar { justify-content: space-between; }
   .shelf-plank { margin-top: .2rem; height: 13px; }
 }
 
@@ -504,21 +456,11 @@
   .sc-body { padding: .9rem 1rem .2rem; }
   .sc .pc-add { padding: .6rem 1rem 1rem; }
 
-  /* the toolbar has to hold the label and three controls on a narrow phone */
   .shelf-bar { gap: .5rem .45rem; }
-  .view-all { font-size: 1rem; padding: .38rem .72rem; }
   .rail-btn { width: 36px; height: 36px; }
   .rail-btn .i { width: 16px; height: 16px; }
   .rail-dots { gap: 5px; }
   .rail-dot.on { width: 16px; }
-}
-
-/* below this the label and the five dots stop sharing a line, so the rail
-   controls take their own row and centre under the label */
-@media (max-width: 400px) {
-  .shelf-bar { justify-content: center; }
-  .view-all { flex: 1 1 100%; justify-content: center; }
-  .shelf-rail-ui { flex: 0 0 auto; }
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -943,7 +885,7 @@ body.pv-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .sc, .sc::before, .sc-frame img, .pv, .rb-badge, .rb-emoji,
-  .rail-btn, .rail-dot, .view-all, .pd-arrow, .pd-sticky {
+  .rail-btn, .rail-dot, .pd-arrow, .pd-sticky {
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
   }

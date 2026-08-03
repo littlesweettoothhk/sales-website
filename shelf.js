@@ -163,7 +163,6 @@
     grid.setAttribute('tabindex', '0');
     grid.setAttribute('role', 'group');
     grid.addEventListener('keydown', function (e) {
-      if (shelf.getAttribute('data-view') === 'all') return;
       if (e.key === 'ArrowRight')     { e.preventDefault(); scrollToCard(current() + 1); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); scrollToCard(current() - 1); }
       else if (e.key === 'Home')      { e.preventDefault(); scrollToCard(0); }
@@ -178,7 +177,6 @@
 
     grid.addEventListener('pointerdown', function (e) {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
-      if (shelf.getAttribute('data-view') === 'all') return;
       if (grid.scrollWidth <= grid.clientWidth) return;
       down = true; moved = 0;
       startX = e.clientX;
@@ -216,18 +214,6 @@
       if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; }
     }, true);
     grid.addEventListener('dragstart', function (e) { e.preventDefault(); });
-
-    // "view all flavours" unrolls the rail so nothing stays hidden
-    var all = shelf.querySelector('.view-all');
-    if (all) {
-      all.addEventListener('click', function (e) {
-        e.preventDefault();
-        var open = shelf.getAttribute('data-view') === 'all';
-        shelf.setAttribute('data-view', open ? 'rail' : 'all');
-        all.setAttribute('aria-expanded', open ? 'false' : 'true');
-        if (open) { grid.scrollLeft = 0; sync(); }
-      });
-    }
   }
 
   /* ════════════════════════════════════════════════════════════════
