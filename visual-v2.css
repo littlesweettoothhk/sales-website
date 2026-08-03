@@ -1,0 +1,852 @@
+/*
+  Little Sweet Tooth — "Warm Editorial Patisserie Theatre"
+
+  A visual layer only. Everything here is art direction: composition, depth,
+  texture, typography and motion. It changes nothing about the catalogue, the
+  shelf behaviour, the preview, the cart or the WhatsApp hand-off.
+
+  Isolation: every rule is scoped under .v2 on <html> and targets an existing
+  component class. Removing the two <link>/<script> lines from a page removes
+  the entire redesign from that page with no other edit.
+
+  Load order: styles.css → shelf.css → product.css → visual-v2.css.
+*/
+
+.v2 {
+  /* one motion language: paper sliding, a card set down, a stamp pressed */
+  --paper-ease:  cubic-bezier(.22, .68, .28, 1);
+  --stamp-ease:  cubic-bezier(.34, 1.4, .48, 1);
+  --slide:       .72s;
+  --settle:      .5s;
+
+  /* warm ink for hairlines and stamps, all from the existing palette */
+  --ink-line: rgba(146, 120, 98, .5);
+  --ink-soft: rgba(146, 120, 98, .22);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   1 · PAGE ATMOSPHERE
+   Warm light that changes as you move down the page, so the sections
+   read as one continuous room rather than a stack of cards.
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 body::before {
+  background:
+    radial-gradient(760px 520px at 8% 2%,   rgba(217,176,131,.50), transparent 62%),
+    radial-gradient(620px 480px at 96% 12%, rgba(181,102,56,.20),  transparent 66%),
+    radial-gradient(900px 620px at 88% 52%, rgba(243,226,196,.72), transparent 62%),
+    radial-gradient(680px 520px at 4% 68%,  rgba(236,206,170,.46), transparent 62%),
+    radial-gradient(900px 700px at 50% 104%,rgba(217,176,131,.42), transparent 66%);
+}
+
+/* a very fine paper tooth over the whole page */
+.v2 body::after {
+  background-image:
+    repeating-linear-gradient(0deg,   rgba(120,80,45,.030) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg,  rgba(120,80,45,.022) 0 1px, transparent 1px 4px);
+  opacity: .85;
+}
+
+/* ── section rhythm ─────────────────────────────────────────────── */
+.v2 main { counter-reset: chapter; }
+
+.v2 main > section[id]:not(.hero) { position: relative; }
+.v2 main > section[id]:not(.hero) > .container { position: relative; z-index: 1; }
+
+/* a torn paper edge carried from one section into the next */
+.v2 main > section[id]:not(.hero)::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  height: 46px;
+  background:
+    radial-gradient(14px 14px at 14px 0, transparent 13px, rgba(255,250,240,.55) 14px) 0 0 / 28px 46px repeat-x;
+  opacity: .55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── the section header becomes a stamped chapter opening ───────── */
+.v2 .section-header,
+.v2 .menu-section-head { position: relative; }
+
+/* a hairline with a flower, drawn in as the section arrives */
+.v2 .section-header::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: -26px;
+  width: min(240px, 40vw); height: 1.5px;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: 50% 50%;
+  background: linear-gradient(90deg, transparent, var(--ink-line) 22%, var(--ink-line) 78%, transparent);
+  transition: transform 1s var(--paper-ease) .1s;
+}
+.v2 .section-header.in::before { transform: translateX(-50%) scaleX(1); }
+
+/* the stamped chapter number */
+.v2 main > section[id]:not(.hero) .section-header .eyebrow { position: relative; }
+.v2 main > section[id]:not(.hero) .section-header .eyebrow::before {
+  counter-increment: chapter;
+  content: "0" counter(chapter);
+  position: absolute;
+  left: 50%; top: -74px;
+  transform: translateX(-50%) rotate(-7deg) scale(.6);
+  opacity: 0;
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1.5px dashed var(--peach-2);
+  background: rgba(255,250,240,.72);
+  font-family: var(--font-sans);
+  font-size: 12px; font-weight: 800;
+  letter-spacing: .06em;
+  color: var(--accent);
+  transition: transform .5s var(--stamp-ease) .18s, opacity .3s linear .18s;
+}
+/* the base rule above carries the whole `main > section[id]:not(.hero)` path,
+   so the visible state has to match it or it never wins */
+.v2 main > section[id]:not(.hero) .section-header.in .eyebrow::before {
+  opacity: 1;
+  transform: translateX(-50%) rotate(-7deg) scale(1);
+}
+
+/* An oversized ghost of the heading, riding high behind it. Sat level with
+   the heading it read as a misprint — especially in Chinese, where the two
+   overlap glyph for glyph. Most of it is above the header; only the foot of
+   the letters shows through, as texture. */
+.v2 .sec-ghost {
+  position: absolute;
+  left: 50%; top: 0;
+  transform: translate(-50%, -58%);
+  z-index: -1;
+  max-width: 100%;
+  overflow: hidden;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(4rem, 13vw, 10rem);
+  line-height: .9;
+  white-space: nowrap;
+  color: rgba(181,102,56,.055);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   2 · SIGNATURE MOMENT 1 — THE CINEMATIC HERO
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .hero {
+  position: relative;
+  padding: 3.6rem 0 6rem;
+  isolation: isolate;
+}
+
+/* the same market photograph, enlarged and blurred, as ambient light —
+   a treatment of the one photograph, not a second picture */
+/* Both ambient layers stay inside the hero on the inline axis. Bleeding
+   sideways widened the document by ~226px and put the whole page on a
+   horizontal scroll. */
+.v2 .hero::before {
+  content: "";
+  position: absolute;
+  inset: -6% 0 4%;
+  z-index: -2;
+  background: url("./src/market.webp") center 32% / cover no-repeat;
+  filter: blur(46px) saturate(1.15) brightness(1.12);
+  opacity: .3;
+  pointer-events: none;
+}
+/* a warm spotlight over that ambient layer */
+.v2 .hero::after {
+  content: "";
+  position: absolute;
+  inset: -6% 0 4%;
+  z-index: -1;
+  background:
+    radial-gradient(62% 58% at 68% 38%, rgba(255,248,236,.86), rgba(250,242,227,.55) 42%, rgba(236,206,170,.28) 68%, transparent 82%),
+    linear-gradient(180deg, rgba(250,242,227,.35), rgba(250,242,227,.9));
+  pointer-events: none;
+}
+
+.v2 .hero-grid {
+  max-width: 1220px;
+  gap: clamp(1.6rem, 4vw, 4rem);
+  align-items: center;
+}
+
+/* ── the headline, oversized and overlapping ────────────────────── */
+.v2 .hero-copy { z-index: 2; }
+.v2 .hero-title {
+  font-size: clamp(3rem, 7.4vw, 6.6rem);
+  line-height: .95;
+  letter-spacing: -.022em;
+  margin-bottom: 1.5rem;
+}
+.v2 .hero-title .line-a { margin-left: -.03em; }
+.v2 .hero-title em {
+  transform: rotate(-3.4deg);
+  margin-left: .06em;
+  text-shadow: 0 2px 0 rgba(255,250,240,.75);
+}
+
+/* The brand name, huge and faint, drifting behind the headline. It is
+   deliberately wider than the column, so it lives in a clipping band —
+   loose, it pushed the document 111px wide on a phone. */
+.v2 .hero-ghost-wrap {
+  position: absolute;
+  left: 0; right: 0; top: -.06em;
+  height: 1.02em;               /* exactly one line: cropped sideways, not through */
+  overflow: hidden;
+  z-index: -1;
+  font-size: clamp(4.2rem, 12vw, 10rem);
+  pointer-events: none;
+}
+.v2 .hero-ghost {
+  display: block;
+  margin-left: -6%;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1em;                 /* the band above sets the scale */
+  line-height: 1.02;
+  letter-spacing: -.03em;
+  white-space: nowrap;
+  color: rgba(181,102,56,.075);
+  pointer-events: none;
+  user-select: none;
+}
+
+.v2 .hero-lede {
+  font-size: 1.12rem;
+  max-width: 44ch;
+  text-shadow: 0 1px 0 rgba(255,250,240,.6);
+}
+
+/* ── the paper-cut window the photograph sits in ────────────────── */
+.v2 .hero-media {
+  display: block;               /* was `contents`; it becomes the frame now */
+  position: relative;
+  z-index: 1;
+}
+
+/* The cut sheets live in a bounded stage. Hung off .hero-media directly
+   they bled a percentage of the column, which the hero grid's 1.6rem of
+   padding absorbed at 1440 but not at 1024 and below — the page picked up
+   8–11px of horizontal scroll. A fixed 20px stage always fits inside that
+   padding, and clipping the sheets suits the paper-cut idea anyway. */
+.v2 .hero-cut {
+  position: absolute;
+  inset: -20px;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+/* the cut sheet behind the window, offset — the asymmetry of the frame */
+.v2 .hero-cut::before {
+  content: "";
+  position: absolute;
+  inset: 8% 2% -2% 10%;
+  border-radius: 52% 48% 46% 54% / 46% 52% 48% 54%;
+  background: linear-gradient(155deg, var(--cream), var(--butter-2));
+  border: 1.5px solid rgba(255,255,255,.75);
+  box-shadow: 0 30px 60px -30px rgba(110,66,32,.5);
+  transform: rotate(3.4deg);
+}
+/* a second, fainter cut sheet the other way */
+.v2 .hero-cut::after {
+  content: "";
+  position: absolute;
+  inset: -1% 10% 12% 1%;
+  border-radius: 48% 52% 54% 46% / 52% 46% 54% 48%;
+  border: 1.5px dashed rgba(217,176,131,.75);
+  transform: rotate(-5deg);
+}
+
+.v2 .hero-figure {
+  z-index: 1;
+  border: 8px solid var(--paper, #fffaf0);
+  box-shadow:
+    0 26px 60px -26px rgba(110,66,32,.55),
+    0 6px 16px -8px rgba(110,66,32,.35);
+}
+
+/* ── floating hand-drawn marks ──────────────────────────────────── */
+.v2 .hero-marks {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+.v2 .hero-mark {
+  position: absolute;
+  color: var(--peach-2);
+  opacity: 0;
+  transform: translateY(14px) scale(.7) rotate(var(--r, 0deg));
+  transition: opacity .5s linear, transform .7s var(--stamp-ease);
+}
+.v2 .hero-mark svg { width: 100%; height: 100%; display: block; }
+.v2 .entered .hero-mark { opacity: var(--o, .55); transform: translateY(0) scale(1) rotate(var(--r, 0deg)); }
+
+.v2 .hero-mark.m1 { left: 6%;  top: 16%; width: 42px; height: 42px; --r: -14deg; --o: .5;  transition-delay: .74s; color: var(--rose); }
+.v2 .hero-mark.m2 { left: 40%; top: 6%;  width: 30px; height: 30px; --r: 12deg;  --o: .42; transition-delay: .82s; color: var(--peach-2); }
+.v2 .hero-mark.m3 { right: 4%; top: 30%; width: 54px; height: 54px; --r: 9deg;   --o: .38; transition-delay: .9s;  color: var(--accent); }
+.v2 .hero-mark.m4 { left: 12%; bottom: 12%; width: 46px; height: 46px; --r: -8deg; --o: .34; transition-delay: .98s; color: var(--leaf); }
+.v2 .hero-mark.m5 { right: 16%; bottom: 6%; width: 34px; height: 34px; --r: 16deg; --o: .45; transition-delay: 1.06s; color: var(--rose); }
+
+/* the existing doodles join the same system */
+.v2 .hero .doodle { transition: opacity .6s linear .9s; opacity: 0; }
+.v2 .hero.entered .doodle { opacity: .5; }
+
+/* ── the entrance sequence ──────────────────────────────────────── */
+/* 1 warm light · 2 brand + headline · 3 photograph through its frame
+   4 decorative marks settle · 5 calls to action.  ~1.2s end to end, and
+   nothing is ever pointer-blocked while it runs. */
+.v2 .hero::before,
+.v2 .hero::after { opacity: 0; transition: opacity .6s linear; }
+.v2 .hero.entered::before { opacity: .3; }
+.v2 .hero.entered::after  { opacity: 1; }
+
+.v2 .hero-ghost-wrap,
+.v2 .hero-title,
+.v2 .hero-lede,
+.v2 .hero-ctas,
+.v2 .hero-cut::before,
+.v2 .hero-cut::after { opacity: 0; }
+
+.v2 .hero-title { transform: translateY(22px); transition: opacity .5s linear .12s, transform var(--slide) var(--paper-ease) .12s; }
+.v2 .hero-ghost-wrap { transition: opacity .8s linear .06s; }
+.v2 .hero-lede  { transform: translateY(16px); transition: opacity .5s linear .3s, transform var(--slide) var(--paper-ease) .3s; }
+.v2 .hero-ctas  { transform: translateY(14px); transition: opacity .5s linear .62s, transform var(--settle) var(--paper-ease) .62s; }
+
+.v2 .hero.entered .hero-title,
+.v2 .hero.entered .hero-lede,
+.v2 .hero.entered .hero-ctas { opacity: 1; transform: none; }
+.v2 .hero.entered .hero-ghost-wrap { opacity: 1; }
+
+.v2 .hero-cut::before { transition: opacity .6s linear .5s; }
+.v2 .hero-cut::after  { transition: opacity .6s linear .58s; }
+.v2 .hero.entered .hero-cut::before { opacity: 1; }
+.v2 .hero.entered .hero-cut::after  { opacity: 1; }
+
+/* the photograph is revealed through the frame rather than faded in */
+.v2 .hero-figure {
+  clip-path: inset(0 0 0 0 round 46% 54% 52% 48% / 48% 44% 56% 52%);
+}
+.v2 .hero-figure img {
+  opacity: 0;
+  transform: scale(1.12);
+  transition: opacity .5s linear .34s, transform 1.1s var(--paper-ease) .34s;
+}
+.v2 .hero.entered .hero-figure img { opacity: 1; transform: scale(1); }
+
+.v2 .hero-sticker, .v2 .hero-tape {
+  opacity: 0;
+  transition: opacity .45s linear .8s, transform .55s var(--stamp-ease) .8s;
+}
+.v2 .hero-sticker { transform: rotate(-12deg) scale(.6); }
+.v2 .hero.entered .hero-sticker { opacity: 1; transform: rotate(-12deg) scale(1); }
+.v2 .hero.entered .hero-tape { opacity: 1; }
+
+/* pointer depth, desktop and fine pointers only */
+@media (hover: hover) and (pointer: fine) {
+  .v2 .hero-media   { transform: translate3d(calc(var(--px, 0) * 9px), calc(var(--py, 0) * 7px), 0); transition: transform .5s var(--paper-ease); }
+  .v2 .hero-marks   { transform: translate3d(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -12px), 0); transition: transform .6s var(--paper-ease); }
+  .v2 .hero-ghost   { transform: translate3d(calc(var(--px, 0) * -22px), 0, 0); transition: transform .8s var(--paper-ease); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   3 · FLAVOUR ATMOSPHERE + EDITORIAL POSTERS
+   Each flavour gets its own warm accent and decorative marks. Every
+   value stays inside the Little Sweet Tooth palette — these are shifts
+   in warmth, not new brand colours.
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .sc { --fl-a: var(--peach); --fl-b: var(--accent); }
+.v2 .sc[data-id="seasalt"]     { --fl-a: #e8d9c6; --fl-b: #6b4632; }
+.v2 .sc[data-id="pepper"]      { --fl-a: #dfe0c2; --fl-b: #7d8a58; }
+.v2 .sc[data-id="caramel"]     { --fl-a: #f0d3a6; --fl-b: #b9762f; }
+.v2 .sc[data-id="marshmallow"] { --fl-a: #f6e3d4; --fl-b: #c98f74; }
+.v2 .sc[data-id="peanut"]      { --fl-a: #edd3ab; --fl-b: #a9722f; }
+.v2 .sc[data-id="matcha"]      { --fl-a: #dce3c4; --fl-b: #6f8352; }
+.v2 .sc[data-id="hojicha"]     { --fl-a: #e9d3b6; --fl-b: #9a6236; }
+
+/* the shelf's ambient light picks up the flavour you are looking at */
+.v2 .shelf { --fl-a: var(--peach); transition: none; }
+.v2 .shelf::before {
+  background:
+    radial-gradient(58% 54% at 24% 30%, color-mix(in srgb, var(--fl-a) 62%, transparent), transparent 72%),
+    radial-gradient(54% 50% at 82% 70%, rgba(217,176,131,.4), transparent 74%);
+  transition: background .9s var(--paper-ease);
+}
+
+/* The oversized flavour word, sitting directly behind the rail. Anchored to
+   the top of the shelf it ran straight through the collection heading, so it
+   is in the flow just above the cards and pulled back under them. */
+.v2 .shelf-word {
+  position: relative;
+  margin: 0 0 -.52em;
+  z-index: 0;
+  overflow: hidden;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 6.4vw, 5.4rem);
+  line-height: .9;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--fl-b) 13%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+.v2 .shelf-word span {
+  display: inline-block;
+  transition: opacity .38s linear, transform .5s var(--paper-ease);
+}
+.v2 .shelf-word.swap span { opacity: 0; transform: translateY(-10px); }
+
+/* the card as a small campaign poster ---------------------------- */
+.v2 .sc-body { position: relative; overflow: hidden; }
+
+/* the English name, oversized, cropped by the top edge of the card body
+   so it reads as printed stock running under the photograph */
+.v2 .sc-poster {
+  position: absolute;
+  left: -.06em; top: -.34em;
+  z-index: 0;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 3.4vw, 3.1rem);
+  line-height: .84;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--fl-b) 12%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+.v2 .sc-body > *:not(.sc-poster) { position: relative; z-index: 1; }
+
+/* a warm wash in the flavour's own colour, low in the card */
+.v2 .sc-body::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -40% -20%;
+  height: 130%;
+  background: radial-gradient(60% 70% at 78% 100%, color-mix(in srgb, var(--fl-a) 55%, transparent), transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* the flavour's decorative marks, a small flourish over the photograph */
+.v2 .sc-motif {
+  position: absolute;
+  right: 10px; bottom: 10px;
+  width: 74px; height: 74px;
+  z-index: 2;
+  color: var(--cream);
+  opacity: .42;
+  pointer-events: none;
+  transition: opacity .45s var(--paper-ease), transform .6s var(--paper-ease);
+  transform: rotate(-4deg);
+}
+.v2 .sc:hover .sc-motif { opacity: .62; transform: rotate(0deg) scale(1.06); }
+.v2 .sc-motif svg { width: 100%; height: 100%; display: block; }
+
+/* a soft cinematic corner light on every photograph */
+.v2 .sc-frame::before {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(72% 62% at 22% 12%, rgba(255,250,240,.34), transparent 62%),
+    radial-gradient(90% 80% at 84% 96%, color-mix(in srgb, var(--fl-b) 26%, transparent), transparent 70%);
+  mix-blend-mode: multiply;
+  opacity: .55;
+  pointer-events: none;
+  transition: opacity .45s var(--paper-ease);
+}
+.v2 .sc:hover .sc-frame::before { opacity: .34; }
+
+/* the card you are looking at holds focus; its neighbours step back */
+.v2 .shelf-grid .sc { transition: transform .38s var(--paper-ease), box-shadow .38s var(--paper-ease),
+                                  border-color .3s var(--paper-ease), filter .45s var(--paper-ease); }
+.v2 .shelf-grid .sc.is-quiet { filter: saturate(.9) brightness(.99); }
+.v2 .shelf-grid .sc.is-active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.7) inset,
+    0 26px 48px -20px rgba(110,66,32,.44);
+}
+.v2 .shelf-grid .sc.is-active .sc-motif { opacity: .6; }
+
+/* ── the shelf environment ──────────────────────────────────────── */
+.v2 .shelf-plank {
+  box-shadow:
+    0 14px 26px -12px rgba(110,66,32,.6),
+    inset 0 1px 0 rgba(255,255,255,.42),
+    inset 0 -3px 6px -3px rgba(90,50,20,.35);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   4 · THE ORDERING RIBBON — a printed band
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .ribbon {
+  background:
+    linear-gradient(180deg, rgba(255,250,240,.97), rgba(252,240,220,.97));
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.8) inset,
+    0 20px 40px -22px rgba(110,66,32,.45);
+}
+.v2 .ribbon::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 6px;
+  background: repeating-linear-gradient(90deg,
+    var(--peach-2) 0 14px, transparent 14px 28px);
+  opacity: .5;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   5 · PURCHASE CARE — pinned bakery notes
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .care-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255,250,240,.96), rgba(253,244,229,.96));
+  box-shadow: 0 26px 52px -26px rgba(110,66,32,.48);
+}
+/* faint ruled lines, like a recipe pad */
+.v2 .care-card::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: repeating-linear-gradient(180deg,
+    transparent 0 30px, rgba(146,120,98,.10) 30px 31px);
+  opacity: .55;
+  pointer-events: none;
+}
+.v2 .care-grid, .v2 .care-banner { position: relative; z-index: 1; }
+
+.v2 .care-item {
+  position: relative;
+  padding-top: 1.1rem;
+}
+/* a strip of tape at the top of each note */
+.v2 .care-item::before {
+  content: "";
+  position: absolute;
+  top: -10px; left: 50%;
+  width: 74px; height: 20px;
+  transform: translateX(-50%) rotate(var(--tape, -4deg));
+  background: rgba(236,206,170,.62);
+  border-left: 1px solid rgba(255,255,255,.5);
+  border-right: 1px solid rgba(255,255,255,.5);
+  box-shadow: 0 2px 5px rgba(110,66,32,.14);
+}
+.v2 .care-item:nth-child(3)::before { --tape: 5deg; }
+.v2 .care-item:nth-child(5)::before { --tape: -7deg; }
+.v2 .care-item .care-emoji {
+  filter: drop-shadow(0 3px 4px rgba(110,66,32,.22));
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   6 · FAREWELL GIFTS — ribbon and gift tags
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .farewell { position: relative; }
+/* a wrapping-paper wash behind the section */
+.v2 .farewell::after {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(236,206,170,.16) 0 12px, transparent 12px 34px);
+  opacity: .8;
+  pointer-events: none;
+}
+
+.v2 .farewell-flavors,
+.v2 .farewell-info {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,250,240,.95), rgba(253,242,226,.95));
+  box-shadow: 0 22px 44px -24px rgba(110,66,32,.45);
+}
+/* the punched hole and string of a gift tag */
+.v2 .farewell-flavors::before,
+.v2 .farewell-info::before {
+  content: "";
+  position: absolute;
+  top: 14px; right: 16px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--butter);
+  box-shadow: inset 0 0 0 1.5px var(--peach-2), 0 1px 2px rgba(110,66,32,.22);
+}
+.v2 .fw-sticker-tag {
+  box-shadow: 0 8px 18px -8px rgba(150,80,40,.5);
+  transform: rotate(-1.6deg);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   7 · FAQ — bakery order slips
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .faq-item {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,250,240,.96), rgba(253,244,229,.94));
+  box-shadow: 0 10px 24px -16px rgba(110,66,32,.5);
+  transition: box-shadow .35s var(--paper-ease), transform .35s var(--paper-ease);
+}
+.v2 .faq-item:hover { transform: translateY(-2px); }
+/* the perforated left edge of a slip */
+.v2 .faq-item::after {
+  content: "";
+  position: absolute;
+  left: 8px; top: 12px; bottom: 12px;
+  width: 3px;
+  background: repeating-linear-gradient(180deg,
+    var(--ink-soft) 0 3px, transparent 3px 8px);
+  pointer-events: none;
+}
+.v2 .faq-item[open] {
+  box-shadow: 0 18px 34px -18px rgba(110,66,32,.55);
+}
+.v2 .faq-item summary { position: relative; }
+/* a stamp pressed across the question when it opens */
+.v2 .faq-item summary::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: .28em;
+  height: 2px; width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: .45;
+  transition: transform .32s var(--paper-ease);
+}
+.v2 .faq-item[open] summary::after { transform: scaleX(1); }
+.v2 .faq-item[open] .faq-answer { animation: v2Slip .34s var(--paper-ease) both; }
+@keyframes v2Slip {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   8 · SIGNATURE MOMENT 3 — THE CONTACT INVITATION
+   Nothing in here is allowed over the QR image itself.
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .contact { position: relative; }
+.v2 .contact-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 2.2rem 1rem 1.4rem;
+}
+/* a warm halo behind the invitation */
+.v2 .contact-visual::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: min(420px, 92%); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,248,236,.95), rgba(236,206,170,.5) 46%, transparent 72%);
+  z-index: 0;
+  pointer-events: none;
+}
+/* a second sheet of card behind, slightly turned */
+.v2 .contact-visual::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: min(292px, 84%); height: 78%;
+  transform: translate(-50%, -48%) rotate(-4.5deg);
+  border-radius: 20px;
+  background: var(--cream);
+  border: 1.5px solid var(--rule);
+  box-shadow: 0 20px 40px -22px rgba(110,66,32,.55);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.v2 .qr-card {
+  position: relative;
+  z-index: 2;
+  padding: 2.1rem 1.4rem 1.3rem;   /* the extra top room is for the tape */
+  background: linear-gradient(180deg, #fffdf8, var(--cream));
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.9) inset,
+    0 26px 52px -24px rgba(110,66,32,.6);
+}
+/* tape across the top of the invitation — above the image, never on it */
+.v2 .qr-card::before {
+  content: "";
+  position: absolute;
+  top: -13px; left: 50%;
+  width: 108px; height: 26px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(236,206,170,.72);
+  border-left: 1px solid rgba(255,255,255,.6);
+  border-right: 1px solid rgba(255,255,255,.6);
+  box-shadow: 0 3px 7px rgba(110,66,32,.2);
+  z-index: 3;
+}
+/* a small pressed stamp in the corner of the card, clear of the image */
+.v2 .qr-card::after {
+  content: "✿";
+  position: absolute;
+  right: 10px; bottom: 8px;
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1.5px dashed var(--peach-2);
+  color: var(--accent);
+  font-size: 13px;
+  opacity: .8;
+  transform: rotate(-10deg);
+}
+/* the QR itself: untouched, square, high contrast, nothing layered over it */
+.v2 .qr-card img {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  box-shadow: 0 2px 10px -4px rgba(110,66,32,.4);
+}
+
+.v2 .contact-copy .contact-list li {
+  transition: transform .3s var(--paper-ease);
+}
+.v2 .contact-copy .contact-list li:hover { transform: translateX(3px); }
+
+/* ══════════════════════════════════════════════════════════════════
+   9 · FOOTER — the closing page
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .site-foot { position: relative; overflow: hidden; }
+.v2 .site-foot::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -34%;
+  width: min(920px, 116%); aspect-ratio: 2 / 1;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(236,206,170,.22), transparent 76%);
+  pointer-events: none;
+  z-index: 0;
+}
+.v2 .site-foot .container { position: relative; z-index: 1; }
+.v2 .foot-brand h3 {
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+/* a hand-pressed signature stamp closing the page */
+.v2 .foot-bottom { position: relative; }
+.v2 .foot-stamp {
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%) rotate(-8deg);
+  width: 74px; height: 74px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1.5px dashed var(--peach-2);
+  color: var(--peach-2);
+  font-family: var(--font-script);
+  font-size: .92rem;
+  line-height: 1.05;
+  text-align: center;
+  opacity: .75;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   10 · ONE REVEAL LANGUAGE
+   Paper sliding up and settling. Never blocks interaction: elements
+   are visible and clickable from the first frame, only offset.
+   ══════════════════════════════════════════════════════════════════ */
+
+.v2 .v2-rise {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .5s linear, transform var(--slide) var(--paper-ease);
+}
+.v2 .v2-rise.in { opacity: 1; transform: none; }
+.v2 .v2-rise.d1 { transition-delay: .07s; }
+.v2 .v2-rise.d2 { transition-delay: .14s; }
+.v2 .v2-rise.d3 { transition-delay: .21s; }
+
+/* ══════════════════════════════════════════════════════════════════
+   11 · RESPONSIVE ART DIRECTION
+   Not a shrunk desktop: the layering thins out, the type crops, and
+   the composition becomes a clear vertical read.
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+  .v2 .hero-ghost-wrap { font-size: clamp(3.6rem, 12vw, 7rem); }
+  .v2 .hero-ghost { margin-left: -4%; }
+}
+
+@media (max-width: 900px) {
+  .v2 .hero { padding: 2.4rem 0 4rem; }
+  .v2 .hero-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+  .v2 .hero-cut::after { display: none; }        /* one cut sheet, not two */
+  .v2 .hero-cut::before { inset: 6% 4% 0 8%; }
+  .v2 .hero-marks .m2, .v2 .hero-marks .m4 { display: none; }
+  .v2 .hero-title { font-size: clamp(2.7rem, 10vw, 4.2rem); }
+  .v2 .hero-ghost-wrap { font-size: clamp(4rem, 20vw, 7rem); top: -.26em; }
+  .v2 .hero-ghost { margin-left: -8%; }
+  .v2 .shelf-word { font-size: clamp(2rem, 11vw, 3.4rem); }
+  .v2 .sec-ghost  { font-size: clamp(2.8rem, 17vw, 5rem); }
+}
+
+@media (max-width: 620px) {
+  .v2 .hero::before { filter: blur(34px) saturate(1.1) brightness(1.1); opacity: .26; }
+  .v2 .hero-marks .m3 { display: none; }
+  .v2 .sc-poster { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .v2 .sc-motif { width: 58px; height: 58px; }
+  .v2 .care-item::before { width: 62px; height: 17px; }
+  .v2 .contact-visual::after { display: none; }
+  .v2 .foot-stamp {
+    position: static;
+    transform: rotate(-6deg);
+    margin: .8rem auto 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .v2 .hero-title { font-size: clamp(2.4rem, 11.5vw, 3.4rem); }
+  .v2 .hero-ghost-wrap { font-size: 4.4rem; }
+  .v2 .hero-ghost { margin-left: -10%; }
+  .v2 .shelf-word { font-size: 2rem; }
+  .v2 .sec-ghost  { font-size: 3rem; }
+  .v2 .qr-card::before { width: 88px; height: 22px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   12 · REDUCED MOTION
+   The composition is identical — only the travel is removed. Nothing
+   depends on an animation having run.
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .v2 .hero::before, .v2 .hero::after,
+  .v2 .hero-title, .v2 .hero-lede, .v2 .hero-ctas, .v2 .hero-ghost-wrap,
+  .v2 .hero-figure img, .v2 .hero-sticker, .v2 .hero-tape,
+  .v2 .hero-cut::before, .v2 .hero-cut::after,
+  .v2 .hero-mark, .v2 .hero .doodle,
+  .v2 .v2-rise, .v2 .sec-ghost,
+  .v2 .section-header::before, .v2 .section-header .eyebrow::before {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    transition-delay: 0s !important;
+    animation-delay: 0s !important;
+  }
+  /* everything sits in its finished position from the first paint */
+  .v2 .hero-title, .v2 .hero-lede, .v2 .hero-ctas, .v2 .v2-rise { transform: none; opacity: 1; }
+  .v2 .hero-figure img { opacity: 1; transform: none; }
+  .v2 .hero-media { transform: none !important; }
+  .v2 .hero-marks { transform: none !important; }
+  .v2 .faq-item[open] .faq-answer { animation: none; }
+}
