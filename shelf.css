@@ -174,10 +174,13 @@
 .shelf-grid {
   --gap: clamp(.9rem, 1.8vw, 1.6rem);
   --per: 3.3;
-  --count: 99;                   /* the markup overrides this per collection */
   display: flex;
   gap: var(--gap);
   align-items: stretch;          /* one baseline, equal heights */
+  /* a short collection sits in the middle of its shelf rather than at one
+     end; "safe" falls back to start once the cards overflow, so the first
+     card never becomes unreachable */
+  justify-content: safe center;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 2px;
@@ -197,21 +200,19 @@
 }
 
 .shelf-grid > .sc {
-  /* Every card the same width: the rail minus the gaps, divided by how many
-     are shown. A collection with fewer flavours than that fills the shelf
-     instead of huddling at one end, hence the min() against --count. */
-  --shown: min(var(--per), var(--count));
-  flex: 0 0 calc((100% - (var(--shown) - 1) * var(--gap)) / var(--shown));
+  /* Every card the same width — the rail minus the gaps, divided by how many
+     are shown — and never wider than a card wants to be. Without the cap a
+     collection of two filled half the shelf each, which on a desktop is a
+     photograph far too big to read a price off. */
+  flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+  max-width: 374px;
   scroll-snap-align: start;
 }
 
-/* three cards and a slice of the fourth on a large desktop */
-@media (min-width: 1280px) { .shelf-grid { --per: 3.3; } }
-/* two and a good slice while the window is still desktop-sized — 2.7 left
-   most of a third card showing, which reads as a card that failed to fit */
-@media (min-width: 1024px) and (max-width: 1279.98px) { .shelf-grid { --per: 2.35; } }
-/* two and a slice on a tablet */
-@media (min-width: 760px) and (max-width: 1023.98px) { .shelf-grid { --per: 2.25; } }
+/* three cards and a slice of the fourth on a desktop */
+@media (min-width: 1200px) { .shelf-grid { --per: 3.3; } }
+/* two and a slice from a small laptop down through tablets */
+@media (min-width: 760px) and (max-width: 1199.98px) { .shelf-grid { --per: 2.3; } }
 /* one card and a slice of the next on a phone */
 @media (max-width: 759.98px) { .shelf-grid { --per: 1.2; } }
 
