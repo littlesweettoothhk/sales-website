@@ -91,7 +91,17 @@
     errTime: '請揀交收時間',
     msgMethod: '交收方式', msgAddress: '送貨地址',
     msgDate: '希望交收日期', msgTime: '希望交收時間',
-    week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+    week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+    /* ---- a shared order ---- */
+    share: '分享訂單',
+    shareCopied: '已複製連結 ♥',
+    shareFail: '複製唔到，請自己揀網址複製',
+    linkTitle: '有人分享咗一張訂單俾你 ♥',
+    linkBody: function (n, sum) { return '入面有 ' + n + ' 件，共 $' + sum + '。'; },
+    linkKeep: '我自己嗰張仲喺度，會被取代。',
+    linkOpen: '打開呢張訂單',
+    linkNo: '唔使，保留我自己嗰張',
+    linkGone: function (names) { return '有啲口味已經冇咗，冇加入：' + names; }
   } : {
     add: 'Add to order',
     order: 'My Order', open: 'View order', close: 'Close',
@@ -133,7 +143,17 @@
     errTime: 'Please choose a time',
     msgMethod: 'Pickup / delivery', msgAddress: 'Delivery address',
     msgDate: 'Preferred date', msgTime: 'Preferred time',
-    week: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    week: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    /* ---- a shared order ---- */
+    share: 'Share this order',
+    shareCopied: 'Link copied ♥',
+    shareFail: 'Could not copy — please select the address and copy it',
+    linkTitle: 'Someone shared an order with you ♥',
+    linkBody: function (n, sum) { return 'It has ' + n + ' item(s), $' + sum + ' in total.'; },
+    linkKeep: 'The order you already had will be replaced.',
+    linkOpen: 'Open this order',
+    linkNo: 'No thanks, keep mine',
+    linkGone: function (names) { return 'Some flavours are no longer available and were left out: ' + names; }
   };
 
   var SVG = {
@@ -262,6 +282,7 @@
         '<button type="button" class="cart-next" data-step-details>' + T.next + '</button>' +
         '<a class="cart-checkout" href="#" target="_blank" rel="noopener">' + SVG.bag + T.checkout + '</a>' +
         '<button type="button" class="cart-back" data-step-items>' + T.back + '</button>' +
+        '<button type="button" class="cart-share" data-cart-share aria-live="polite">' + T.share + '</button>' +
         '<button type="button" class="cart-clear" data-cart-clear aria-live="polite">' + T.clear + '</button>' +
         '<p class="cart-note">' + T.note + '</p>' +
       '</div>';
@@ -716,6 +737,120 @@
     return hit;
   }
 
+  /* ════════════════════════════════════════════════════════════════
+     A shareable order
+
+     An order used to live only in the browser that built it, which made the
+     one thing the site actively sells — a 散水餅 order collected across an
+     office — a retyping exercise. The cart is now expressible as a link.
+
+     Only ids and quantities travel, and they are read back through the same
+     catalogue the cart already validates against, so a link naming a flavour
+     we no longer sell drops that line and says so rather than failing. An
+     incoming link never overwrites an order silently; it asks first.
+     ════════════════════════════════════════════════════════════════ */
+
+  var SHARE_PARAM = 'order';
+
+  function encodeOrder(c) {
+    return Object.keys(c).map(function (id) { return id + ':' + c[id]; }).join(',');
+  }
+
+  function decodeOrder(text) {
+    var out = {}, gone = [];
+    String(text).split(',').forEach(function (pair) {
+      var bits = pair.split(':');
+      var id = (bits[0] || '').trim();
+      var n = parseInt(bits[1], 10);
+      if (!id || !(n > 0)) return;
+      if (!catalog[id]) { gone.push(id); return; }
+      out[id] = Math.min(n, 99);
+    });
+    return { cart: out, gone: gone };
+  }
+
+  function shareURL() {
+    var u = location.origin + location.pathname;
+    return u + '?' + SHARE_PARAM + '=' + encodeURIComponent(encodeOrder(cart));
+  }
+
+  function copyShareLink(btn) {
+    var url = shareURL();
+    var done = function (ok) {
+      btn.textContent = ok ? T.shareCopied : T.shareFail;
+      setTimeout(function () { btn.textContent = T.share; }, 2600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
+      return;
+    }
+    // older mobile browsers: fall back to a selection-based copy
+    var ta = document.createElement('textarea');
+    ta.value = url;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    done(ok);
+  }
+
+  /* ---------- an incoming link ---------- */
+
+  function readSharedLink() {
+    var m = location.search.match(new RegExp('[?&]' + SHARE_PARAM + '=([^&]*)'));
+    if (!m) return;
+    // Take it out of the address bar straight away: a refresh must not re-offer
+    // an order the visitor already declined.
+    var raw;
+    try { raw = decodeURIComponent(m[1]); } catch (e) { raw = m[1]; }
+    if (history.replaceState) {
+      history.replaceState(null, '', location.pathname + location.hash);
+    }
+    var parsed = decodeOrder(raw);
+    if (!Object.keys(parsed.cart).length) return;
+    offerSharedOrder(parsed);
+  }
+
+  function offerSharedOrder(parsed) {
+    var incoming = parsed.cart;
+    var n = 0, sum = 0;
+    Object.keys(incoming).forEach(function (id) {
+      n += incoming[id];
+      sum += catalog[id].price * incoming[id];
+    });
+
+    var box = document.createElement('div');
+    box.className = 'share-invite';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', T.linkTitle);
+    box.innerHTML =
+      '<p class="si-title">' + T.linkTitle + '</p>' +
+      '<p class="si-body">' + T.linkBody(n, sum) +
+        (count() ? ' ' + T.linkKeep : '') + '</p>' +
+      (parsed.gone.length ? '<p class="si-gone">' + T.linkGone(parsed.gone.join('、')) + '</p>' : '') +
+      '<div class="si-acts">' +
+        '<button type="button" class="si-yes">' + T.linkOpen + '</button>' +
+        '<button type="button" class="si-no">' + T.linkNo + '</button>' +
+      '</div>';
+    document.body.appendChild(box);
+
+    var close = function () {
+      box.parentNode && box.parentNode.removeChild(box);
+    };
+    box.querySelector('.si-no').addEventListener('click', close);
+    box.querySelector('.si-yes').addEventListener('click', function () {
+      cart = incoming;
+      save();
+      render();
+      close();
+      openCart();
+    });
+    box.querySelector('.si-yes').focus();
+  }
+
   /* ---------- WhatsApp message ---------- */
 
   function waLink() {
@@ -877,12 +1012,13 @@
     }
 
     var t = e.target.closest('[data-add],[data-inc],[data-dec],[data-cart-open],[data-cart-close],' +
-                             '[data-cart-clear],[data-step-details],[data-step-items]');
+                             '[data-cart-clear],[data-cart-share],[data-step-details],[data-step-items]');
     if (!t) return;
 
     if (t.hasAttribute('data-cart-open'))  { e.preventDefault(); openCart(); return; }
     if (t.hasAttribute('data-cart-close')) { e.preventDefault(); closeCart(); return; }
     if (t.hasAttribute('data-cart-clear')) { e.preventDefault(); onClear(t); return; }
+    if (t.hasAttribute('data-cart-share')) { e.preventDefault(); copyShareLink(t); return; }
     if (t.hasAttribute('data-step-details')) { e.preventDefault(); goStep('details'); return; }
     if (t.hasAttribute('data-step-items'))   { e.preventDefault(); goStep('items'); return; }
 
@@ -919,6 +1055,7 @@
       qty: function (id) { return cart[id] || 0; },
       product: function (id) { return catalog[id] || null; },
       addLabel: T.add,
+      shareURL: shareURL,
       // so steppers built elsewhere name their product too, instead of
       // offering a row of identical "+1" buttons
       stepLabels: function (id) {
@@ -939,6 +1076,7 @@
       if (e.persisted) { cart = load(); render(); }
     });
     render();
+    readSharedLink();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
