@@ -1,0 +1,646 @@
+[
+  {
+    "id": "seasalt",
+    "name": {
+      "zh": "海鹽黑朱古力",
+      "en": "Sea Salt Dark Chocolate"
+    },
+    "sub": {
+      "zh": "Sea Salt Dark Chocolate",
+      "en": "海鹽黑朱古力"
+    },
+    "desc": {
+      "zh": "我們的招牌口味。香濃的比利時黑朱古力遇上一撮海鹽，外脆內軟，每一口都有層次。樽裝迷你款，方便分享，也適合自己慢慢吃 ♥",
+      "en": "Our signature flavour. Rich Belgian dark chocolate meets a sprinkle of sea salt — crisp on the outside, soft and gooey inside. Comes in a jar of minis, perfect for sharing or hoarding ♥"
+    },
+    "eyebrow": {
+      "zh": "brookies ♥",
+      "en": "Brookies ♥"
+    },
+    "notesTitle": {
+      "zh": "產品介紹 ✿",
+      "en": "What's Inside ✿"
+    },
+    "notes": {
+      "zh": [
+        "72%比利時黑朱古力",
+        "法國海鹽",
+        "低糖配方",
+        "無防腐劑"
+      ],
+      "en": [
+        "72% Belgian dark chocolate",
+        "French sea salt",
+        "lower sugar",
+        "no preservatives"
+      ]
+    },
+    "price": "60",
+    "unit": "jar",
+    "unitLabel": {
+      "zh": "每樽 JAR",
+      "en": "PER JAR"
+    },
+    "img": "sea-salt-dark-chocolate-brookies.webp",
+    "imgW": "733",
+    "imgH": "900",
+    "homeAlt": {
+      "zh": "海鹽黑朱古力",
+      "en": "Sea Salt Dark Chocolate"
+    },
+    "homeMore": {
+      "zh": "看看詳情 →",
+      "en": "Peek Inside →"
+    },
+    "homePriceLabel": {
+      "zh": "每樽 jar",
+      "en": "Per Jar"
+    },
+    "homeTag": {
+      "zh": "皇牌 ♥",
+      "en": "Signature ♥"
+    },
+    "homeTagClass": "sc-tag signature",
+    "featured": true,
+    "peek": {
+      "zh": "睇真啲 ♥",
+      "en": "Take a closer look ♥"
+    },
+    "placeholder": {
+      "zh": "",
+      "en": ""
+    },
+    "ppTag": {
+      "zh": "皇牌 ♥",
+      "en": "signature ♥"
+    },
+    "frameStyle": {
+      "zh": "",
+      "en": ""
+    },
+    "framePlaceholder": {
+      "zh": "",
+      "en": ""
+    },
+    "slideAlt": {
+      "zh": "海鹽黑朱古力",
+      "en": "Sea Salt Dark Chocolate"
+    },
+    "moreCta": {
+      "zh": "看看詳情 →",
+      "en": "Peek inside →"
+    }
+  },
+  {
+    "id": "pepper",
+    "name": {
+      "zh": "麻香花椒",
+      "en": "Green Sichuan Pepper"
+    },
+    "sub": {
+      "zh": "Green Sichuan Pepper",
+      "en": "麻香花椒"
+    },
+    "desc": {
+      "zh": "我們最大膽的口味。青花椒的麻香，配上濃郁黑朱古力——舌尖會輕輕跳舞。試一口會驚喜 ✦",
+      "en": "Our boldest flavour. Green Sichuan pepper — citrusy, tingly, a little wild — meets rich dark chocolate. Your tongue will do a tiny dance. Trust us ✦"
+    },
+    "eyebrow": {
+      "zh": "brookies ♥",
+      "en": "Brookies ♥"
+    },
+    "notesTitle": {
+      "zh": "產品介紹 ✿",
+      "en": "What's Inside ✿"
+    },
+    "notes": {
+      "zh": [
+        "青花椒油",
+        "72% 比利時黑朱古力",
+        "麻而不辣",
+        "不妨一試"
+      ],
+      "en": [
+        "Green Sichuan pepper oil",
+        "72% Belgian dark chocolate",
+        "Tingly, not spicy",
+        "Worth a try"
+      ]
+    },
+    "price": "62",
+    "unit": "jar",
+    "unitLabel": {
+      "zh": "每樽 JAR",
+      "en": "PER JAR"
+    },
+    "img": "green-sichuan-pepper-brookies.webp",
+    "imgW": "697",
+    "imgH": "900",
+    "homeAlt": {
+      "zh": "麻香花椒",
+      "en": "Green Sichuan Pepper"
+    },
+    "homeMore": {
+      "zh": "看看詳情 →",
+      "en": "Peek Inside →"
+    },
+    "homePriceLabel": {
+      "zh": "每樽 jar",
+      "en": "Per Jar"
+    },
+    "homeTag": {
+      "zh": "獨特 ✦",
+      "en": "Bold ✦"
+    },
+    "homeTagClass": "sc-tag bold",
+    "featured": false,
+    "peek": {
+      "zh": "睇真啲 ♥",
+      "en": "Take a closer look ♥"
+    },
+    "placeholder": {
+      "zh": "",
+      "en": ""
+    },
+    "ppTag": {
+      "zh": "獨特 ✦",
+      "en": "bold ✦"
+    },
+    "frameStyle": {
+      "zh": "",
+      "en": ""
+    },
+    "framePlaceholder": {
+      "zh": "",
+      "en": ""
+    },
+    "slideAlt": {
+      "zh": "麻香花椒",
+      "en": "Green Sichuan Pepper"
+    },
+    "moreCta": {
+      "zh": "看看詳情 →",
+      "en": "Peek inside →"
+    }
+  },
+  {
+    "id": "caramel",
+    "name": {
+      "zh": "焦糖黑朱古力",
+      "en": "Caramel Dark Chocolate"
+    },
+    "sub": {
+      "zh": "Caramel Dark Chocolate",
+      "en": "焦糖黑朱古力"
+    },
+    "desc": {
+      "zh": "焦糖醬慢慢熬煮到金黃色，再配上濃郁的黑朱古力Brookies。甜中帶微苦。✿",
+      "en": "Caramel slowly cooked to a deep amber, match with rich dark chocolate brookies. Sweet with a gentle bitter edge. ✿"
+    },
+    "eyebrow": {
+      "zh": "brookies ♥",
+      "en": "Brookies ♥"
+    },
+    "notesTitle": {
+      "zh": "產品介紹 ✿",
+      "en": "What's Inside ✿"
+    },
+    "notes": {
+      "zh": [
+        "手作焦糖醬",
+        "72%比利時黑朱古力",
+        "Lotus 焦糖餅",
+        "配咖啡一流"
+      ],
+      "en": [
+        "Handmade caramel",
+        "72% Belgian dark chocolate",
+        "Lotus Crumble",
+        "Perfect with coffee"
+      ]
+    },
+    "price": "35",
+    "unit": "pcs",
+    "unitLabel": {
+      "zh": "每件 PCS",
+      "en": "PER PIECE"
+    },
+    "img": "caramel-brookies.webp",
+    "imgW": "900",
+    "imgH": "900",
+    "homeAlt": {
+      "zh": "焦糖黑朱古力",
+      "en": "焦糖黑朱古力"
+    },
+    "homeMore": {
+      "zh": "看看詳情 →",
+      "en": "Peek Inside →"
+    },
+    "homePriceLabel": {
+      "zh": "每件 pcs",
+      "en": "Per Piece"
+    },
+    "homeTag": {
+      "zh": "new ✿",
+      "en": "New ✿"
+    },
+    "homeTagClass": "sc-tag new",
+    "featured": true,
+    "peek": {
+      "zh": "睇真啲 ♥",
+      "en": "Take a closer look ♥"
+    },
+    "placeholder": {
+      "zh": "",
+      "en": ""
+    },
+    "ppTag": {
+      "zh": "new ✿",
+      "en": "new ✿"
+    },
+    "frameStyle": {
+      "zh": " style=\"background: linear-gradient(135deg,#e9c69a,#c9844a);\"",
+      "en": " style=\"background: linear-gradient(135deg,#e9c69a,#c9844a);\""
+    },
+    "framePlaceholder": {
+      "zh": "<span class=\"pc-placeholder\"><span class=\"pc-emoji\">🍯</span> <span class=\"pc-ph-label\">caramel</span></span>",
+      "en": "<span class=\"pc-placeholder\"><span class=\"pc-emoji\">🍯</span> <span class=\"pc-ph-label\">Caramel</span></span>"
+    },
+    "slideAlt": {
+      "zh": "焦糖黑朱古力",
+      "en": "焦糖黑朱古力"
+    },
+    "moreCta": {
+      "zh": "看看詳情 →",
+      "en": "Peek inside →"
+    }
+  },
+  {
+    "id": "marshmallow",
+    "name": {
+      "zh": "棉花糖黑朱古力",
+      "en": "Marshmallow Dark Chocolate"
+    },
+    "sub": {
+      "zh": "Marshmallow Dark Chocolate",
+      "en": "棉花糖黑朱古力"
+    },
+    "desc": {
+      "zh": "小朋友的最愛。手作棉花糖在黑朱古力brookies上，燒到微微焦糖化，叮一叮會更好味 ♥ ☁",
+      "en": "A favorite among kids. Handmade marshmallows on top of dark chocolate brookies, lightly toasted until slightly caramelized. Even better when warmed up a little. ☁"
+    },
+    "eyebrow": {
+      "zh": "brookies ♥",
+      "en": "Brookies ♥"
+    },
+    "notesTitle": {
+      "zh": "產品介紹 ✿",
+      "en": "What's Inside ✿"
+    },
+    "notes": {
+      "zh": [
+        "手作棉花糖",
+        "72%比利時黑朱古力",
+        "輕微焦香",
+        "適合派對"
+      ],
+      "en": [
+        "Handmade marshmallow",
+        "72% Belgian dark chocolate",
+        "Gently toasted",
+        "Great for parties"
+      ]
+    },
+    "price": "35",
+    "unit": "pcs",
+    "unitLabel": {
+      "zh": "每件 PCS",
+      "en": "PER PIECE"
+    },
+    "img": "marshmallow-brookies.webp",
+    "imgW": "900",
+    "imgH": "900",
+    "homeAlt": {
+      "zh": "棉花糖黑朱古力",
+      "en": "棉花糖黑朱古力"
+    },
+    "homeMore": {
+      "zh": "看看詳情 →",
+      "en": "Peek Inside →"
+    },
+    "homePriceLabel": {
+      "zh": "每件 pcs",
+      "en": "Per Piece"
+    },
+    "homeTag": {
+      "zh": "new ✿",
+      "en": "New ✿"
+    },
+    "homeTagClass": "sc-tag new",
+    "featured": false,
+    "peek": {
+      "zh": "睇真啲 ♥",
+      "en": "Take a closer look ♥"
+    },
+    "placeholder": {
+      "zh": "<div class=\"pp-placeholder\" style=\"background:linear-gradient(135deg,#fdebda,#e9d4be);\"><span class=\"pp-emoji\">☁️</span></div>",
+      "en": "<div class=\"pp-placeholder\" style=\"background:linear-gradient(135deg,#fdebda,#e9d4be);\"><span class=\"pp-emoji\">☁️</span></div>"
+    },
+    "ppTag": {
+      "zh": "new ✿",
+      "en": "new ✿"
+    },
+    "frameStyle": {
+      "zh": " style=\"background: linear-gradient(135deg,#fdebda,#e9d4be);\"",
+      "en": " style=\"background: linear-gradient(135deg,#fdebda,#e9d4be);\""
+    },
+    "framePlaceholder": {
+      "zh": "<span class=\"pc-placeholder\"><span class=\"pc-emoji\">☁️</span> <span class=\"pc-ph-label\">marshmallow</span></span>",
+      "en": "<span class=\"pc-placeholder\"><span class=\"pc-emoji\">☁️</span> <span class=\"pc-ph-label\">Marshmallow</span></span>"
+    },
+    "slideAlt": {
+      "zh": "棉花糖黑朱古力",
+      "en": "棉花糖黑朱古力"
+    },
+    "moreCta": {
+      "zh": "看看詳情 →",
+      "en": "Peek inside →"
+    }
+  },
+  {
+    "id": "peanut",
+    "name": {
+      "zh": "花生黑朱古力",
+      "en": "Peanut Dark Chocolate"
+    },
+    "sub": {
+      "zh": "Peanut Dark Chocolate",
+      "en": "花生黑朱古力"
+    },
+    "desc": {
+      "zh": "鹹香花生醬配上黑朱古力brookies，鹹香又濃郁。灑上香烤花生，口感豐富。🥜",
+      "en": "Peanut butter paired with dark chocolate brookies, rich and indulgent with a perfect sweet-salty balance. Topped with roasted peanuts for an extra crunchy texture.🥜"
+    },
+    "eyebrow": {
+      "zh": "brookies ♥",
+      "en": "Brookies ♥"
+    },
+    "notesTitle": {
+      "zh": "產品介紹 ✿",
+      "en": "What's Inside ✿"
+    },
+    "notes": {
+      "zh": [
+        "烤花生粒",
+        "72%比利時黑朱古力",
+        "鹹香花生醬",
+        "扭結餅"
+      ],
+      "en": [
+        "Roasted peanuts",
+        "72% Belgian dark chocolate",
+        "Salted Peanut Butter",
+        "Prestrel"
+      ]
+    },
+    "price": "35",
+    "unit": "pcs",
+    "unitLabel": {
+      "zh": "每件 PCS",
+      "en": "PER PIECE"
+    },
+    "img": "peanut-butter-brookies.webp",
+    "imgW": "900",
+    "imgH": "900",
+    "homeAlt": {
+      "zh": "花生黑朱古力",
+      "en": "花生黑朱古力"
+    },
+    "homeMore": {
+      "zh": "看看詳情 →",
+      "en": "Peek Inside →"
+    },
+    "homePriceLabel": {
+      "zh": "每件 pcs",
+      "en": "Per Piece"
+    },
+    "homeTag": {
+      "zh": "new ✿",
+      "en": "New ✿"
+    },
+    "homeTagClass": "sc-tag new",
+    "featured": false,
+    "peek": {
+      "zh": "睇真啲 ♥",
+      "en": "Take a closer look ♥"
+    },
+    "placeholder": {
+      "zh": "<div class=\"pp-placeholder\" style=\"background:linear-gradient(135deg,#e9c895,#b88550);\"><span class=\"pp-emoji\">🥜</span></div>",
+      "en": "<div class=\"pp-placeholder\" style=\"background:linear-gradient(135deg,#e9c895,#b88550);\"><span class=\"pp-emoji\">🥜</span></div>"
+    },
+    "ppTag": {
+      "zh": "new ✿",
+      "en": "new ✿"
+    },
+    "frameStyle": {
+      "zh": " style=\"background: linear-gradient(135deg,#e9c895,#b88550);\"",
+      "en": " style=\"background: linear-gradient(135deg,#e9c895,#b88550);\""
+    },
+    "framePlaceholder": {
+      "zh": "<span class=\"pc-placeholder\"><span class=\"pc-emoji\">🥜</span> <span class=\"pc-ph-label\">peanut</span></span>",
+      "en": "<span class=\"pc-placeholder\"><span class=\"pc-emoji\">🥜</span> <span class=\"pc-ph-label\">Peanut</span></span>"
+    },
+    "slideAlt": {
+      "zh": "花生黑朱古力",
+      "en": "花生黑朱古力"
+    },
+    "moreCta": {
+      "zh": "看看詳情 →",
+      "en": "Peek inside →"
+    }
+  },
+  {
+    "id": "hojicha",
+    "name": {
+      "zh": "焙茶",
+      "en": "Hojicha"
+    },
+    "sub": {
+      "zh": "Hojicha",
+      "en": "焙茶"
+    },
+    "desc": {
+      "zh": "深焙焙茶，帶著淡淡堅果味，配上白朱古力，意想不到地合拍。☕",
+      "en": "Deep-roasted Hojicha with subtle nutty notes, paired with white chocolate in an unexpectedly perfect match. ☕"
+    },
+    "eyebrow": {
+      "zh": "brookies ♥",
+      "en": "Brookies ♥"
+    },
+    "notesTitle": {
+      "zh": "產品介紹 ✿",
+      "en": "What's Inside ✿"
+    },
+    "notes": {
+      "zh": [
+        "深焙焙茶粉",
+        "比利時白朱古力",
+        "低咖啡因",
+        "下午茶必備"
+      ],
+      "en": [
+        "Deep-roasted Hojicha",
+        "Belgian white chocolate",
+        "Low caffeine",
+        "Best for afternoon tea"
+      ]
+    },
+    "price": "35",
+    "unit": "pcs",
+    "unitLabel": {
+      "zh": "每件 PCS",
+      "en": "PER PIECE"
+    },
+    "img": "hojicha-brookies-new.webp",
+    "imgW": "900",
+    "imgH": "900",
+    "homeAlt": {
+      "zh": "焙茶",
+      "en": "Hojicha"
+    },
+    "homeMore": {
+      "zh": "看看詳情 →",
+      "en": "Peek Inside →"
+    },
+    "homePriceLabel": {
+      "zh": "每件 pcs",
+      "en": "Per Piece"
+    },
+    "homeTag": {
+      "zh": null,
+      "en": null
+    },
+    "homeTagClass": null,
+    "featured": false,
+    "peek": {
+      "zh": "睇真啲 ♥",
+      "en": "Take a closer look ♥"
+    },
+    "placeholder": {
+      "zh": "",
+      "en": ""
+    },
+    "ppTag": {
+      "zh": null,
+      "en": null
+    },
+    "frameStyle": {
+      "zh": "",
+      "en": ""
+    },
+    "framePlaceholder": {
+      "zh": "",
+      "en": ""
+    },
+    "slideAlt": {
+      "zh": "焙茶",
+      "en": "Hojicha"
+    },
+    "moreCta": {
+      "zh": "看看詳情 →",
+      "en": "Peek inside →"
+    }
+  },
+  {
+    "id": "matcha",
+    "name": {
+      "zh": "抹茶",
+      "en": "Matcha"
+    },
+    "sub": {
+      "zh": "Matcha",
+      "en": "抹茶"
+    },
+    "desc": {
+      "zh": "微苦抹茶，配上白朱古力同士多啤梨涷乾，味道剛剛好。茶控的最愛 ✿",
+      "en": "Slightly bitter matcha, balanced perfectly with white chocolate and freeze-dried strawberries. A favorite for matcha lovers. ✿"
+    },
+    "eyebrow": {
+      "zh": "brookies ♥",
+      "en": "Brookies ♥"
+    },
+    "notesTitle": {
+      "zh": "產品介紹 ✿",
+      "en": "What's Inside ✿"
+    },
+    "notes": {
+      "zh": [
+        "微苦抹茶粉",
+        "比利時白朱古力",
+        "士多啤梨涷乾",
+        "抹茶甘納許"
+      ],
+      "en": [
+        "Slightly bitter matcha powder",
+        "Belgian white chocolate",
+        "Freeze-dried strawberries",
+        "Matcha Ganache"
+      ]
+    },
+    "price": "35",
+    "unit": "pcs",
+    "unitLabel": {
+      "zh": "每件 PCS",
+      "en": "PER PIECE"
+    },
+    "img": "matcha-brookies-new.webp",
+    "imgW": "900",
+    "imgH": "900",
+    "homeAlt": {
+      "zh": "抹茶",
+      "en": "Matcha"
+    },
+    "homeMore": {
+      "zh": "看看詳情 →",
+      "en": "Peek Inside →"
+    },
+    "homePriceLabel": {
+      "zh": "每件 pcs",
+      "en": "Per Piece"
+    },
+    "homeTag": {
+      "zh": null,
+      "en": null
+    },
+    "homeTagClass": null,
+    "featured": false,
+    "peek": {
+      "zh": "睇真啲 ♥",
+      "en": "Take a closer look ♥"
+    },
+    "placeholder": {
+      "zh": "",
+      "en": ""
+    },
+    "ppTag": {
+      "zh": null,
+      "en": null
+    },
+    "frameStyle": {
+      "zh": "",
+      "en": ""
+    },
+    "framePlaceholder": {
+      "zh": "",
+      "en": ""
+    },
+    "slideAlt": {
+      "zh": "抹茶",
+      "en": "Matcha"
+    },
+    "moreCta": {
+      "zh": "看看詳情 →",
+      "en": "Peek inside →"
+    }
+  }
+]
