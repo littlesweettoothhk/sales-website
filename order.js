@@ -17,6 +17,12 @@
   var STORE_KEY = 'lst-order-v1';
   var FREE_DELIVERY = 1000;   // 免費送貨
   var RAIL_PICKUP  = 150;     // 東鐵沿綫交收
+  // Where the $150 reward sits on the progress track. The two rewards are
+  // decades apart in money, so the bar cannot be linear in dollars: $150 would
+  // land at 15% and the run from there to $1000 would swallow the whole track.
+  // Pinning $150 to a fixed mark keeps the first goal feeling reachable while
+  // the fill still only ever moves forward.
+  var RAIL_MARK = 40;         // %
 
   var isZH = !/^en/i.test(document.documentElement.lang || '');
   // Product pages live one level down, so asset paths need a prefix.
@@ -48,9 +54,16 @@
     order: '我的訂單', open: '查看訂單', close: '關閉',
     empty: '訂單仲係空嘅', emptyHint: '喺餐牌撳「加入訂單」就可以開始 ♥',
     subtotal: '小計', items: '件', checkout: 'WhatsApp 落單', clear: '清空',
+    clearConfirm: '再撳一次確認清空',
     railLeft: function (n) { return '再買 $' + n + ' 就可以東鐵沿綫交收 ✿'; },
     freeLeft: function (n) { return '再買 $' + n + ' 即可免費送貨 ✨'; },
+    // past $150 the first reward is banked — say so, then point at the next one
+    railGot: function (n) { return '東鐵沿綫交收已解鎖 ✿ ' + T.freeLeft(n); },
     freeGot: '已達免費送貨 ✨ 多謝你 ♥',
+    progressLabel: '交收優惠進度',
+    incFor: function (n) { return '增加 ' + n; },
+    decFor: function (n) { return '減少 ' + n; },
+    rmFor:  function (n) { return '移除 ' + n; },
     note: '落單後我哋會 WhatsApp 同你確認交收時間同地點 ♥',
     unitJar: '每樽', unitPcs: '每件',
     greet: '你好 Little Sweet Tooth ♥\n我想訂：',
@@ -60,9 +73,15 @@
     order: 'My Order', open: 'View order', close: 'Close',
     empty: 'Your order is empty', emptyHint: 'Tap "Add to order" on the menu to start ♥',
     subtotal: 'Subtotal', items: 'items', checkout: 'Order on WhatsApp', clear: 'Clear',
+    clearConfirm: 'Tap again to clear',
     railLeft: function (n) { return '$' + n + ' more for East Rail Line pickup ✿'; },
     freeLeft: function (n) { return '$' + n + ' more for free delivery ✨'; },
+    railGot: function (n) { return 'East Rail Line pickup unlocked ✿ ' + T.freeLeft(n); },
     freeGot: 'Free delivery unlocked ✨ thank you ♥',
+    progressLabel: 'Delivery reward progress',
+    incFor: function (n) { return 'Add one ' + n; },
+    decFor: function (n) { return 'Remove one ' + n; },
+    rmFor:  function (n) { return 'Remove ' + n; },
     note: "We'll confirm pickup time and place with you on WhatsApp ♥",
     unitJar: 'per jar', unitPcs: 'per piece',
     greet: 'Hi Little Sweet Tooth ♥\nI would like to order:',
@@ -123,6 +142,9 @@
     document.querySelectorAll('[data-product]').forEach(function (card) {
       var id = card.getAttribute('data-id');
       if (!catalog[id] || card.querySelector('.pc-add')) return;
+      // "+1" and "−1" read identically on every card, so a screen reader user
+      // tabbing the menu hears the same two words seven times over. Name them.
+      var nm = catalog[id].name;
       var wrap = document.createElement('div');
       wrap.className = 'pc-add';
       wrap.innerHTML =
@@ -130,9 +152,9 @@
           SVG.plus + '<span>' + T.add + '</span>' +
         '</button>' +
         '<div class="qty" data-qty-for="' + id + '" hidden>' +
-          '<button type="button" class="qty-btn" data-dec="' + id + '" aria-label="−1">' + SVG.minus + '</button>' +
+          '<button type="button" class="qty-btn" data-dec="' + id + '" aria-label="' + T.decFor(nm) + '">' + SVG.minus + '</button>' +
           '<span class="qty-n" aria-live="polite">0</span>' +
-          '<button type="button" class="qty-btn" data-inc="' + id + '" aria-label="+1">' + SVG.plus + '</button>' +
+          '<button type="button" class="qty-btn" data-inc="' + id + '" aria-label="' + T.incFor(nm) + '">' + SVG.plus + '</button>' +
         '</div>';
       card.appendChild(wrap);
     });
@@ -163,6 +185,10 @@
     drawer.setAttribute('role', 'dialog');
     drawer.setAttribute('aria-modal', 'true');
     drawer.setAttribute('aria-label', T.order);
+    // Closed, the drawer is only parked off-screen by a transform, so without
+    // this it stays in the tab order and a keyboard user walks into a cart
+    // they cannot see. CSS drops `visibility` to match once it has slid shut.
+    drawer.setAttribute('inert', '');
     drawer.innerHTML =
       '<div class="cart-head">' +
         '<h2>' + T.order + '</h2>' +
@@ -178,12 +204,14 @@
       '</div>' +
       '<div class="cart-foot">' +
         '<div class="cart-progress">' +
-          '<div class="cp-track"><div class="cp-fill"></div></div>' +
+          '<div class="cp-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" ' +
+               'aria-valuenow="0" aria-label="' + T.progressLabel + '"><div class="cp-fill"></div></div>' +
           '<p class="cp-msg"></p>' +
         '</div>' +
-        '<div class="cart-total"><span>' + T.subtotal + '</span><strong class="ct-val">$0</strong></div>' +
+        '<div class="cart-total" aria-live="polite" aria-atomic="true">' +
+          '<span>' + T.subtotal + '</span><strong class="ct-val">$0</strong></div>' +
         '<a class="cart-checkout" href="#" target="_blank" rel="noopener">' + SVG.bag + T.checkout + '</a>' +
-        '<button type="button" class="cart-clear" data-cart-clear>' + T.clear + '</button>' +
+        '<button type="button" class="cart-clear" data-cart-clear aria-live="polite">' + T.clear + '</button>' +
         '<p class="cart-note">' + T.note + '</p>' +
       '</div>';
 
@@ -200,16 +228,49 @@
     lastFocus = document.activeElement;
     document.body.classList.add('cart-open');
     var d = document.getElementById('lstCart');
+    d.removeAttribute('inert');
     d.classList.add('open');
     var f = d.querySelector('.cart-close');
     if (f) f.focus();
     document.addEventListener('keydown', onKey);
   }
   function closeCart() {
+    var d = document.getElementById('lstCart');
     document.body.classList.remove('cart-open');
-    document.getElementById('lstCart').classList.remove('open');
+    d.classList.remove('open');
     document.removeEventListener('keydown', onKey);
+    disarmClear();
+    // Return focus first: `inert` on an ancestor of the focused element would
+    // otherwise blur it to <body> and lose the caller's place on the page.
     if (lastFocus && lastFocus.focus) lastFocus.focus();
+    d.setAttribute('inert', '');
+  }
+
+  /* ---------- clearing, in two deliberate taps ---------- */
+
+  /* One stray tap next to the checkout button used to wipe an order outright,
+     with nothing to undo it. The button now has to be armed first, and it
+     disarms itself if it is left alone. */
+  var clearArmed = false, clearTimer = null;
+
+  function disarmClear() {
+    clearArmed = false;
+    if (clearTimer) { clearTimeout(clearTimer); clearTimer = null; }
+    var b = document.querySelector('.cart-clear');
+    if (b) { b.classList.remove('armed'); b.textContent = T.clear; }
+  }
+  function onClear(btn) {
+    if (!clearArmed) {
+      clearArmed = true;
+      btn.classList.add('armed');
+      btn.textContent = T.clearConfirm;
+      clearTimer = setTimeout(disarmClear, 5000);
+      return;
+    }
+    disarmClear();
+    cart = {};
+    save();
+    render();
   }
   function onKey(e) {
     if (e.key === 'Escape') { closeCart(); return; }
@@ -233,6 +294,86 @@
     });
     lines.push('', T.subtotal + '：$' + total(), T.tail);
     return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  /* ---------- the drawer's item rows ---------- */
+
+  /* Rows are built once and then updated in place. Rebuilding the list with
+     innerHTML destroyed the very button that had just been pressed, so every
+     step of a quantity threw keyboard focus back to <body> — which also broke
+     out of the dialog's focus trap — and re-decoded four photos on each tap. */
+
+  function buildRow(id) {
+    var p = catalog[id];
+    var li = document.createElement('li');
+    li.className = 'cart-item';
+    li.setAttribute('data-row', id);
+    li.innerHTML =
+      '<img src="' + p.img + '" alt="" width="64" height="64" loading="lazy" decoding="async">' +
+      '<div class="ci-info">' +
+        '<span class="ci-name">' + p.name + '</span>' +
+        '<span class="ci-unit">' + unitLabel(p.unit) + ' · $' + p.price + '</span>' +
+      '</div>' +
+      '<div class="qty ci-qty">' +
+        '<button type="button" class="qty-btn" data-dec="' + id + '"></button>' +
+        '<span class="qty-n" aria-live="polite"></span>' +
+        '<button type="button" class="qty-btn" data-inc="' + id + '" aria-label="' + T.incFor(p.name) + '">' + SVG.plus + '</button>' +
+      '</div>' +
+      '<span class="ci-sum"></span>';
+    return li;
+  }
+
+  function updateRow(li, id) {
+    var p = catalog[id], q = cart[id];
+    var dec = li.querySelector('[data-dec]');
+    var last = q === 1;
+    // touch innerHTML only when the icon actually has to change
+    if (dec.getAttribute('data-icon') !== (last ? 'trash' : 'minus')) {
+      dec.setAttribute('data-icon', last ? 'trash' : 'minus');
+      dec.innerHTML = last ? SVG.trash : SVG.minus;
+    }
+    dec.setAttribute('aria-label', last ? T.rmFor(p.name) : T.decFor(p.name));
+    var n = li.querySelector('.qty-n');
+    if (n.textContent !== String(q)) n.textContent = q;
+    var sum = li.querySelector('.ci-sum'), val = '$' + p.price * q;
+    if (sum.textContent !== val) sum.textContent = val;
+  }
+
+  // A row carrying focus is about to go; hand focus to a neighbour rather than
+  // letting it fall to <body> and out of the drawer.
+  function rehomeFocus(li) {
+    var sib = li.nextElementSibling || li.previousElementSibling;
+    var next = (sib && sib.querySelector('[data-dec]')) ||
+               document.querySelector('#lstCart .cart-close');
+    if (next) next.focus();
+  }
+
+  function renderItems(list) {
+    Array.prototype.slice.call(list.children).forEach(function (li) {
+      var id = li.getAttribute('data-row');
+      if (cart[id]) return;
+      if (li.contains(document.activeElement)) rehomeFocus(li);
+      list.removeChild(li);
+    });
+    // cart key order is append-only, so appending keeps the two in step
+    Object.keys(cart).forEach(function (id) {
+      var li = list.querySelector('[data-row="' + id + '"]');
+      if (!li) { li = buildRow(id); list.appendChild(li); }
+      updateRow(li, id);
+    });
+  }
+
+  /* ---------- delivery progress ---------- */
+
+  function progress(sum) {
+    if (sum >= FREE_DELIVERY) return { pct: 100, text: T.freeGot, done: true };
+    if (sum >= RAIL_PICKUP) {
+      return {
+        pct: RAIL_MARK + (sum - RAIL_PICKUP) / (FREE_DELIVERY - RAIL_PICKUP) * (100 - RAIL_MARK),
+        text: T.railGot(FREE_DELIVERY - sum), done: false
+      };
+    }
+    return { pct: sum / RAIL_PICKUP * RAIL_MARK, text: T.railLeft(RAIL_PICKUP - sum), done: false };
   }
 
   /* ---------- render ---------- */
@@ -266,42 +407,23 @@
     var drawer = document.getElementById('lstCart');
     if (!drawer) return;
 
-    var list = drawer.querySelector('.cart-items');
-    list.innerHTML = '';
-    Object.keys(cart).forEach(function (id) {
-      var p = catalog[id];
-      var li = document.createElement('li');
-      li.className = 'cart-item';
-      li.innerHTML =
-        '<img src="' + p.img + '" alt="" width="64" height="64" loading="lazy" decoding="async">' +
-        '<div class="ci-info">' +
-          '<span class="ci-name">' + p.name + '</span>' +
-          '<span class="ci-unit">' + unitLabel(p.unit) + ' · $' + p.price + '</span>' +
-        '</div>' +
-        '<div class="qty ci-qty">' +
-          '<button type="button" class="qty-btn" data-dec="' + id + '" aria-label="−1">' +
-            (cart[id] === 1 ? SVG.trash : SVG.minus) + '</button>' +
-          '<span class="qty-n">' + cart[id] + '</span>' +
-          '<button type="button" class="qty-btn" data-inc="' + id + '" aria-label="+1">' + SVG.plus + '</button>' +
-        '</div>' +
-        '<span class="ci-sum">$' + (p.price * cart[id]) + '</span>';
-      list.appendChild(li);
-    });
+    renderItems(drawer.querySelector('.cart-items'));
 
     drawer.querySelector('.cart-empty').hidden = n > 0;
     drawer.querySelector('.cart-foot').hidden = n === 0;
     drawer.querySelector('.ct-val').textContent = '$' + sum;
     drawer.querySelector('.cart-checkout').href = waLink();
+    if (n === 0) disarmClear();
 
+    var p = progress(sum);
+    var pct = Math.round(p.pct);
     var fill = drawer.querySelector('.cp-fill');
-    var msg = drawer.querySelector('.cp-msg');
-    var pct, text;
-    if (sum >= FREE_DELIVERY)    { pct = 100; text = T.freeGot; }
-    else if (sum >= RAIL_PICKUP) { pct = Math.round(sum / FREE_DELIVERY * 100); text = T.freeLeft(FREE_DELIVERY - sum); }
-    else                         { pct = Math.round(sum / RAIL_PICKUP * 40); text = T.railLeft(RAIL_PICKUP - sum); }
     fill.style.width = Math.max(4, pct) + '%';
-    fill.classList.toggle('done', sum >= FREE_DELIVERY);
-    msg.textContent = text;
+    fill.classList.toggle('done', p.done);
+    drawer.querySelector('.cp-msg').textContent = p.text;
+    var track = drawer.querySelector('.cp-track');
+    track.setAttribute('aria-valuenow', pct);
+    track.setAttribute('aria-valuetext', p.text);
   }
 
   /* ---------- events ---------- */
@@ -312,9 +434,11 @@
 
     if (t.hasAttribute('data-cart-open'))  { e.preventDefault(); openCart(); return; }
     if (t.hasAttribute('data-cart-close')) { e.preventDefault(); closeCart(); return; }
-    if (t.hasAttribute('data-cart-clear')) { e.preventDefault(); cart = {}; save(); render(); return; }
+    if (t.hasAttribute('data-cart-clear')) { e.preventDefault(); onClear(t); return; }
 
     e.preventDefault();
+    // any other order activity means the visitor is not clearing after all
+    disarmClear();
     var id = t.getAttribute('data-add') || t.getAttribute('data-inc') || t.getAttribute('data-dec');
     if (!catalog[id]) return;
     var cur = cart[id] || 0;
@@ -344,7 +468,13 @@
       refresh: render,
       qty: function (id) { return cart[id] || 0; },
       product: function (id) { return catalog[id] || null; },
-      addLabel: T.add
+      addLabel: T.add,
+      // so steppers built elsewhere name their product too, instead of
+      // offering a row of identical "+1" buttons
+      stepLabels: function (id) {
+        var nm = catalog[id] ? catalog[id].name : '';
+        return { inc: T.incFor(nm), dec: T.decFor(nm) };
+      }
     };
   }
 

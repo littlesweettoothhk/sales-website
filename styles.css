@@ -1727,9 +1727,21 @@ body.cart-open { overflow: hidden; }
   position: fixed; top: 0; right: 0; z-index: 1600;
   width: min(420px, 100%); height: 100%; display: flex; flex-direction: column;
   background: var(--butter); box-shadow: -20px 0 60px -20px rgba(58,36,24,.45);
-  transform: translateX(105%); transition: transform .45s var(--ease);
+  transform: translateX(105%);
+  /* Parked off-screen it is still *rendered*, so it kept its place in the tab
+     order and in the accessibility tree. Hiding it takes it out of both —
+     delayed until the slide has finished so the closing animation still runs. */
+  visibility: hidden;
+  transition: transform .45s var(--ease), visibility 0s linear .45s;
 }
-.cart-drawer.open { transform: none; }
+.cart-drawer.open {
+  transform: none;
+  visibility: visible;
+  /* deliberately NOT transitioning visibility here: even at 0s a discrete
+     transition defers the flip past the current task, and openCart() would
+     find the close button still unfocusable. Only closing needs the delay. */
+  transition: transform .45s var(--ease);
+}
 .cart-head {
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.2rem 1.3rem; border-bottom: 1px solid var(--rule); background: var(--cream);
@@ -1741,7 +1753,12 @@ body.cart-open { overflow: hidden; }
 .cart-close {
   width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
   background: var(--butter-2); border: 1px solid var(--rule); border-radius: 50%;
-  color: var(--cocoa-d); transition: all .25s var(--ease);
+  color: var(--cocoa-d);
+  /* Listed out rather than `all`: `all` also animates the drawer's inherited
+     visibility, and a discrete transition does not flip until halfway through,
+     so this button was still hidden — and unfocusable — when the drawer opened. */
+  transition: background-color .25s var(--ease), color .25s var(--ease),
+              border-color .25s var(--ease), transform .25s var(--ease);
 }
 .cart-close:hover { background: var(--accent); color: var(--cream); border-color: var(--accent); transform: rotate(90deg); }
 .cart-close .i { width: 18px; height: 18px; stroke-width: 2.4; }
@@ -1769,7 +1786,13 @@ body.cart-open { overflow: hidden; }
 .ce-hint { font-family: var(--font-sans); font-size: 14px; color: var(--mute); margin-top: .3rem; }
 .cart-foot { padding: 1.1rem 1.2rem 1.3rem; border-top: 1px solid var(--rule); background: var(--cream); }
 .cart-progress { margin-bottom: .9rem; }
-.cp-track { height: 8px; background: var(--butter-2); border-radius: 999px; overflow: hidden; }
+.cp-track { position: relative; height: 8px; background: var(--butter-2); border-radius: 999px; overflow: hidden; }
+/* the $150 reward, so the run to $1000 reads as a second leg rather than a
+   bar that shrank */
+.cp-track::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 40%;
+  width: 2px; background: var(--butter); opacity: .85;
+}
 .cp-fill { height: 100%; width: 4%; border-radius: 999px; background: linear-gradient(90deg, var(--peach-2), var(--accent)); transition: width .5s var(--ease); }
 .cp-fill.done { background: linear-gradient(90deg, var(--leaf), #6f8450); }
 .cp-msg { font-family: var(--font-sans); font-size: 12.5px; color: var(--cocoa); margin-top: .45rem; font-weight: 700; }
@@ -1794,6 +1817,12 @@ body.cart-open { overflow: hidden; }
   color: var(--mute); text-decoration: underline; min-height: 36px;
 }
 .cart-clear:hover { color: var(--accent); }
+/* armed: one more tap will actually empty the order */
+.cart-clear.armed {
+  color: var(--accent); font-weight: 800; text-decoration: none;
+  background: var(--butter-2); border: 1px solid var(--peach-2);
+  border-radius: 999px; padding: 0 1.1rem;
+}
 .cart-note { font-family: var(--font-sans); font-size: 12px; color: var(--mute); text-align: center; margin-top: .6rem; line-height: 1.5; }
 
 .back-to-top { z-index: 1300; }

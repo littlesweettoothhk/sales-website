@@ -52,15 +52,20 @@
   }
 
   /* the add button + stepper, exactly the shape order.js drives */
+  function stepLabels(id) {
+    if (window.LSTOrder && window.LSTOrder.stepLabels) return window.LSTOrder.stepLabels(id);
+    return { inc: '+1', dec: '−1' };
+  }
   function stepperHTML(id) {
+    var lab = stepLabels(id);
     return '<div class="pc-add">' +
       '<button type="button" class="pc-add-btn" data-add="' + id + '">' +
         SVG.plus + '<span>' + addLabel() + '</span>' +
       '</button>' +
       '<div class="qty" data-qty-for="' + id + '" hidden>' +
-        '<button type="button" class="qty-btn" data-dec="' + id + '" aria-label="−1">' + SVG.minus + '</button>' +
+        '<button type="button" class="qty-btn" data-dec="' + id + '" aria-label="' + lab.dec + '">' + SVG.minus + '</button>' +
         '<span class="qty-n" aria-live="polite">0</span>' +
-        '<button type="button" class="qty-btn" data-inc="' + id + '" aria-label="+1">' + SVG.plus + '</button>' +
+        '<button type="button" class="qty-btn" data-inc="' + id + '" aria-label="' + lab.inc + '">' + SVG.plus + '</button>' +
       '</div></div>';
   }
 
