@@ -1817,6 +1817,12 @@ body.cart-open { overflow: hidden; }
   color: var(--mute); text-decoration: underline; min-height: 36px;
 }
 .cart-clear:hover { color: var(--accent); }
+/* ---- 404 ---- */
+.nf { padding: clamp(3rem, 9vw, 6rem) 0 clamp(4rem, 10vw, 7rem); text-align: center; }
+.nf-acts { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 1.6rem; }
+.nf-en { font-family: var(--font-sans); font-size: 14px; color: var(--mute); margin-top: 1.6rem; }
+.nf-en a { color: var(--accent); }
+
 .cart-share {
   display: block; margin: .7rem auto 0; background: none;
   border: 1px solid var(--rule); border-radius: 999px;

@@ -82,18 +82,30 @@
 .rail-btn:active:not(:disabled) { transform: scale(.94); }
 .rail-btn:disabled { opacity: .32; cursor: default; }
 
-.rail-dots { display: flex; align-items: center; gap: 7px; padding: 0 .2rem; }
+/* The dot you see is 7px, but a 7px button 7px from its neighbour is far under
+   WCAG 2.2's Target Size (Minimum): a 24px circle centred on each would overlap
+   the next one. The visible dot is drawn by ::before and the button around it
+   carries a full 24px of hit area, so the row reads the same and can actually
+   be hit. */
+.rail-dots { display: flex; align-items: center; gap: 0; padding: 0 .2rem; }
 .rail-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
+  width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
   border: 0;
   padding: 0;
+  background: none;
+}
+.rail-dot::before {
+  content: "";
+  display: block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
   background: var(--peach-2);
   opacity: .5;
   transition: transform .3s var(--ease), opacity .3s var(--ease),
               background .3s var(--ease), width .3s var(--ease);
 }
-.rail-dot.on {
+.rail-dot.on::before {
   background: var(--accent);
   opacity: 1;
   width: 20px;
@@ -459,8 +471,8 @@
   .shelf-bar { gap: .5rem .45rem; }
   .rail-btn { width: 36px; height: 36px; }
   .rail-btn .i { width: 16px; height: 16px; }
-  .rail-dots { gap: 5px; }
-  .rail-dot.on { width: 16px; }
+  /* the button keeps its 24px target; only the drawn pill narrows */
+  .rail-dot.on::before { width: 16px; }
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -885,7 +897,7 @@ body.pv-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .sc, .sc::before, .sc-frame img, .pv, .rb-badge, .rb-emoji,
-  .rail-btn, .rail-dot, .pd-arrow, .pd-sticky {
+  .rail-btn, .rail-dot, .rail-dot::before, .pd-arrow, .pd-sticky {
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
   }

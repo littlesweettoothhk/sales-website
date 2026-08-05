@@ -89,6 +89,9 @@
     "moreCta": {
       "zh": "看看詳情 →",
       "en": "Peek inside →"
+    },
+    "metaDesc": {
+      "en": "Our signature flavour. Rich Belgian dark chocolate meets a sprinkle of sea salt — crisp on the outside, soft and gooey inside."
     }
   },
   {
@@ -230,7 +233,7 @@
     "imgH": "900",
     "homeAlt": {
       "zh": "焦糖黑朱古力",
-      "en": "焦糖黑朱古力"
+      "en": "Caramel Dark Chocolate"
     },
     "homeMore": {
       "zh": "看看詳情 →",
@@ -268,7 +271,7 @@
     },
     "slideAlt": {
       "zh": "焦糖黑朱古力",
-      "en": "焦糖黑朱古力"
+      "en": "Caramel Dark Chocolate"
     },
     "moreCta": {
       "zh": "看看詳情 →",
@@ -322,7 +325,7 @@
     "imgH": "900",
     "homeAlt": {
       "zh": "棉花糖黑朱古力",
-      "en": "棉花糖黑朱古力"
+      "en": "Marshmallow Dark Chocolate"
     },
     "homeMore": {
       "zh": "看看詳情 →",
@@ -360,11 +363,14 @@
     },
     "slideAlt": {
       "zh": "棉花糖黑朱古力",
-      "en": "棉花糖黑朱古力"
+      "en": "Marshmallow Dark Chocolate"
     },
     "moreCta": {
       "zh": "看看詳情 →",
       "en": "Peek inside →"
+    },
+    "metaDesc": {
+      "en": "A favorite among kids. Handmade marshmallows on top of dark chocolate brookies, lightly toasted until slightly caramelized."
     }
   },
   {
@@ -414,7 +420,7 @@
     "imgH": "900",
     "homeAlt": {
       "zh": "花生黑朱古力",
-      "en": "花生黑朱古力"
+      "en": "Peanut Dark Chocolate"
     },
     "homeMore": {
       "zh": "看看詳情 →",
@@ -452,11 +458,14 @@
     },
     "slideAlt": {
       "zh": "花生黑朱古力",
-      "en": "花生黑朱古力"
+      "en": "Peanut Dark Chocolate"
     },
     "moreCta": {
       "zh": "看看詳情 →",
       "en": "Peek inside →"
+    },
+    "metaDesc": {
+      "en": "Peanut butter paired with dark chocolate brookies, rich and indulgent with a perfect sweet-salty balance."
     }
   },
   {

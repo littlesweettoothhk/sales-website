@@ -58,6 +58,10 @@ def build(src, pid):
     img  = re.search(rf'{re.escape(SITE)}/src/([^"]+)"', s).group(1)
 
     for literal, token in [
+        # the meta description gets its own hole: Google truncates past ~155
+        # characters, but the paragraph a customer reads should not be cut
+        (f'<meta name="description" content="{desc}">',
+         '<meta name="description" content="{{META_DESC}}">'),
         (desc, '{{DESC}}'),
         (f'{SITE}/products/{pid}-en.html', '{{URL_EN}}'),
         (f'{SITE}/products/{pid}.html',    '{{URL_ZH}}'),

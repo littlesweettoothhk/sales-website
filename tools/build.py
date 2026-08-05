@@ -19,7 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TAG = re.compile(r'<(/?)div\b', re.I)
 
 def rd(p): return io.open(os.path.join(ROOT, p), encoding='utf-8').read()
-def L(d, lang): return d[lang]
+def L(d, lang): return (d or {}).get(lang) or ''
 
 def block(s, marker, what):
     i = s.find(marker)
@@ -87,6 +87,7 @@ def product_ld(p, lang):
         'name': L(p['name'], lang), 'image': f'{SITE}/src/{p["img"]}',
         'description': L(p['desc'], lang),
         'brand': {'@type': 'Brand', 'name': 'Little Sweet Tooth'},
+        'url': url,
         'offers': {'@type': 'Offer', 'url': url, 'priceCurrency': 'HKD',
                    'price': p['price'], 'availability': 'https://schema.org/InStock',
                    'seller': {'@type': 'Organization', 'name': 'Little Sweet Tooth'}},
@@ -100,7 +101,7 @@ def more_card(p, lang, indent='          '):
 f'''{i}<article class="product-card" data-product data-id="{p['id']}" data-name="{L(p['name'], lang)}" data-price="{p['price']}" data-unit="{p['unit']}" data-img="../src/{p['img']}" data-url="{page_url(p['id'], lang)}">
 {i}  <a class="menu-card-link" href="{href}">
 {i}    <div class="pc-img-wrap">
-{i}      <img src="../src/{p['img']}" alt="{L(p['name'], lang)}" width="900" height="900" loading="lazy" decoding="async">
+{i}      <img src="../src/{p['img']}" alt="{L(p['name'], lang)}" width="{p['imgW']}" height="{p['imgH']}" loading="lazy" decoding="async">
 {i}    </div>
 {i}    <div class="pc-body">
 {i}      <div class="pc-title-main">{L(p['name'], lang)}</div>
@@ -162,6 +163,7 @@ def render_product_page(products, idx, lang):
         ('{{ORDER}}', order), ('{{STICKY}}', sticky), ('{{MORE_GRID}}', grid),
         ('{{NAME}}', L(p['name'], lang)), ('{{SUB}}', L(p['sub'], lang)),
         ('{{DESC}}', L(p['desc'], lang)), ('{{EYEBROW}}', L(p['eyebrow'], lang)),
+        ('{{META_DESC}}', L(p.get('metaDesc') or {}, lang) or L(p['desc'], lang)),
         ('{{URL_ZH}}', f'{SITE}/products/{p["id"]}.html'),
         ('{{URL_EN}}', f'{SITE}/products/{p["id"]}-en.html'),
         ('{{IMG_ABS}}', f'{SITE}/src/{p["img"]}'), ('{{ID}}', p['id']),
