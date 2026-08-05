@@ -60,6 +60,10 @@
   align-items: center;
   gap: .55rem;
 }
+/* display:flex above would otherwise beat the hidden attribute that shelf.js
+   sets on a rail with nothing to scroll. .shelf-bar keeps its min-height, so
+   the shelves below stay on the same rhythm whether the controls show or not. */
+.shelf-rail-ui[hidden] { display: none; }
 .rail-btn {
   width: 40px; height: 40px;
   flex: 0 0 auto;

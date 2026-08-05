@@ -2084,6 +2084,11 @@ body:has(.order-bar.show) {
 
 /* ——— 5 · RESPONSIVE — nothing clipped, nothing scrolling sideways ——— */
 html, body { max-width: 100%; }
-.container, .hero-grid, .head-row { max-width: 100%; }
+/* .container, .hero-grid and .head-row deliberately do NOT appear here. They
+   each declare max-width: 1200px further up, and repeating them at 100% this
+   late in the file overrode that cap by source order — every section ran the
+   full width of the window instead of stopping at 1200. The rule bought
+   nothing either way: all three are block-level, so they cannot overflow
+   their parent to begin with. */
 img, svg { max-width: 100%; }
 .strip-row { will-change: transform; }

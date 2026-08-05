@@ -148,6 +148,13 @@
     function sync() {
       var i = current();
       var maxScroll = grid.scrollWidth - grid.clientWidth;
+      // A collection short enough to sit entirely on screen has nothing to page
+      // through: both arrows are disabled and the dots mark a single position.
+      // Hide the control set rather than leave dead buttons above the shelf —
+      // the jar shelf holds two cards, so on any desktop it showed a pair of
+      // greyed-out arrows for a rail that could not move. They come straight
+      // back when a narrower window makes the rail scrollable again.
+      ui.hidden = maxScroll <= 2;
       [].forEach.call(dots.children, function (d, j) { d.classList.toggle('on', j === i); });
       prev.disabled = grid.scrollLeft <= 2;
       next.disabled = grid.scrollLeft >= maxScroll - 2;
