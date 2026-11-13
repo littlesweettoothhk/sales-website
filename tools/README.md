@@ -17,7 +17,13 @@ plain HTML that you commit. Nothing here runs on the server.
    python3 tools/build.py --write    # apply it
    ```
 
-4. Commit. GitHub Pages serves the result as usual.
+4. Optional — give it its own colour. Each flavour has one line near the top of
+   `styles.css` (`[data-id="matcha"], … { --fl: #55752f; }`). Copy a line, change
+   the id and the colour. It tints the lip under the card, the name chip and the
+   wash on that flavour's page. Leave it out and the flavour uses the logo brown.
+   Pick a colour dark enough for cream text to read on (the existing seven all
+   clear 4.5:1).
+5. Commit. GitHub Pages serves the result as usual.
 
 ## What it writes
 

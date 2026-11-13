@@ -1,48 +1,24 @@
 /*
-  Little Sweet Tooth — "The Warm Bakery Shelf"
+  Little Sweet Tooth — the shelves
 
-  The product-browsing experience: collection shelves, an editorial counter
-  grid on desktop, snapping rails on phones, the preview sheet, the compact
-  ordering ribbon and the editorial product page.
+  The product-browsing experience: the two collection shelves, the cards on
+  them, the preview sheet, the three ordering steps and the product page.
 
-  This file is additive. styles.css keeps the original design for the hero,
-  care notes, farewell cookies, FAQ, contact and footer; nothing in here
-  redefines those. The palette, fonts and easing all come from :root in
-  styles.css so the warm handmade identity carries straight over.
+  The colours, the outline and the type all come from :root in styles.css.
+  Each card also reads --fl, its flavour's own colour, set there per data-id.
 */
 
 :root {
-  --plank:    #d8b184;      /* the shelf board */
-  --plank-d:  #b98a5c;
-  --paper:    #fffaf0;      /* card stock, a touch lighter than --cream */
-  --pv-z:     1700;
+  --paper: var(--cream);
+  --pv-z:  1700;
 }
 
 /* ══════════════════════════════════════════════════════════════════
    1 · THE SHELF
    ══════════════════════════════════════════════════════════════════ */
 
-.shelf {
-  position: relative;
-  margin: 0 0 1rem;
-}
+.shelf { position: relative; margin: 0 0 1rem; }
 .shelf + .shelf { margin-top: 1.4rem; }
-
-/* A warm pool of light behind each collection. It stays inside the shelf on
-   the inline axis: bleeding sideways widened the document and put a scrollbar
-   under the whole page. */
-.shelf::before {
-  content: "";
-  position: absolute;
-  inset: -18px 0 -30px;
-  background:
-    radial-gradient(60% 55% at 22% 32%, rgba(236,206,170,.55), transparent 70%),
-    radial-gradient(55% 50% at 84% 68%, rgba(217,176,131,.42), transparent 72%);
-  filter: blur(6px);
-  z-index: 0;
-  pointer-events: none;
-}
-.shelf > * { position: relative; z-index: 1; }
 
 /* ── the toolbar above each shelf ─────────────────────────────────── */
 .shelf-bar {
@@ -51,46 +27,36 @@
   justify-content: flex-end;
   flex-wrap: wrap;              /* on a narrow phone the controls drop below */
   gap: .6rem .8rem;
-  margin: 0 0 1rem;
-  min-height: 40px;
+  margin: 0 0 .6rem;
+  min-height: 44px;
 }
-/* the rail controls are shown at every width — the shelf scrolls everywhere */
-.shelf-rail-ui {
-  display: flex;
-  align-items: center;
-  gap: .55rem;
-}
+.shelf-rail-ui { display: flex; align-items: center; gap: .55rem; }
 /* display:flex above would otherwise beat the hidden attribute that shelf.js
-   sets on a rail with nothing to scroll. .shelf-bar keeps its min-height, so
-   the shelves below stay on the same rhythm whether the controls show or not. */
+   sets on a rail with nothing to scroll */
 .shelf-rail-ui[hidden] { display: none; }
+/* ...and a toolbar with nothing in it gives its row back */
+.shelf-bar:has(.shelf-rail-ui[hidden]) { display: none; }
 .rail-btn {
   width: 40px; height: 40px;
   flex: 0 0 auto;
   display: grid; place-items: center;
   border-radius: 50%;
-  border: 1.5px solid var(--rule);
-  background: var(--paper);
-  color: var(--cocoa);
-  box-shadow: 0 4px 12px -4px rgba(120,70,35,.28);
-  transition: transform .25s var(--ease), box-shadow .25s var(--ease),
-              background .25s var(--ease), opacity .25s var(--ease);
+  border: var(--ol);
+  background: var(--cream);
+  color: var(--cocoa-d);
+  box-shadow: 0 3px 0 var(--line);
+  transition: translate .16s var(--ease), box-shadow .16s var(--ease),
+              background-color .2s var(--ease), opacity .25s var(--ease);
 }
-.rail-btn .i { width: 18px; height: 18px; }
-.rail-btn:hover:not(:disabled) {
-  background: var(--accent); color: var(--cream);
-  border-color: var(--accent);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 10px 20px -8px rgba(150,80,40,.55);
-}
-.rail-btn:active:not(:disabled) { transform: scale(.94); }
-.rail-btn:disabled { opacity: .32; cursor: default; }
+.rail-btn .i { width: 18px; height: 18px; stroke-width: 2.6; }
+.rail-btn:hover:not(:disabled)  { background: var(--cookie); translate: 0 -2px; box-shadow: 0 5px 0 var(--line); }
+.rail-btn:active:not(:disabled) { translate: 0 2px; box-shadow: 0 1px 0 var(--line); }
+.rail-btn:disabled { opacity: .35; cursor: default; }
 
-/* The dot you see is 7px, but a 7px button 7px from its neighbour is far under
-   WCAG 2.2's Target Size (Minimum): a 24px circle centred on each would overlap
-   the next one. The visible dot is drawn by ::before and the button around it
-   carries a full 24px of hit area, so the row reads the same and can actually
-   be hit. */
+/* The dot you see is 8px, but an 8px button that close to its neighbour is
+   far under WCAG 2.2's Target Size (Minimum): a 24px circle centred on each
+   would overlap the next one. The visible dot is drawn by ::before and the
+   button around it carries a full 24px of hit area. */
 .rail-dots { display: flex; align-items: center; gap: 0; padding: 0 .2rem; }
 .rail-dot {
   width: 24px; height: 24px;
@@ -102,54 +68,30 @@
 .rail-dot::before {
   content: "";
   display: block;
-  width: 7px; height: 7px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--peach-2);
-  opacity: .5;
-  transition: transform .3s var(--ease), opacity .3s var(--ease),
-              background .3s var(--ease), width .3s var(--ease);
+  transition: background-color .3s var(--ease), width .3s var(--ease);
 }
-.rail-dot.on::before {
-  background: var(--accent);
-  opacity: 1;
-  width: 20px;
-  border-radius: 4px;
-}
+.rail-dot.on::before { background: var(--line); width: 20px; border-radius: 5px; }
 
-/* ── the plank the cards stand on ─────────────────────────────────── */
+/* ── the board the cards stand on: one drawn line and two brackets ── */
 .shelf-plank {
   position: relative;
-  height: 16px;
-  margin: 1.5rem 1.5% 0;
-  border-radius: 0 0 12px 12px;
-  background:
-    linear-gradient(180deg, var(--plank) 0%, var(--plank-d) 62%, #a2764c 100%);
-  box-shadow:
-    0 10px 22px -10px rgba(120,70,35,.55),
-    inset 0 1px 0 rgba(255,255,255,.35);
+  height: 5px;
+  margin: .5rem 1.5% 0;
+  border-radius: 999px;
+  background: var(--line);
 }
-/* wood grain */
-.shelf-plank::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: inherit;
-  background:
-    repeating-linear-gradient(90deg,
-      rgba(255,255,255,.10) 0 2px, transparent 2px 34px),
-    repeating-linear-gradient(90deg,
-      rgba(90,50,20,.10) 0 1px, transparent 1px 71px);
-  opacity: .8;
-}
-/* the two little brackets holding it up */
 .shelf-plank::after {
   content: "";
   position: absolute;
-  left: 6%; right: 6%; top: 100%;
-  height: 10px;
+  left: 7%; right: 7%; top: 100%;
+  height: 12px;
   background:
-    linear-gradient(180deg, rgba(120,70,35,.30), transparent) left  / 26px 100% no-repeat,
-    linear-gradient(180deg, rgba(120,70,35,.30), transparent) right / 26px 100% no-repeat;
-  filter: blur(.4px);
+    linear-gradient(var(--line), var(--line)) left  / 5px 100% no-repeat,
+    linear-gradient(var(--line), var(--line)) right / 5px 100% no-repeat;
+  border-radius: 0 0 3px 3px;
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -174,8 +116,9 @@
   justify-content: safe center;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 2px;
-  padding: 6px 2px 1.6rem;
+  scroll-padding-inline: 4px;
+  /* room for a card to lift on hover and for the lip underneath it */
+  padding: 18px 4px 1.7rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
   overscroll-behavior-x: contain;
@@ -184,11 +127,7 @@
 }
 .shelf-grid::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .shelf-grid.dragging { cursor: grabbing; scroll-snap-type: none; }
-.shelf-grid:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 6px;
-  border-radius: 20px;
-}
+.shelf-grid:focus-visible { outline: 3px solid var(--line); outline-offset: 4px; border-radius: 20px; }
 
 .shelf-grid > .sc {
   /* Every card the same width — the rail minus the gaps, divided by how many
@@ -211,266 +150,210 @@
    3 · THE PRODUCT CARD
    ══════════════════════════════════════════════════════════════════ */
 
-/* Every card is the same: same box, same photo area, same order of parts.
-   No resting rotation and no per-position offset — the shelf has to look
-   deliberately arranged, not scattered. */
+/* Every card is the same: same box, same photo window, same order of parts.
+   What changes from one to the next is its flavour colour — the lip it sits
+   on and the chip that names it. */
 .sc {
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 24px;
-  background: var(--paper);
-  border: 1.5px solid var(--rule);
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.7) inset,
-    0 14px 30px -14px rgba(120,70,35,.34);
-  transition: transform .38s var(--ease), box-shadow .38s var(--ease),
-              border-color .3s var(--ease);
-}
-
-/* a second sheet of paper behind, offset the same way on every card */
-.sc::before {
-  content: "";
-  position: absolute; inset: 7px -5px -7px 5px;
-  border-radius: inherit;
+  border-radius: 26px 30px 24px 32px / 30px 24px 32px 26px;
   background: var(--cream);
-  border: 1.5px solid var(--rule);
-  z-index: -1;
-  opacity: .6;
-  transition: transform .38s var(--ease), opacity .38s var(--ease);
+  border: var(--ol);
+  box-shadow: 0 7px 0 var(--fl);
+  transition: translate .2s var(--ease), box-shadow .2s var(--ease);
 }
-
 .sc:hover,
-.sc:focus-within {
-  transform: translateY(-8px);
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.7) inset,
-    0 30px 54px -20px rgba(120,70,35,.44);
-  border-color: var(--peach-2);
-}
-.sc:hover::before,
-.sc:focus-within::before { transform: translate(3px, 4px); opacity: .9; }
+.sc:focus-within { translate: 0 -5px; box-shadow: 0 12px 0 var(--fl); }
 
-/* chosen: a warm ring and a deeper shadow, so the shelf shows what's in the order */
-.sc.in-order {
-  border-color: var(--accent);
-  box-shadow:
-    0 0 0 3px rgba(181,102,56,.16),
-    0 24px 46px -18px rgba(150,80,40,.5);
-}
+/* chosen: the logo's cookie lands on the corner */
+.sc.in-order { background: var(--white); }
 .sc.in-order::after {
-  content: "♥";
-  position: absolute; top: -11px; right: -9px;
-  width: 30px; height: 30px;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--cream);
-  font-size: 15px;
-  box-shadow: 0 6px 14px -5px rgba(150,80,40,.7);
+  content: "";
+  position: absolute; top: -15px; right: 12px;
+  width: 40px; height: 40px;
+  background: url(src/cookie.webp) center / contain no-repeat;
   animation: scPop .45s var(--ease);
   z-index: 3;
 }
 @keyframes scPop {
-  0%   { transform: scale(0) rotate(-40deg); }
-  60%  { transform: scale(1.25) rotate(8deg); }
-  100% { transform: scale(1) rotate(0); }
+  0%   { scale: 0;    rotate: -40deg; }
+  60%  { scale: 1.25; rotate: 8deg; }
+  100% { scale: 1;    rotate: 0deg; }
 }
 
 /* the photo, and the button that opens the preview ------------------ */
 .sc-open {
   display: block;
   width: 100%;
-  padding: 0;
+  padding: 12px 12px 0;
   border: 0;
   background: none;
   text-align: inherit;
-  border-radius: 24px 24px 0 0;
-  overflow: hidden;
+  border-radius: 24px 28px 0 0;
 }
+/* An arched window, the same on every card, so the photographs line up. */
 .sc-frame {
   position: relative;
+  display: block;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: linear-gradient(150deg, var(--butter-2), var(--peach));
-  border-radius: 22px 22px 0 0;
+  background: var(--butter-2);
+  border: var(--ol);
+  border-radius: 190px 190px 16px 16px;
 }
-/* A soft bakery-window dome, identical on every card, so the photographs
-   line up. The featured flavour is marked with a ring and a word, not with
-   a different shape or a bigger photo. */
-.sc-open,
-.sc-frame { border-radius: 78px 78px 0 0; }
-
-/* the first flavour of a collection is marked with a warm ring only — same
-   card, same photo area, no extra words */
-.sc.is-featured {
-  border-color: var(--peach-2);
-  box-shadow:
-    0 0 0 2.5px rgba(217,176,131,.35),
-    0 2px 0 rgba(255,255,255,.7) inset,
-    0 14px 30px -14px rgba(120,70,35,.34);
-}
-
 .sc-frame img {
+  position: relative; z-index: 1;
   width: 100%; height: 100%;
   object-fit: cover;               /* never stretched; cropped evenly */
   object-position: center;
-  transform: scale(1.02);
-  transition: transform .8s var(--ease), filter .5s var(--ease);
+  transition: scale .7s var(--ease), rotate .7s var(--ease);
 }
-.sc:hover .sc-frame img { transform: scale(1.09) rotate(.6deg); filter: saturate(1.06); }
+.sc:hover .sc-frame img { scale: 1.07; rotate: 1deg; }
+/* the coloured fallback behind a photo, kept from the original cards */
+.sc-frame .pc-placeholder { position: absolute; inset: 0; z-index: 0; }
 
-/* a soft warm veil at the foot of the photo so the type sits comfortably */
-.sc-frame::after {
-  content: "";
-  position: absolute; inset: auto 0 0 0; height: 42%;
-  background: linear-gradient(180deg, transparent, rgba(90,59,39,.28));
-  opacity: .55;
-  transition: opacity .4s var(--ease);
-  pointer-events: none;
-}
-.sc:hover .sc-frame::after { opacity: .75; }
-
-/* a "look closer" cue that fades up on hover */
+/* a "look closer" cue that comes up on hover */
 .sc-peek {
   position: absolute;
-  left: 50%; bottom: 12px;
-  transform: translate(-50%, 14px);
-  padding: .32rem .85rem;
+  left: 50%; bottom: 10px;
+  z-index: 2;
+  translate: -50% 14px;
+  padding: .22rem .85rem;
   border-radius: 999px;
-  background: rgba(255,250,240,.94);
+  border: 2px solid var(--line);
+  background: var(--cookie);
   color: var(--cocoa-d);
-  font-family: var(--font-script);
-  font-size: 1.02rem;
-  font-weight: 600;
-  line-height: 1.25;
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  line-height: 1.3;
   white-space: nowrap;
   opacity: 0;
-  box-shadow: 0 8px 18px -8px rgba(90,50,20,.55);
-  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  transition: opacity .3s var(--ease), translate .3s var(--ease);
   pointer-events: none;
 }
 .sc:hover .sc-peek,
-.sc:focus-within .sc-peek { opacity: 1; transform: translate(-50%, 0); }
+.sc:focus-within .sc-peek { opacity: 1; translate: -50% 0; }
 
-/* The flavour tag, pinned on at an angle. It sits centred because the top
-   corners of the frame are domed — pinned into a corner it gets clipped. */
+/* The tag is a sticker at the crown of the arch — the one place a corner
+   of it cannot be cut off by the curve. */
 .sc-tag {
   position: absolute;
-  top: 14px; left: 50%;
+  top: 12px; left: 50%;
   z-index: 2;
-  padding: .28rem .78rem;
+  padding: .16rem .75rem;
   border-radius: 999px;
-  font-family: var(--font-sans);
+  border: 2px solid var(--line);
+  font-family: var(--font-display);
   font-size: 12.5px;
   font-weight: 800;
-  letter-spacing: .01em;
-  color: var(--cream);
-  background: var(--accent);
-  box-shadow: 0 6px 14px -6px rgba(120,60,25,.75);
-  transform: translateX(-50%) rotate(-4deg);
+  letter-spacing: .03em;
+  color: var(--cocoa-d);
+  background: var(--cookie);
+  translate: -50% 0;
+  rotate: -5deg;
   white-space: nowrap;
 }
-
-/* same three tag colours the original menu used */
-.sc-tag.signature { background: var(--accent); }
-.sc-tag.bold      { background: var(--cocoa-d); }
-.sc-tag.new       { background: var(--leaf); }
-
-/* the coloured fallback behind a photo, kept from the original cards */
-.sc-frame .pc-placeholder { position: absolute; inset: 0; z-index: 0; }
-.sc-frame img { position: relative; z-index: 1; }
-.sc-frame { display: block; }
+.sc-tag.signature { background: var(--cookie); }
+.sc-tag.bold      { background: var(--line); color: var(--cream); }
+.sc-tag.new       { background: #cfe0a8; }
 
 /* body ------------------------------------------------------------- */
 .sc-body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: .28rem;
-  padding: 1.05rem 1.15rem .2rem;
+  gap: .22rem;
+  padding: .9rem 1.15rem .2rem;
 }
-.sc-name {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(1.06rem, 1.5vw, 1.3rem);
-  line-height: 1.25;
-  color: var(--cocoa-d);
-}
+/* the second name is the flavour's chip, in the flavour's colour, and comes
+   first — the way the band sits under the picture on a label */
 .sc-sub {
-  font-family: var(--font-sans);
-  font-size: 12.5px;
+  order: -1;
+  align-self: flex-start;
+  margin: 0 0 .3rem -.2rem;
+  padding: .16rem .7rem;
+  border-radius: 999px;
+  background: var(--fl);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: .07em;
+  letter-spacing: .09em;
   text-transform: uppercase;
-  color: var(--mute);
+  rotate: -1.5deg;
+}
+.sc-sub:lang(zh-Hant) { letter-spacing: .06em; font-size: 12.5px; }
+.sc-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.1rem, 1.5vw, 1.32rem);
+  line-height: 1.25;
+  letter-spacing: .02em;
+  color: var(--line);
 }
 
 .sc-price {
   display: flex; align-items: baseline; gap: .5rem;
-  margin-top: .45rem;
-  padding-top: .55rem;
-  border-top: 1.5px dashed var(--rule);
+  margin-top: .5rem;
+  padding-top: .5rem;
+  border-top: 2.5px dashed var(--rule);
 }
 .sc-lbl {
-  font-family: var(--font-sans);
-  font-size: 11.5px; font-weight: 700;
+  font-size: 11.5px; font-weight: 800;
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--mute);
 }
 .sc-val {
   margin-left: auto;
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1.3rem;
-  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: var(--line);
 }
 
 .sc-more {
   align-self: flex-start;
-  margin-top: .5rem;
-  font-family: var(--font-script);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--accent-d);
-  text-decoration: none;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color .25s var(--ease), transform .25s var(--ease);
+  margin-top: .35rem;
+  font-family: var(--font-display);
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline wavy var(--cookie-d);
+  text-underline-offset: 5px;
+  transition: translate .25s var(--ease);
 }
-.sc-more:hover { border-color: var(--accent-d); transform: translateX(3px); }
+.sc-more:hover { translate: 3px 0; }
 
 /* the stepper order.js appends to every [data-product] */
-.sc .pc-add { padding: .7rem 1.15rem 1.1rem; margin-top: auto; }
+.sc .pc-add { padding: .8rem 1.15rem 1.15rem; margin-top: auto; }
 .sc .pc-add-btn { width: 100%; justify-content: center; }
 .sc .qty { width: 100%; justify-content: space-between; }
 
 /* touch feedback */
-.sc-open:active .sc-frame img { transform: scale(1.04); }
 @media (hover: none) {
-  .sc:active { transform: translateY(-4px) scale(.995); }
-  .sc-peek { opacity: .9; transform: translate(-50%, 0); }
+  .sc:active { translate: 0 -3px; }
+  .sc-peek { opacity: 1; translate: -50% 0; }
 }
 
 /* the quantity number reacts when it changes */
 .qty-n.bump { animation: qtyBump .42s var(--ease); }
 @keyframes qtyBump {
-  0%   { transform: scale(1);   color: var(--cocoa-d); }
-  35%  { transform: scale(1.5); color: var(--accent); }
-  100% { transform: scale(1);   color: var(--cocoa-d); }
+  0%   { scale: 1; }
+  35%  { scale: 1.5; }
+  100% { scale: 1; }
 }
-.qty-n { display: inline-block; }
 
 /* ══════════════════════════════════════════════════════════════════
    4 · THE NARROW END OF THE RAIL
    ══════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 900px) {
-  .shelf-plank { margin-top: .2rem; height: 13px; }
-}
-
 @media (max-width: 480px) {
-  .sc-body { padding: .9rem 1rem .2rem; }
-  .sc .pc-add { padding: .6rem 1rem 1rem; }
+  .sc-body { padding: .8rem 1rem .2rem; }
+  .sc .pc-add { padding: .7rem 1rem 1rem; }
+  .sc-open { padding: 10px 10px 0; }
 
   .shelf-bar { gap: .5rem .45rem; }
   .rail-btn { width: 36px; height: 36px; }
@@ -486,9 +369,7 @@
 .pv-backdrop {
   position: fixed; inset: 0;
   z-index: var(--pv-z);
-  background: rgba(58,36,24,.52);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(58,34,22,.55);
   opacity: 0; pointer-events: none;
   transition: opacity .35s var(--ease);
 }
@@ -505,37 +386,33 @@
   pointer-events: none;
   display: grid;
   grid-template-columns: 1.02fr 1fr;
-  border-radius: 28px;
+  border-radius: 30px;
   overflow: hidden;
-  background: var(--paper);
-  border: 1.5px solid var(--rule);
-  box-shadow: 0 40px 90px -30px rgba(70,40,15,.7);
+  background: var(--cream);
+  border: var(--ol);
+  box-shadow: 0 10px 0 var(--line);
   transition: opacity .38s var(--ease), transform .38s var(--ease);
 }
 .pv.open { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
 
-.pv-media {
-  position: relative;
-  background: linear-gradient(150deg, var(--butter-2), var(--peach));
-  min-height: 260px;
-}
+.pv-media { position: relative; background: var(--butter-2); min-height: 260px; border-right: var(--ol); }
 .pv-media img { width: 100%; height: 100%; object-fit: cover; }
-.pv-media .sc-tag { top: 18px; left: 18px; }
+.pv-media .sc-tag { top: 16px; left: 16px; translate: none; }
 
 .pv-close {
   position: absolute; top: 12px; right: 12px;
   z-index: 4;
-  width: 38px; height: 38px;
+  width: 40px; height: 40px;
   display: grid; place-items: center;
   border-radius: 50%;
-  border: 1.5px solid var(--rule);
-  background: rgba(255,250,240,.94);
+  border: var(--ol);
+  background: var(--cream);
   color: var(--cocoa-d);
-  box-shadow: 0 6px 16px -6px rgba(90,50,20,.6);
-  transition: transform .25s var(--ease), background .25s var(--ease);
+  box-shadow: 0 3px 0 var(--line);
+  transition: transform .25s var(--ease), background-color .25s var(--ease);
 }
-.pv-close:hover { background: var(--accent); color: var(--cream); transform: rotate(90deg); }
-.pv-close .i { width: 17px; height: 17px; stroke-width: 2.4; }
+.pv-close:hover { background: var(--cookie); transform: rotate(90deg); }
+.pv-close .i { width: 17px; height: 17px; stroke-width: 2.6; }
 
 .pv-info {
   display: flex;
@@ -544,58 +421,37 @@
   padding: 1.7rem 1.7rem 1.5rem;
   overflow-y: auto;
 }
-.pv-eyebrow {
-  font-family: var(--font-script);
-  font-size: 1.14rem;
-  font-weight: 600;
-  color: var(--accent);
-}
-.pv-name {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  line-height: 1.15;
-  color: var(--cocoa-d);
-}
-.pv-sub {
-  font-family: var(--font-sans);
-  font-size: 12.5px; font-weight: 700;
-  letter-spacing: .09em; text-transform: uppercase;
-  color: var(--mute);
-}
-.pv-desc {
-  margin-top: .7rem;
-  font-size: 15px;
-  line-height: 1.72;
-  color: var(--ink);
-}
+.pv-eyebrow { font-family: var(--font-display); font-size: .95rem; font-weight: 700; color: var(--mute); letter-spacing: .06em; }
+.pv-name { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.45rem, 2.4vw, 1.95rem); line-height: 1.15; color: var(--line); }
+.pv-sub { font-size: 12.5px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--mute); }
+.pv-desc { margin-top: .7rem; font-size: 15px; line-height: 1.75; color: var(--ink); }
 .pv-price {
   display: flex; align-items: baseline; gap: .6rem;
   margin-top: 1rem;
-  padding: .7rem 0;
-  border-top: 1.5px dashed var(--rule);
-  border-bottom: 1.5px dashed var(--rule);
+  padding: .65rem 0;
+  border-top: 2.5px dashed var(--rule);
+  border-bottom: 2.5px dashed var(--rule);
 }
 .pv-price .sc-lbl { font-size: 12px; }
-.pv-price .sc-val { font-size: 1.72rem; }
+.pv-price .sc-val { font-size: 1.8rem; }
 
 .pv-order { margin-top: 1rem; }
-.pv-order .pc-add { padding: 0; }
+.pv-order .pc-add { padding: 0 0 5px; }
 .pv-order .pc-add-btn { width: 100%; justify-content: center; padding: .85rem 1.2rem; }
 .pv-order .qty { width: 100%; justify-content: space-between; }
 
 .pv-full {
   align-self: flex-start;
   margin-top: 1rem;
-  font-family: var(--font-script);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--accent-d);
-  text-decoration: none;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color .25s var(--ease), transform .25s var(--ease);
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline wavy var(--cookie-d);
+  text-underline-offset: 5px;
+  transition: translate .25s var(--ease);
 }
-.pv-full:hover { border-color: var(--accent-d); transform: translateX(3px); }
+.pv-full:hover { translate: 3px 0; }
 
 /* a mobile bottom sheet, with a grab handle */
 .pv-handle { display: none; }
@@ -607,7 +463,9 @@
     max-height: 90vh;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
-    border-radius: 26px 26px 0 0;
+    border-radius: 28px 28px 0 0;
+    border-width: 2.5px 0 0;
+    box-shadow: none;
     transform: translate(0, 100%);
     transition: transform .42s var(--ease), opacity .3s var(--ease);
   }
@@ -616,13 +474,13 @@
     display: block;
     position: absolute; top: 9px; left: 50%;
     transform: translateX(-50%);
-    width: 46px; height: 5px;
+    width: 46px; height: 6px;
     border-radius: 999px;
-    background: rgba(255,250,240,.85);
+    background: var(--cream);
+    border: 1.5px solid var(--line);
     z-index: 5;
-    box-shadow: 0 2px 6px rgba(90,50,20,.35);
   }
-  .pv-media { aspect-ratio: 16 / 11; min-height: 0; }
+  .pv-media { aspect-ratio: 16 / 11; min-height: 0; border-right: 0; border-bottom: var(--ol); }
   .pv-info { padding: 1.2rem 1.2rem calc(1.3rem + env(safe-area-inset-bottom, 0px)); }
   .pv-desc { margin-top: .5rem; font-size: 14.5px; }
 }
@@ -630,7 +488,7 @@
 body.pv-open { overflow: hidden; }
 
 /* ══════════════════════════════════════════════════════════════════
-   6 · THE ORDERING RIBBON
+   6 · THE THREE ORDERING STEPS
    ══════════════════════════════════════════════════════════════════ */
 
 .ribbon {
@@ -638,15 +496,19 @@ body.pv-open { overflow: hidden; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
-  padding: 1.5rem 1.4rem;
-  border-radius: 26px;
-  background:
-    linear-gradient(180deg, rgba(255,250,240,.95), rgba(253,242,225,.95));
-  border: 1.5px solid var(--rule);
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.7) inset,
-    0 18px 38px -20px rgba(120,70,35,.4);
-  overflow: hidden;
+  padding: 1.7rem 1.4rem 1.6rem;
+  border-radius: var(--wob);
+  background: var(--cream);
+  border: var(--ol);
+  box-shadow: 0 7px 0 var(--peach-2);
+}
+/* the mascot looks over the top edge */
+.ribbon::after {
+  content: "";
+  position: absolute; right: 7%; bottom: calc(100% - 5px);
+  width: 138px; aspect-ratio: 520 / 301;
+  background: url(src/mascot.webp) center bottom / contain no-repeat;
+  pointer-events: none;
 }
 .rb-step {
   position: relative;
@@ -656,80 +518,68 @@ body.pv-open { overflow: hidden; }
   grid-template-areas:
     "badge  head"
     "badge  copy";
-  column-gap: .85rem;
+  column-gap: .95rem;
   row-gap: .1rem;
   align-content: start;
-  padding: 0 1rem;
+  padding: 0 1.1rem;
 }
 /* one step leads to the next: a little arrow sitting on the dashed divider,
-   level with the numbered badges. A line running straight across the ribbon
-   cut through the sentences instead. */
-.rb-step + .rb-step { border-left: 1.5px dashed var(--rule); }
+   level with the numbered badges */
+.rb-step + .rb-step { border-left: 2.5px dashed var(--rule); }
 .rb-step + .rb-step::before {
   content: "→";
   position: absolute;
-  left: 0; top: 26px;
+  left: 0; top: 28px;
   transform: translate(-50%, -50%);
   width: 28px; height: 28px;
   display: grid; place-items: center;
   border-radius: 50%;
-  background: var(--paper);
-  border: 1.5px solid var(--rule);
-  color: var(--accent);
+  background: var(--cream);
+  border: 2px solid var(--line);
+  color: var(--line);
   font-size: 14px;
+  font-weight: 800;
   line-height: 1;
-  box-shadow: 0 3px 8px -4px rgba(120,70,35,.5);
 }
 
+/* each number is written on a cookie-coloured disc */
 .rb-badge {
   grid-area: badge;
   position: relative;
-  width: 52px; height: 52px;
+  width: 56px; height: 56px;
   display: grid; place-items: center;
   border-radius: 50%;
-  background: var(--paper);
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1.34rem;
+  background: var(--cookie);
+  border: var(--ol);
+  color: var(--cocoa-d);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
   line-height: 1;
-  box-shadow: 0 8px 18px -8px rgba(150,80,40,.6);
-  transition: transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
+  transition: rotate .35s var(--ease), scale .35s var(--ease);
 }
+.rb-step:nth-child(1) .rb-badge { rotate: -6deg; }
+.rb-step:nth-child(2) .rb-badge { rotate: 4deg; }
+.rb-step:nth-child(3) .rb-badge { rotate: -3deg; }
 .rb-emoji {
   position: absolute;
-  right: -8px; bottom: -8px;
-  font-size: 1.22rem;
+  right: -9px; bottom: -8px;
+  font-size: 1.25rem;
   line-height: 1;
-  filter: drop-shadow(0 2px 3px rgba(90,50,20,.35));
-  transition: transform .35s var(--ease);
+  transition: scale .35s var(--ease), rotate .35s var(--ease);
 }
-.rb-step:hover .rb-badge { transform: rotate(-8deg) scale(1.06); background: var(--accent); color: var(--cream); }
-.rb-step:hover .rb-emoji { transform: scale(1.2) rotate(10deg); }
+.rb-step:hover .rb-badge { rotate: 0deg; scale: 1.08; }
+.rb-step:hover .rb-emoji { scale: 1.25; rotate: 12deg; }
 
-.rb-head {
-  grid-area: head;
-  align-self: center;
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1.13rem;
-  line-height: 1.2;
-  color: var(--cocoa-d);
-}
-.rb-copy {
-  grid-area: copy;
-  font-size: 13.6px;
-  line-height: 1.55;
-  color: var(--mute);
-}
+.rb-head { grid-area: head; align-self: center; font-size: 1.18rem; line-height: 1.2; }
+.rb-copy { grid-area: copy; font-size: 14px; line-height: 1.6; color: var(--ink); }
 
 @media (max-width: 900px) {
   .ribbon {
     display: flex;
     grid-template-columns: none;
     gap: .8rem;
-    padding: 1rem .9rem 1.1rem;
+    padding: 1.1rem .9rem 1.2rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -737,26 +587,28 @@ body.pv-open { overflow: hidden; }
     overscroll-behavior-x: contain;
   }
   .ribbon::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  /* a scrolling box clips whatever stands on its edge */
+  .ribbon::after { display: none; }
   .rb-step {
     flex: 0 0 84%;
     scroll-snap-align: center;
     padding: 0;
-    column-gap: .7rem;
+    column-gap: .75rem;
   }
   /* the steps become a swipeable sequence, so the divider and its arrow go */
   .rb-step + .rb-step { border-left: 0; }
   .rb-step + .rb-step::before { display: none; }
-  .rb-badge { width: 44px; height: 44px; font-size: 1.14rem; }
+  .rb-badge { width: 46px; height: 46px; font-size: 1.25rem; }
   .rb-emoji { font-size: 1.05rem; right: -6px; bottom: -6px; }
-  .rb-head { font-size: 1.04rem; }
-  .rb-copy { font-size: 13px; line-height: 1.5; }
+  .rb-head { font-size: 1.06rem; }
+  .rb-copy { font-size: 13.2px; line-height: 1.55; }
 
-  .ribbon-dots { display: flex; justify-content: center; gap: 7px; margin-top: .7rem; }
+  .ribbon-dots { display: flex; justify-content: center; gap: 0; margin-top: .7rem; }
 }
 .ribbon-dots { display: none; }
 
 /* ══════════════════════════════════════════════════════════════════
-   7 · THE EDITORIAL PRODUCT PAGE
+   7 · THE PRODUCT PAGE
    ══════════════════════════════════════════════════════════════════ */
 
 .pd {
@@ -775,13 +627,11 @@ body.pv-open { overflow: hidden; }
   /* Capped, not driven by the photo's aspect ratio. Left to grow, the gallery
      filled the whole grid row and sticky had nothing to travel through. */
   height: clamp(360px, 58vh, 600px);
-  border-radius: 250px 250px 26px 26px;
+  border-radius: 270px 270px 30px 30px;
   overflow: hidden;
-  background: linear-gradient(150deg, var(--butter-2), var(--peach));
-  border: 1.5px solid var(--rule);
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.6) inset,
-    0 26px 55px -24px rgba(120,70,35,.5);
+  background: var(--butter-2);
+  border: var(--ol);
+  box-shadow: 0 10px 0 var(--fl);
 }
 .pd-track {
   display: flex;
@@ -794,20 +644,10 @@ body.pv-open { overflow: hidden; }
 }
 .pd-track::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
-.pd-slide {
-  flex: 0 0 100%;
-  scroll-snap-align: center;
-  height: 100%;
-  margin: 0;
-}
-.pd-slide { position: relative; }
+.pd-slide { position: relative; flex: 0 0 100%; scroll-snap-align: center; height: 100%; margin: 0; }
 .pd-slide img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
 /* the coloured fallback some flavours carry behind the photo */
 .pd-slide .pp-placeholder { position: absolute; inset: 0; z-index: 0; }
-
-.pd-stage .pp-tag {
-  position: absolute; top: 22px; left: 22px; z-index: 3;
-}
 
 .pd-arrow {
   position: absolute; top: 50%;
@@ -815,20 +655,20 @@ body.pv-open { overflow: hidden; }
   width: 42px; height: 42px;
   display: grid; place-items: center;
   border-radius: 50%;
-  border: 1.5px solid var(--rule);
-  background: rgba(255,250,240,.92);
+  border: var(--ol);
+  background: var(--cream);
   color: var(--cocoa-d);
-  box-shadow: 0 8px 20px -8px rgba(90,50,20,.6);
-  transition: transform .25s var(--ease), background .25s var(--ease), opacity .25s var(--ease);
+  box-shadow: 0 3px 0 var(--line);
+  transition: background-color .25s var(--ease), opacity .25s var(--ease);
   z-index: 3;
 }
 .pd-arrow.prev { left: 12px; }
 .pd-arrow.next { right: 12px; }
-.pd-arrow:hover:not(:disabled) { background: var(--accent); color: var(--cream); border-color: var(--accent); }
+.pd-arrow:hover:not(:disabled) { background: var(--cookie); }
 .pd-arrow:disabled { opacity: 0; pointer-events: none; }
 .pd-arrow .i { width: 18px; height: 18px; }
 
-.pd-dots { display: flex; justify-content: center; gap: 7px; margin-top: .9rem; }
+.pd-dots { display: flex; justify-content: center; gap: 0; margin-top: 1.3rem; }
 .pd-dots:empty { display: none; }
 
 /* a single-photo gallery hides its controls entirely */
@@ -838,16 +678,16 @@ body.pv-open { overflow: hidden; }
 /* ── info column ─────────────────────────────────────────────────── */
 .pd-info { display: flex; flex-direction: column; }
 .pd-order { margin: 1.1rem 0 .3rem; }
-.pd-order .pc-add { padding: 0; }
-.pd-order .pc-add-btn { width: 100%; justify-content: center; padding: .9rem 1.3rem; font-size: 1rem; }
-.pd-order .qty { width: 100%; justify-content: space-between; padding: .45rem .6rem; }
+.pd-order .pc-add { padding: 0 0 5px; }
+.pd-order .pc-add-btn { width: 100%; justify-content: center; min-height: 54px; padding: .9rem 1.3rem; font-size: 1rem; }
+.pd-order .qty { width: 100%; justify-content: space-between; padding: .4rem .5rem; }
 
 /* ── mobile ──────────────────────────────────────────────────────── */
 @media (max-width: 880px) {
-  .pd { grid-template-columns: 1fr; gap: 1.3rem; }
+  .pd { grid-template-columns: 1fr; gap: 1.6rem; }
   .pd-gallery { position: static; }
   /* on a phone the photo leads the page, so it goes back to a square */
-  .pd-stage { height: auto; border-radius: 190px 190px 24px 24px; }
+  .pd-stage { height: auto; border-radius: 200px 200px 26px 26px; }
   .pd-slide { height: auto; aspect-ratio: 1 / 1; }
   .pd-arrow { width: 38px; height: 38px; }
 
@@ -870,17 +710,17 @@ body.pv-open { overflow: hidden; }
 .pd-sticky {
   position: fixed;
   left: 12px; right: 12px;
-  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   z-index: 1350;
   display: none;
   align-items: center;
   gap: .8rem;
-  padding: .6rem .7rem .6rem 1.1rem;
+  padding: .5rem .6rem .5rem 1.1rem;
   border-radius: 999px;
-  background: rgba(255,250,240,.97);
-  border: 1.5px solid var(--rule);
-  box-shadow: 0 18px 38px -14px rgba(90,50,20,.6);
-  transform: translateY(140%);
+  background: var(--cream);
+  border: var(--ol);
+  box-shadow: 0 5px 0 var(--line);
+  transform: translateY(160%);
   transition: transform .4s var(--ease);
 }
 @media (max-width: 880px) {
@@ -889,22 +729,23 @@ body.pv-open { overflow: hidden; }
 }
 .pds-price { display: flex; flex-direction: column; line-height: 1.15; }
 .pds-price .sc-lbl { font-size: 10.5px; }
-.pds-price .sc-val { font-size: 1.25rem; margin-left: 0; }
+.pds-price .sc-val { font-size: 1.3rem; margin-left: 0; }
 .pds-act { flex: 1; min-width: 0; }
 .pds-act .pc-add { padding: 0; }
-.pds-act .pc-add-btn { width: 100%; justify-content: center; padding: .72rem 1rem; }
-.pds-act .qty { width: 100%; justify-content: space-between; }
+.pds-act .pc-add-btn { width: 100%; justify-content: center; padding: .6rem 1rem; box-shadow: none; }
+.pds-act .pc-add-btn:hover, .pds-act .pc-add-btn:active { translate: none; box-shadow: none; }
+.pds-act .qty { width: 100%; justify-content: space-between; box-shadow: none; }
 
 /* ══════════════════════════════════════════════════════════════════
    8 · REDUCED MOTION
    ══════════════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
-  .sc, .sc::before, .sc-frame img, .pv, .rb-badge, .rb-emoji,
+  .sc, .sc-frame img, .pv, .rb-badge, .rb-emoji,
   .rail-btn, .rail-dot, .rail-dot::before, .pd-arrow, .pd-sticky {
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
   }
-  .sc:hover { transform: translateY(-3px); }
-  .sc:hover .sc-frame img { transform: scale(1.02); }
+  .sc:hover { translate: 0 -2px; }
+  .sc:hover .sc-frame img { scale: 1; rotate: 0deg; }
 }
