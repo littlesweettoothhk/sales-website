@@ -1,0 +1,31 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "@id": "https://www.littlesweettoothhk.com/#bakery",
+  "name": "Little Sweet Tooth",
+  "description": "香港手工布朗尼曲奇 brookies，用心小批量烘焙。",
+  "url": "https://www.littlesweettoothhk.com/",
+  "image": "https://www.littlesweettoothhk.com/src/og-image.jpg",
+  "logo": "https://www.littlesweettoothhk.com/src/logo.webp",
+  "telephone": "+852 9817 4221",
+  "priceRange": "$$",
+  "servesCuisine": "Bakery",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Fo Tan",
+    "addressRegion": "New Territories",
+    "addressCountry": "HK"
+  },
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "Hong Kong"
+  },
+  "sameAs": [
+    "https://www.instagram.com/littlesweettooth._"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Brookies",
+    "itemListElement": []
+  }
+}

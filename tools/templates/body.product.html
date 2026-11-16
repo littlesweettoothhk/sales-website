@@ -1,0 +1,69 @@
+<body class="pp" style="{{@stage_style}}">
+{{>part.header}}
+
+  <main id="main">
+
+  <!-- the flavour, large, on its own colour -->
+  <section class="pstage">
+    <div class="stage-word" aria-hidden="true"><div class="stage-word-track">{{@word}}</div></div>
+    <div class="wrap pstage-grid">
+      <a class="back" href="{{H}}#menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>{{t:pp.back}}</a>
+
+      <div class="pshot">
+        <div class="stage-halo" aria-hidden="true"></div>
+{{@pshot}}
+      </div>
+
+      <div class="pinfo">
+        <p class="eyebrow">{{t:pp.eyebrow}}</p>
+        <h1>{{NAME}}</h1>
+        <p class="psub">{{SUB}}</p>
+        <p class="pdesc">{{DESC}}</p>
+
+        <div class="pbuy">
+          <p class="pprice"><b>{{@price}}</b><span>{{@unit}}</span></p>
+          {{@order}}
+        </div>
+
+        <a href="{{@wa}}" class="btn btn-line pask" target="_blank" rel="noopener">{{@icon_wa}} {{t:pp.ask}}</a>
+        <p class="tiny">{{t:pp.tiny}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- what is in it, beside the photograph as it was taken -->
+  <section class="pfacts">
+    <div class="wrap pfacts-grid">
+      <figure class="pphoto" data-reveal>
+{{@photo}}
+      </figure>
+      <div class="pnotes" data-reveal>
+        <h2>{{t:pp.notes}}</h2>
+        <ul>
+{{@notes}}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="more">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="eyebrow">{{t:pp.more.eyebrow}}</p>
+        <h2>{{t:pp.more.title}}</h2>
+        <p class="sec-sub">{{t:pp.more.sub}}</p>
+      </header>
+      <div class="tiles tiles--more">
+{{@more}}
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- on a phone the price and the add button follow you down the page -->
+  {{@buybar}}
+
+{{>part.footer}}
+</body>
+</html>

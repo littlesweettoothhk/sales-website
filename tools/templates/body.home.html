@@ -1,0 +1,296 @@
+<body class="home">
+{{>part.header}}
+
+  <main id="main">
+
+  <!-- ═══ The stage: one flavour at a time, the whole screen in its colour ═══ -->
+  <section class="stage" id="home" aria-label="{{t:nav.home}}">
+    <div class="stage-word" aria-hidden="true"><div class="stage-word-track"></div></div>
+
+    <div class="wrap stage-grid">
+      <div class="stage-copy">
+        <h1 class="stage-title">
+          <span class="l1">{{t:hero.line1}}</span>
+          <span class="l2">{{t:hero.line2}} <i class="heart" aria-hidden="true">♥</i></span>
+        </h1>
+        <div class="stage-cta">
+          <a href="#menu" class="btn btn-solid">{{t:hero.cta1}} <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#contact" class="btn btn-line">{{t:hero.cta2}}</a>
+        </div>
+      </div>
+
+      <div class="stage-shot">
+        <div class="stage-halo" aria-hidden="true"></div>
+        <div class="stage-shots">
+{{@stage_shots}}
+        </div>
+        <div class="stage-badge" aria-hidden="true"><div>{{t:hero.badge}}</div></div>
+      </div>
+
+      <div class="stage-panels">
+{{@stage_panels}}
+      </div>
+
+      <div class="stage-pick">
+        <button type="button" class="pick-arrow" data-stage="prev" aria-label="{{t:stage.prev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="pick-list" role="tablist" aria-label="{{t:stage.label}}">
+{{@stage_tabs}}
+        </div>
+        <button type="button" class="pick-arrow" data-stage="next" aria-label="{{t:stage.next}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- three promises, set large and kept moving -->
+  <div class="ticker">
+    <div class="ticker-track">
+{{@ticker}}
+    </div>
+  </div>
+
+  <!-- ═══ What a brookie is ═══ -->
+  <section class="what" id="brookie" data-scrub>
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>{{t:what.eyebrow}}</p>
+      <div class="eq" aria-label="Brownie + Cookie = Brookie">
+        <div class="eq-part eq-a"><b>{{t:what.a}}</b><small>{{t:what.aNote}}</small></div>
+        <span class="eq-op" aria-hidden="true">+</span>
+        <div class="eq-part eq-b"><b>{{t:what.b}}</b><small>{{t:what.bNote}}</small></div>
+        <span class="eq-op" aria-hidden="true">=</span>
+        <div class="eq-part eq-c">
+          <img class="eq-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+          <b>{{t:what.c}}</b>
+        </div>
+      </div>
+      <p class="what-body" data-reveal>{{t:hero.lede}}</p>
+    </div>
+  </section>
+
+  <!-- ═══ Menu ═══ -->
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <header class="sec-head sec-head--split">
+        <div data-reveal>
+          <p class="eyebrow">{{t:menu.eyebrow}}</p>
+          <h2>{{t:menu.title}}</h2>
+          <p class="sec-sub">{{t:menu.sub}}</p>
+        </div>
+        <div class="filter" role="group" aria-label="{{t:menu.filter}}" data-reveal>
+          <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">{{t:menu.all}}</button>
+          <button type="button" class="chip" data-filter="jar" aria-pressed="false">{{t:menu.jar.title}}</button>
+          <button type="button" class="chip" data-filter="pcs" aria-pressed="false">{{t:menu.pcs.title}}</button>
+        </div>
+      </header>
+
+      <div class="group" data-group="jar">
+        <div class="group-head" data-reveal>
+          <h3>{{t:menu.jar.title}}</h3>
+          <span class="pill">{{t:menu.jar.label}}</span>
+          <p>{{t:menu.jar.sub}}</p>
+        </div>
+        <div class="tiles{{@duo_jar}}">
+{{@tiles_jar}}
+        </div>
+      </div>
+
+      <div class="group" data-group="pcs">
+        <div class="group-head" data-reveal>
+          <h3>{{t:menu.pcs.title}}</h3>
+          <span class="pill">{{t:menu.pcs.label}}</span>
+          <p>{{t:menu.pcs.sub}}</p>
+        </div>
+        <div class="tiles{{@duo_pcs}}">
+{{@tiles_pcs}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ How to order: three cards that stack as you scroll ═══ -->
+  <section class="how" id="how">
+    <div class="wrap how-grid">
+      <header class="sec-head how-head">
+        <p class="eyebrow">{{t:how.eyebrow}}</p>
+        <h2>{{t:how.title}}</h2>
+        <img class="how-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+      </header>
+      <ol class="steps">
+        <li class="step step--1">
+          <span class="step-n" aria-hidden="true">1</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><circle cx="54" cy="62" r="38"/><circle cx="42" cy="50" r="5" class="f"/><circle cx="64" cy="46" r="4" class="f"/><circle cx="48" cy="72" r="5" class="f"/><circle cx="68" cy="68" r="4.5" class="f"/><circle cx="92" cy="28" r="18" class="bg"/><path d="M92 19v18M83 28h18"/></svg>
+          <h3>{{t:how.1.t}}</h3>
+          <p>{{t:how.1.c}}</p>
+        </li>
+        <li class="step step--2">
+          <span class="step-n" aria-hidden="true">2</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 16h60v88l-10-7-10 7-10-7-10 7-10-7-10 7z"/><path d="M44 38h32M44 54h32M44 70h18"/><path d="M70 72l5 5 9-10"/></svg>
+          <h3>{{t:how.2.t}}</h3>
+          <p>{{t:how.2.c}}</p>
+        </li>
+        <li class="step step--3">
+          <span class="step-n" aria-hidden="true">3</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 16c25 0 44 17 44 39S85 94 60 94c-6 0-12-1-17-3L20 100l7-21c-7-7-11-15-11-24 0-22 19-39 44-39z"/><path d="M42 56l12 12 24-26"/></svg>
+          <h3>{{t:how.3.t}}</h3>
+          <p>{{t:how.3.c}}</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ Pickup and delivery, drawn on the East Rail Line ═══ -->
+  <section class="deliver" id="delivery">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="eyebrow">{{t:del.eyebrow}}</p>
+        <h2>{{t:del.title}}</h2>
+      </header>
+
+      <div class="tiers" role="group" aria-label="{{t:del.eyebrow}}">
+        <button type="button" class="tier is-on" data-tier="1" aria-pressed="true">
+          <span class="tier-k">{{t:del.1.k}}</span>
+          <b>{{t:del.1.t}}</b>
+          <small>{{t:del.1.c}}</small>
+        </button>
+        <button type="button" class="tier" data-tier="2" aria-pressed="false">
+          <span class="tier-k">{{t:del.2.k}}</span>
+          <b>{{t:del.2.t}}</b>
+          <small>{{t:del.2.c}}</small>
+        </button>
+        <button type="button" class="tier" data-tier="3" aria-pressed="false">
+          <span class="tier-k">{{t:del.3.k}}</span>
+          <b>{{t:del.3.t}}</b>
+          <small>{{t:del.3.c}}</small>
+        </button>
+      </div>
+
+      <div class="rail" data-tier="1">
+        <p class="rail-name"><span class="rail-swatch" aria-hidden="true"></span>{{t:del.line}}</p>
+        <div class="rail-scroll">
+          <ol class="rail-line">
+{{@stations}}
+          </ol>
+        </div>
+        <p class="rail-door"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>{{t:del.door}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Keeping them ═══ -->
+  <section class="care" id="care">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="eyebrow">{{t:care.eyebrow}}</p>
+        <h2>{{t:care.title}}</h2>
+      </header>
+      <div class="care-grid">
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">{{t:care.1.big}}</p>
+          <h3>{{t:care.1.h}}</h3>
+          <p>{{t:care.1.a}}</p>
+          <p>{{t:care.1.b}}</p>
+        </article>
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">{{t:care.2.big}}</p>
+          <h3>{{t:care.2.h}}</h3>
+          <p>{{t:care.2.a}}</p>
+        </article>
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">{{t:care.3.big}}</p>
+          <h3>{{t:care.3.h}}</h3>
+          <p>{{t:care.3.a}}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Farewell cookies ═══ -->
+  <section class="fw" id="farewell">
+    <div class="fw-parade" aria-hidden="true" data-scrub>
+{{@fw_parade}}
+    </div>
+    <div class="wrap fw-grid">
+      <div class="fw-lead" data-reveal>
+        <p class="eyebrow">{{t:fw.eyebrow}}</p>
+        <h2>{{t:fw.title}}</h2>
+        <p class="sec-sub">{{t:fw.sub}}</p>
+        <p class="fw-price"><b>{{t:fw.price}}</b><span>{{t:fw.per}}</span></p>
+        <p class="fw-sticker">{{t:fw.sticker}}</p>
+        <a href="{{@ig}}" target="_blank" rel="noopener" class="btn btn-solid">{{@icon_ig}} {{t:fw.cta}}</a>
+      </div>
+      <div class="fw-panel" data-reveal>
+        <h3>{{t:fw.flavours}}</h3>
+        <ul class="fw-list">
+{{@fw_list}}
+        </ul>
+      </div>
+      <div class="fw-panel" data-reveal>
+        <h3>{{t:fw.details}}</h3>
+        <dl class="rows">
+{{@fw_rows}}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Who we are ═══ -->
+  <section class="story" id="about">
+    <div class="wrap story-grid">
+      <figure class="story-photo" data-reveal>
+        <img src="src/market.webp" alt="{{t:story.photoAlt}}" width="1000" height="988" loading="lazy" decoding="async">
+        <figcaption>{{t:story.caption}}</figcaption>
+      </figure>
+      <div class="story-copy" data-reveal>
+        <p class="eyebrow">{{t:story.eyebrow}}</p>
+        <h2>{{t:story.title}}</h2>
+        <p class="story-body">{{t:story.body}}</p>
+        <ul class="stats">
+          <li><b>{{@count}}</b><span>{{t:story.stat1.l}}</span></li>
+          <li><b>{{t:story.stat2.n}}</b><span>{{t:story.stat2.l}}</span></li>
+          <li><b>{{t:story.stat3.n}}</b><span>{{t:story.stat3.l}}</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Questions ═══ -->
+  <section class="faq" id="faq">
+    <div class="wrap faq-grid">
+      <header class="sec-head faq-head" data-reveal>
+        <p class="eyebrow">{{t:faq.eyebrow}}</p>
+        <h2>{{t:faq.title}}</h2>
+        <p class="sec-sub">{{t:faq.sub}}</p>
+      </header>
+      <div class="faq-list">
+{{@faq}}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Contact ═══ -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-copy" data-reveal>
+        <p class="eyebrow">{{t:contact.eyebrow}}</p>
+        <h2>{{t:contact.title}}</h2>
+        <p class="contact-body">{{t:contact.body}}</p>
+        <div class="contact-btns">
+          <a href="{{@ig}}" target="_blank" rel="noopener" class="btn btn-solid">{{@icon_ig}} {{t:contact.ig}}</a>
+          <a href="{{@wa}}" target="_blank" rel="noopener" class="btn btn-line">{{@icon_wa}} {{t:contact.wa}}</a>
+        </div>
+        <dl class="rows">
+{{@contact_rows}}
+        </dl>
+      </div>
+      <div class="qr" data-reveal>
+        <img src="src/ig-qr.svg" alt="{{t:contact.qrAlt}}" width="516" height="516" loading="lazy" decoding="async">
+        <p class="qr-lbl">{{t:contact.qr}}</p>
+        <p class="qr-handle">{{t:contact.handle}}</p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+{{>part.footer}}
+</body>
+</html>

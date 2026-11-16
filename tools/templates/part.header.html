@@ -1,0 +1,40 @@
+  <a class="skip" href="#main">{{t:skip}}</a>
+
+  <!-- delivery terms, running along the top -->
+  <div class="strip">
+    <div class="strip-track">
+{{@strip}}
+    </div>
+  </div>
+
+  <header class="top" id="top">
+    <div class="wrap top-row">
+      <a class="top-logo" href="{{H}}#home">
+        <img src="{{R}}src/logo-lockup.webp" alt="{{t:brand}}" width="640" height="283" decoding="async">
+      </a>
+      <nav class="top-nav" aria-label="{{t:brand}}">
+{{@nav}}
+      </nav>
+      <div class="top-tools">
+        <a class="lang" href="{{OTHER}}" hreflang="{{@other_lang}}" aria-label="{{t:langSwitchLabel}}">{{t:langSwitch}}</a>
+        <button type="button" class="bag" data-cart-open aria-label="{{t:nav.order}}">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l1.2 11.2a1.6 1.6 0 0 1-1.6 1.8H6.4a1.6 1.6 0 0 1-1.6-1.8L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+          <span class="bag-n" hidden>0</span>
+        </button>
+        <button type="button" class="burger" aria-expanded="false" aria-controls="sheet" aria-label="{{t:nav.open}}" data-open="{{t:nav.open}}" data-close="{{t:nav.close}}">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- the menu on a phone: the whole screen, in big type -->
+  <div class="sheet" id="sheet" hidden>
+    <nav class="sheet-nav" aria-label="{{t:brand}}">
+{{@nav_sheet}}
+    </nav>
+    <div class="sheet-foot">
+      <a class="round" href="{{@ig}}" target="_blank" rel="noopener" aria-label="Instagram">{{@icon_ig}}</a>
+      <a class="round" href="{{@wa}}" target="_blank" rel="noopener" aria-label="WhatsApp">{{@icon_wa}}</a>
+    </div>
+  </div>

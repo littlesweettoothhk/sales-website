@@ -25,8 +25,11 @@
   var RAIL_MARK = 40;         // %
 
   var isZH = !/^en/i.test(document.documentElement.lang || '');
-  // Product pages live one level down, so asset paths need a prefix.
-  var DEPTH = /\/products\//.test(location.pathname) ? '../' : './';
+  // Product pages live one level down, so asset paths need a prefix. The
+  // not-found page is served at whatever address was mistyped, at any depth,
+  // so there the path has to be absolute.
+  var DEPTH = document.querySelector('.nf') ? '/' :
+              /\/products\//.test(location.pathname) ? '../' : './';
 
   var PRODUCTS = [
     { id: 'seasalt',     zh: '海鹽黑朱古力',   en: 'Sea Salt Dark Chocolate',    price: 60, unit: 'jar', img: 'sea-salt-dark-chocolate-brookies.webp' },

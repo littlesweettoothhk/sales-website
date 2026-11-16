@@ -28,14 +28,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonts load off the critical path. A firewall that drops requests to
        Google rather than refusing them (mainland China, some corporate wifi)
-       used to hold first paint for ~15s on a render-blocking stylesheet.
-       preload fetches it at full priority without blocking, then applies it;
-       display=swap in the URL already handles the font files themselves. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400..800&family=Nunito:wght@400;600;700;800&family=Chiron+GoRound+TC:wght@400;700;900&display=swap" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400..800&family=Nunito:wght@400;600;700;800&family=Chiron+GoRound+TC:wght@400;700;900&display=swap"></noscript>
+       would otherwise hold first paint for ~15s on a render-blocking
+       stylesheet. preload fetches it at full priority without blocking, then
+       applies it; display=swap in the URL handles the font files themselves. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700;900&family=Shantell+Sans:wght@700&display=swap" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700;900&family=Shantell+Sans:wght@700&display=swap"></noscript>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="shelf.css">
-  <link rel="manifest" href="./site.webmanifest">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" as="image" href="src/cut/caramel-s.webp" imagesrcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" imagesizes="(min-width: 900px) 46vw, 78vw" fetchpriority="high">
 
   <script type="application/ld+json">
 {
@@ -302,6 +302,7 @@
   }
 }
   </script>
+
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -351,411 +352,569 @@
 }
   </script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="home" style="--s-bg:#f2a544;--s-ink:#3a2110;--s-soft:#f8c477;--s-deep:#c67a1f">
+  <a class="skip" href="#main">Skip to content</a>
 
-  <div class="top-strip">
-    <div class="strip-row">
-      <span>♥ Any purchase qualifies</span><span class="dot">✿</span>
-      <span>Pickup at Fo Tan MTR / SF Express (freight collect)</span><span class="dot">✿</span>
-      <span>Orders over $150 · pickup along East Rail Line</span><span class="dot">✿</span>
-      <span>Orders over $1000 · free delivery ✨</span><span class="dot">✿</span>
-      <span>♥ Any purchase qualifies</span><span class="dot">✿</span>
-      <span>Pickup at Fo Tan MTR / SF Express (freight collect)</span><span class="dot">✿</span>
-      <span>Orders over $150 · pickup along East Rail Line</span><span class="dot">✿</span>
-      <span>Orders over $1000 · free delivery ✨</span><span class="dot">✿</span>
+  <!-- delivery terms, running along the top -->
+  <div class="strip">
+    <div class="strip-track">
+      <div class="strip-set"><span>Any purchase qualifies</span><i aria-hidden="true"></i><span>Pickup at Fo Tan MTR / SF Express (freight collect)</span><i aria-hidden="true"></i><span>Orders over $150 · pickup along East Rail Line</span><i aria-hidden="true"></i><span>Orders over $1000 · free delivery</span><i aria-hidden="true"></i></div>
+      <div class="strip-set" aria-hidden="true"><span>Any purchase qualifies</span><i aria-hidden="true"></i><span>Pickup at Fo Tan MTR / SF Express (freight collect)</span><i aria-hidden="true"></i><span>Orders over $150 · pickup along East Rail Line</span><i aria-hidden="true"></i><span>Orders over $1000 · free delivery</span><i aria-hidden="true"></i></div>
     </div>
   </div>
 
-
-  <div class="topbar">
-  <header class="site-head">
-    <div class="language-switcher"><a href="index.html" class="lang-btn">中文</a></div>
-    <div class="head-row">
-      <a href="#home" class="head-brand">
-        <img src="./src/logo-lockup.webp" alt="Little Sweet Tooth" width="640" height="283" loading="eager" decoding="async">
-        <span class="bname">Little Sweet Tooth</span>
+  <header class="top" id="top">
+    <div class="wrap top-row">
+      <a class="top-logo" href="#home">
+        <img src="src/logo-lockup.webp" alt="Little Sweet Tooth" width="640" height="283" decoding="async">
       </a>
-      <div class="head-tag">𝐺𝑜𝑜𝑑 𝐹𝑜𝑜𝑑, 𝐺𝑜𝑜𝑑 𝑀𝑜𝑜𝑑 ♥</div>
+      <nav class="top-nav" aria-label="Little Sweet Tooth">
+        <a href="#home" data-nav="home">Home</a>
+        <a href="#menu" data-nav="menu">Menu</a>
+        <a href="#care" data-nav="care">Care Notes</a>
+        <a href="#farewell" data-nav="farewell">Farewell Box</a>
+        <a href="#faq" data-nav="faq">FAQ</a>
+        <a href="#contact" data-nav="contact">Contact</a>
+      </nav>
+      <div class="top-tools">
+        <a class="lang" href="index.html" hreflang="zh-Hant" aria-label="中文版">中文</a>
+        <button type="button" class="bag" data-cart-open aria-label="Order">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l1.2 11.2a1.6 1.6 0 0 1-1.6 1.8H6.4a1.6 1.6 0 0 1-1.6-1.8L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+          <span class="bag-n" hidden>0</span>
+        </button>
+        <button type="button" class="burger" aria-expanded="false" aria-controls="sheet" aria-label="Open menu" data-open="Open menu" data-close="Close menu">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-link active">Home</a>
-      <a href="#menu" class="nav-link">Menu</a>
-      <a href="#care" class="nav-link">Care Notes</a>
-      <a href="#farewell" class="nav-link">Farewell Box</a>
-      <a href="#faq" class="nav-link">FAQ</a>
-      <a href="#contact" class="nav-link">Contact</a>
+  <!-- the menu on a phone: the whole screen, in big type -->
+  <div class="sheet" id="sheet" hidden>
+    <nav class="sheet-nav" aria-label="Little Sweet Tooth">
+      <a href="#home" data-nav="home"><small>01</small>Home</a>
+      <a href="#menu" data-nav="menu"><small>02</small>Menu</a>
+      <a href="#care" data-nav="care"><small>03</small>Care Notes</a>
+      <a href="#farewell" data-nav="farewell"><small>04</small>Farewell Box</a>
+      <a href="#faq" data-nav="faq"><small>05</small>FAQ</a>
+      <a href="#contact" data-nav="contact"><small>06</small>Contact</a>
+    </nav>
+    <div class="sheet-foot">
+      <a class="round" href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a>
+      <a class="round" href="https://wa.me/85298174221" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg></a>
     </div>
-  </nav>
   </div>
 
-  <section class="hero" id="home">
-    <span class="doodle h1">♥</span>
-    <span class="doodle h2">✿</span>
-    <span class="doodle h3">♥</span>
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <h1 class="hero-title">
-          <span class="line-a">A little bite,</span>
-          <em>A big smile <span class="heart">♥</span></em>
+  <main id="main">
+
+  <!-- ═══ The stage: one flavour at a time, the whole screen in its colour ═══ -->
+  <section class="stage" id="home" aria-label="Home">
+    <div class="stage-word" aria-hidden="true"><div class="stage-word-track"></div></div>
+
+    <div class="wrap stage-grid">
+      <div class="stage-copy">
+        <h1 class="stage-title">
+          <span class="l1">A little bite,</span>
+          <span class="l2">A big smile <i class="heart" aria-hidden="true">♥</i></span>
         </h1>
-        <p class="hero-lede">
-          Brookies = brownie + cookies. A crackled top, a fudgy middle.<br>
-          Baked one small batch at a time, with honest ingredients and a whole lot of heart ♥
-        </p>
-        <div class="hero-ctas">
-          <a href="#menu" class="btn btn-primary">Today's Menu <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#contact" class="btn btn-ghost">Order Now</a>
+        <div class="stage-cta">
+          <a href="#menu" class="btn btn-solid">Today's Menu <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#contact" class="btn btn-line">Order Now</a>
         </div>
       </div>
 
-      <div class="hero-media">
-        <div class="hero-figure">
-        <div class="hero-tape"></div>
-        <div class="hero-sticker">
-          <div>
-            <span>Baked</span>
-            freshly<br>with love
+      <div class="stage-shot">
+        <div class="stage-halo" aria-hidden="true"></div>
+        <div class="stage-shots">
+          <img data-id="caramel" class="shot is-on" src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="(min-width: 900px) 46vw, 78vw" alt="" width="880" height="766" loading="eager" fetchpriority="high" decoding="async">
+        </div>
+        <div class="stage-badge" aria-hidden="true"><div><span>Baked</span>freshly<br>with love</div></div>
+      </div>
+
+      <div class="stage-panels">
+        <div class="sp" id="sp-seasalt" role="tabpanel" aria-labelledby="st-seasalt" data-product data-id="seasalt" hidden>
+          <p class="sp-tag">Signature</p>
+          <p class="sp-name">Sea Salt Dark Chocolate</p>
+          <p class="sp-sub" lang="zh-Hant">海鹽黑朱古力</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$60</b><span>PER JAR</span></p>
+            <a class="sp-more" href="products/seasalt-en.html">Peek inside <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </div>
-        <img src="./src/market.webp" alt="Market" width="1000" height="988" loading="eager" decoding="async">
+        <div class="sp" id="sp-pepper" role="tabpanel" aria-labelledby="st-pepper" data-product data-id="pepper" hidden>
+          <p class="sp-tag">Bold</p>
+          <p class="sp-name">Green Sichuan Pepper</p>
+          <p class="sp-sub" lang="zh-Hant">麻香花椒</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$62</b><span>PER JAR</span></p>
+            <a class="sp-more" href="products/pepper-en.html">Peek inside <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp is-on" id="sp-caramel" role="tabpanel" aria-labelledby="st-caramel" data-product data-id="caramel">
+          <p class="sp-tag">New</p>
+          <p class="sp-name">Caramel Dark Chocolate</p>
+          <p class="sp-sub" lang="zh-Hant">焦糖黑朱古力</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>PER PIECE</span></p>
+            <a class="sp-more" href="products/caramel-en.html">Peek inside <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-marshmallow" role="tabpanel" aria-labelledby="st-marshmallow" data-product data-id="marshmallow" hidden>
+          <p class="sp-tag">New</p>
+          <p class="sp-name">Marshmallow Dark Chocolate</p>
+          <p class="sp-sub" lang="zh-Hant">棉花糖黑朱古力</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>PER PIECE</span></p>
+            <a class="sp-more" href="products/marshmallow-en.html">Peek inside <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-peanut" role="tabpanel" aria-labelledby="st-peanut" data-product data-id="peanut" hidden>
+          <p class="sp-tag">New</p>
+          <p class="sp-name">Peanut Dark Chocolate</p>
+          <p class="sp-sub" lang="zh-Hant">花生黑朱古力</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>PER PIECE</span></p>
+            <a class="sp-more" href="products/peanut-en.html">Peek inside <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-hojicha" role="tabpanel" aria-labelledby="st-hojicha" data-product data-id="hojicha" hidden>
+          
+          <p class="sp-name">Hojicha</p>
+          <p class="sp-sub" lang="zh-Hant">焙茶</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>PER PIECE</span></p>
+            <a class="sp-more" href="products/hojicha-en.html">Peek inside <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-matcha" role="tabpanel" aria-labelledby="st-matcha" data-product data-id="matcha" hidden>
+          
+          <p class="sp-name">Matcha</p>
+          <p class="sp-sub" lang="zh-Hant">抹茶</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>PER PIECE</span></p>
+            <a class="sp-more" href="products/matcha-en.html">Peek inside <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div class="stage-pick">
+        <button type="button" class="pick-arrow" data-stage="prev" aria-label="Previous flavour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="pick-list" role="tablist" aria-label="Pick one to look at">
+          <button type="button" class="pick" role="tab" id="st-seasalt" aria-selected="false" aria-controls="sp-seasalt" tabindex="-1" data-id="seasalt" data-bg="#3a2420" data-ink="#fdf5e2" data-soft="#573932" data-deep="#22130f" data-cut="src/cut/seasalt.webp" data-w="685" data-h="880" data-word="Sea Salt Dark Chocolate">
+            <img src="src/cut/seasalt-s.webp" srcset="src/cut/seasalt-s.webp 342w, src/cut/seasalt.webp 685w" sizes="64px" alt="" width="685" height="880" loading="lazy" decoding="async">
+            <span class="vh">Sea Salt Dark Chocolate</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-pepper" aria-selected="false" aria-controls="sp-pepper" tabindex="-1" data-id="pepper" data-bg="#a3b162" data-ink="#22260c" data-soft="#bdc888" data-deep="#73803a" data-cut="src/cut/pepper.webp" data-w="689" data-h="880" data-word="Green Sichuan Pepper">
+            <img src="src/cut/pepper-s.webp" srcset="src/cut/pepper-s.webp 344w, src/cut/pepper.webp 689w" sizes="64px" alt="" width="689" height="880" loading="lazy" decoding="async">
+            <span class="vh">Green Sichuan Pepper</span>
+          </button>
+          <button type="button" class="pick is-on" role="tab" id="st-caramel" aria-selected="true" aria-controls="sp-caramel" tabindex="0" data-id="caramel" data-bg="#f2a544" data-ink="#3a2110" data-soft="#f8c477" data-deep="#c67a1f" data-cut="src/cut/caramel.webp" data-w="880" data-h="766" data-word="Caramel Dark Chocolate">
+            <img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="64px" alt="" width="880" height="766" loading="lazy" decoding="async">
+            <span class="vh">Caramel Dark Chocolate</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-marshmallow" aria-selected="false" aria-controls="sp-marshmallow" tabindex="-1" data-id="marshmallow" data-bg="#f7c6ba" data-ink="#44201a" data-soft="#fbddd5" data-deep="#dc9485" data-cut="src/cut/marshmallow.webp" data-w="880" data-h="848" data-word="Marshmallow Dark Chocolate">
+            <img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="64px" alt="" width="880" height="848" loading="lazy" decoding="async">
+            <span class="vh">Marshmallow Dark Chocolate</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-peanut" aria-selected="false" aria-controls="sp-peanut" tabindex="-1" data-id="peanut" data-bg="#f4d27d" data-ink="#3d2a0c" data-soft="#f9e4ab" data-deep="#d0a53d" data-cut="src/cut/peanut.webp" data-w="880" data-h="801" data-word="Peanut Dark Chocolate">
+            <img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="64px" alt="" width="880" height="801" loading="lazy" decoding="async">
+            <span class="vh">Peanut Dark Chocolate</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-hojicha" aria-selected="false" aria-controls="sp-hojicha" tabindex="-1" data-id="hojicha" data-bg="#cf9a6e" data-ink="#2f1d0e" data-soft="#e0b894" data-deep="#a06c42" data-cut="src/cut/hojicha.webp" data-w="880" data-h="839" data-word="Hojicha">
+            <img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="64px" alt="" width="880" height="839" loading="lazy" decoding="async">
+            <span class="vh">Hojicha</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-matcha" aria-selected="false" aria-controls="sp-matcha" tabindex="-1" data-id="matcha" data-bg="#a8c878" data-ink="#22300f" data-soft="#c6dda1" data-deep="#76984a" data-cut="src/cut/matcha.webp" data-w="880" data-h="713" data-word="Matcha">
+            <img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="64px" alt="" width="880" height="713" loading="lazy" decoding="async">
+            <span class="vh">Matcha</span>
+          </button>
+        </div>
+        <button type="button" class="pick-arrow" data-stage="next" aria-label="Next flavour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
   </section>
 
-  <div class="trust">
-        <div class="trust-item"><span aria-hidden="true">♥</span>Baked fresh by hand, daily</div>
-        <div class="trust-item"><span aria-hidden="true">✿</span>Fo Tan pickup, any purchase</div>
-        <div class="trust-item"><span aria-hidden="true">✨</span>Free delivery over $1000</div>
+  <!-- three promises, set large and kept moving -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <div class="ticker-set"><span>Baked fresh by hand, daily</span><i aria-hidden="true"></i><span>Fo Tan pickup, any purchase</span><i aria-hidden="true"></i><span>Free delivery over $1000</span><i aria-hidden="true"></i></div>
+      <div class="ticker-set" aria-hidden="true"><span>Baked fresh by hand, daily</span><i aria-hidden="true"></i><span>Fo Tan pickup, any purchase</span><i aria-hidden="true"></i><span>Free delivery over $1000</span><i aria-hidden="true"></i></div>
+      <div class="ticker-set" aria-hidden="true"><span>Baked fresh by hand, daily</span><i aria-hidden="true"></i><span>Fo Tan pickup, any purchase</span><i aria-hidden="true"></i><span>Free delivery over $1000</span><i aria-hidden="true"></i></div>
+      <div class="ticker-set" aria-hidden="true"><span>Baked fresh by hand, daily</span><i aria-hidden="true"></i><span>Fo Tan pickup, any purchase</span><i aria-hidden="true"></i><span>Free delivery over $1000</span><i aria-hidden="true"></i></div>
+    </div>
   </div>
 
+  <!-- ═══ What a brookie is ═══ -->
+  <section class="what" id="brookie" data-scrub>
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>What is a brookie?</p>
+      <div class="eq" aria-label="Brownie + Cookie = Brookie">
+        <div class="eq-part eq-a"><b>Brownie</b><small>A fudgy middle</small></div>
+        <span class="eq-op" aria-hidden="true">+</span>
+        <div class="eq-part eq-b"><b>Cookie</b><small>A crackled top</small></div>
+        <span class="eq-op" aria-hidden="true">=</span>
+        <div class="eq-part eq-c">
+          <img class="eq-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+          <b>Brookie</b>
+        </div>
+      </div>
+      <p class="what-body" data-reveal>Brookies = brownie + cookies. A crackled top, a fudgy middle.<br>Baked one small batch at a time, with honest ingredients and a whole lot of heart ♥</p>
+    </div>
+  </section>
 
-  <!-- How to order -->
+  <!-- ═══ Menu ═══ -->
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <header class="sec-head sec-head--split">
+        <div data-reveal>
+          <p class="eyebrow">Today's Menu</p>
+          <h2>Brookies · <em>Handmade</em></h2>
+          <p class="sec-sub">Every batch baked by hand · any purchase qualifies ♥</p>
+        </div>
+        <div class="filter" role="group" aria-label="Filter the menu" data-reveal>
+          <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-filter="jar" aria-pressed="false">In a Jar</button>
+          <button type="button" class="chip" data-filter="pcs" aria-pressed="false">Single Brookies</button>
+        </div>
+      </header>
+
+      <div class="group" data-group="jar">
+        <div class="group-head" data-reveal>
+          <h3>In a Jar</h3>
+          <span class="pill">Per Jar · 每樽</span>
+          <p>Mini brookies, made for sharing · per jar</p>
+        </div>
+        <div class="tiles tiles--duo">
+          <article class="tile" data-product data-id="seasalt" data-unit="jar" style="--s-bg:#3a2420;--s-ink:#fdf5e2;--s-soft:#573932;--s-deep:#22130f">
+            <div class="tile-shot"><img src="src/cut/seasalt-s.webp" srcset="src/cut/seasalt-s.webp 342w, src/cut/seasalt.webp 685w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="685" height="880" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">Signature</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/seasalt-en.html">Sea Salt Dark Chocolate</a></h4>
+              <p class="tile-sub" lang="zh-Hant">海鹽黑朱古力</p>
+              <p class="tile-price"><b>$60</b><span>PER JAR</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="pepper" data-unit="jar" style="--s-bg:#a3b162;--s-ink:#22260c;--s-soft:#bdc888;--s-deep:#73803a">
+            <div class="tile-shot"><img src="src/cut/pepper-s.webp" srcset="src/cut/pepper-s.webp 344w, src/cut/pepper.webp 689w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="689" height="880" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">Bold</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/pepper-en.html">Green Sichuan Pepper</a></h4>
+              <p class="tile-sub" lang="zh-Hant">麻香花椒</p>
+              <p class="tile-price"><b>$62</b><span>PER JAR</span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="group" data-group="pcs">
+        <div class="group-head" data-reveal>
+          <h3>Single Brookies</h3>
+          <span class="pill">Per Piece · 每件</span>
+          <p>Big &amp; generous · per piece ♥</p>
+        </div>
+        <div class="tiles">
+          <article class="tile" data-product data-id="caramel" data-unit="pcs" style="--s-bg:#f2a544;--s-ink:#3a2110;--s-soft:#f8c477;--s-deep:#c67a1f">
+            <div class="tile-shot"><img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="766" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">New</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/caramel-en.html">Caramel Dark Chocolate</a></h4>
+              <p class="tile-sub" lang="zh-Hant">焦糖黑朱古力</p>
+              <p class="tile-price"><b>$35</b><span>PER PIECE</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="marshmallow" data-unit="pcs" style="--s-bg:#f7c6ba;--s-ink:#44201a;--s-soft:#fbddd5;--s-deep:#dc9485">
+            <div class="tile-shot"><img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="848" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">New</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/marshmallow-en.html">Marshmallow Dark Chocolate</a></h4>
+              <p class="tile-sub" lang="zh-Hant">棉花糖黑朱古力</p>
+              <p class="tile-price"><b>$35</b><span>PER PIECE</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="peanut" data-unit="pcs" style="--s-bg:#f4d27d;--s-ink:#3d2a0c;--s-soft:#f9e4ab;--s-deep:#d0a53d">
+            <div class="tile-shot"><img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="801" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">New</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/peanut-en.html">Peanut Dark Chocolate</a></h4>
+              <p class="tile-sub" lang="zh-Hant">花生黑朱古力</p>
+              <p class="tile-price"><b>$35</b><span>PER PIECE</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="hojicha" data-unit="pcs" style="--s-bg:#cf9a6e;--s-ink:#2f1d0e;--s-soft:#e0b894;--s-deep:#a06c42">
+            <div class="tile-shot"><img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="839" loading="lazy" decoding="async"></div>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/hojicha-en.html">Hojicha</a></h4>
+              <p class="tile-sub" lang="zh-Hant">焙茶</p>
+              <p class="tile-price"><b>$35</b><span>PER PIECE</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="matcha" data-unit="pcs" style="--s-bg:#a8c878;--s-ink:#22300f;--s-soft:#c6dda1;--s-deep:#76984a">
+            <div class="tile-shot"><img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="713" loading="lazy" decoding="async"></div>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/matcha-en.html">Matcha</a></h4>
+              <p class="tile-sub" lang="zh-Hant">抹茶</p>
+              <p class="tile-price"><b>$35</b><span>PER PIECE</span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ How to order: three cards that stack as you scroll ═══ -->
   <section class="how" id="how">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Ordering is easy ✿</span>
+    <div class="wrap how-grid">
+      <header class="sec-head how-head">
+        <p class="eyebrow">Ordering is easy</p>
         <h2>Three simple steps</h2>
-      </div>
-      <div class="ribbon">
-        <div class="rb-step">
-          <span class="rb-badge">1<span class="rb-emoji" aria-hidden="true">🍪</span></span>
-          <h3 class="rb-head">Pick your flavours</h3>
-          <p class="rb-copy">Tap "Add to order" on the menu, as many as you like ♥</p>
-        </div>
-        <div class="rb-step">
-          <span class="rb-badge">2<span class="rb-emoji" aria-hidden="true">🧾</span></span>
-          <h3 class="rb-head">Check your order</h3>
-          <p class="rb-copy">Tap the order button at the bottom to see everything and the total.</p>
-        </div>
-        <div class="rb-step">
-          <span class="rb-badge">3<span class="rb-emoji" aria-hidden="true">💬</span></span>
-          <h3 class="rb-head">Send on WhatsApp</h3>
-          <p class="rb-copy">One tap writes the whole order out for you — just hit send ✨</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Menu -->
-  <section class="menu-section" id="menu">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Today's Menu ✿</span>
-        <h2>Brookies · <em>Handmade</em></h2>
-        <p class="menu-sub">Every batch baked by hand · any purchase qualifies ♥</p>
-      </div>
-
-      <!-- Menu cards split into two sections -->
-
-      <!-- Section A: Jar -->
-      <div class="shelf">
-      <div class="menu-section-head">
-        <div class="msh-label">Per Jar · 每樽</div>
-        <h3 class="msh-title">In a Jar</h3>
-        <p class="msh-sub">Mini brookies, made for sharing · per jar ✿</p>
-      </div>
-        <div class="shelf-bar">
-          <div class="shelf-rail-ui"></div>
-        </div>
-      <div class="shelf-grid" data-layout="pair">
-        <article class="sc is-featured" data-product data-id="seasalt" data-name="Sea Salt Dark Chocolate" data-price="60" data-unit="jar" data-img="./src/sea-salt-dark-chocolate-brookies.webp" data-url="products/seasalt-en.html" data-sub="海鹽黑朱古力" data-price-label="Per Jar" data-price-text="$60" data-more="Peek Inside →" data-desc="Our signature flavour. Rich Belgian dark chocolate meets a sprinkle of sea salt — crisp on the outside, soft and gooey inside. Comes in a jar of minis, perfect for sharing or hoarding ♥">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><span class="sc-tag signature">Signature ♥</span><img src="./src/sea-salt-dark-chocolate-brookies.webp" alt="Sea Salt Dark Chocolate" width="733" height="900" loading="lazy" decoding="async"><span class="sc-peek">Take a closer look ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="en">Sea Salt Dark Chocolate</div>
-            <div class="sc-sub" lang="zh-Hant">海鹽黑朱古力</div>
-            <div class="sc-price"><span class="sc-lbl">Per Jar</span><span class="sc-val">$60</span></div>
-            <a class="sc-more" href="products/seasalt-en.html">Peek Inside →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="pepper" data-name="Green Sichuan Pepper" data-price="62" data-unit="jar" data-img="./src/green-sichuan-pepper-brookies.webp" data-url="products/pepper-en.html" data-sub="麻香花椒" data-price-label="Per Jar" data-price-text="$62" data-more="Peek Inside →" data-desc="Our boldest flavour. Green Sichuan pepper — citrusy, tingly, a little wild — meets rich dark chocolate. Your tongue will do a tiny dance. Trust us ✦">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><span class="sc-tag bold">Bold ✦</span><img src="./src/green-sichuan-pepper-brookies.webp" alt="Green Sichuan Pepper" width="697" height="900" loading="lazy" decoding="async"><span class="sc-peek">Take a closer look ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="en">Green Sichuan Pepper</div>
-            <div class="sc-sub" lang="zh-Hant">麻香花椒</div>
-            <div class="sc-price"><span class="sc-lbl">Per Jar</span><span class="sc-val">$62</span></div>
-            <a class="sc-more" href="products/pepper-en.html">Peek Inside →</a>
-          </div>
-        </article>
-      </div>
-        <div class="shelf-plank" aria-hidden="true"></div>
-      </div>
-
-      <!-- Divider -->
-      <div class="menu-divider"><span>✿</span></div>
-
-      <!-- Section B: pcs -->
-      <div class="shelf">
-      <div class="menu-section-head">
-        <div class="msh-label">Per Piece · 每件</div>
-        <h3 class="msh-title">Single Brookies</h3>
-        <p class="msh-sub">Big & generous · per piece ♥</p>
-      </div>
-        <div class="shelf-bar">
-          <div class="shelf-rail-ui"></div>
-        </div>
-      <div class="shelf-grid" data-layout="counter">
-        <article class="sc is-featured" data-product data-id="caramel" data-name="Caramel Dark Chocolate" data-price="35" data-unit="pcs" data-img="./src/caramel-brookies.webp" data-url="products/caramel-en.html" data-sub="焦糖黑朱古力" data-price-label="Per Piece" data-price-text="$35" data-more="Peek Inside →" data-desc="Caramel slowly cooked to a deep amber, match with rich dark chocolate brookies. Sweet with a gentle bitter edge. ✿">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame" style="background: linear-gradient(135deg,#e9c69a,#c9844a);"><span class="sc-tag new">New ✿</span><span class="pc-placeholder"><span class="pc-emoji">🍯</span> <span class="pc-ph-label">Caramel</span></span><img src="./src/caramel-brookies.webp" alt="Caramel Dark Chocolate" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">Take a closer look ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="en">Caramel Dark Chocolate</div>
-            <div class="sc-sub" lang="zh-Hant">焦糖黑朱古力</div>
-            <div class="sc-price"><span class="sc-lbl">Per Piece</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/caramel-en.html">Peek Inside →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="marshmallow" data-name="Marshmallow Dark Chocolate" data-price="35" data-unit="pcs" data-img="./src/marshmallow-brookies.webp" data-url="products/marshmallow-en.html" data-sub="棉花糖黑朱古力" data-price-label="Per Piece" data-price-text="$35" data-more="Peek Inside →" data-desc="A favorite among kids. Handmade marshmallows on top of dark chocolate brookies, lightly toasted until slightly caramelized. Even better when warmed up a little. ☁">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame" style="background: linear-gradient(135deg,#fdebda,#e9d4be);"><span class="sc-tag new">New ✿</span><span class="pc-placeholder"><span class="pc-emoji">☁️</span> <span class="pc-ph-label">Marshmallow</span></span><img src="./src/marshmallow-brookies.webp" alt="Marshmallow Dark Chocolate" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">Take a closer look ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="en">Marshmallow Dark Chocolate</div>
-            <div class="sc-sub" lang="zh-Hant">棉花糖黑朱古力</div>
-            <div class="sc-price"><span class="sc-lbl">Per Piece</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/marshmallow-en.html">Peek Inside →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="peanut" data-name="Peanut Dark Chocolate" data-price="35" data-unit="pcs" data-img="./src/peanut-butter-brookies.webp" data-url="products/peanut-en.html" data-sub="花生黑朱古力" data-price-label="Per Piece" data-price-text="$35" data-more="Peek Inside →" data-desc="Peanut butter paired with dark chocolate brookies, rich and indulgent with a perfect sweet-salty balance. Topped with roasted peanuts for an extra crunchy texture.🥜">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame" style="background: linear-gradient(135deg,#e9c895,#b88550);"><span class="sc-tag new">New ✿</span><span class="pc-placeholder"><span class="pc-emoji">🥜</span> <span class="pc-ph-label">Peanut</span></span><img src="./src/peanut-butter-brookies.webp" alt="Peanut Dark Chocolate" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">Take a closer look ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="en">Peanut Dark Chocolate</div>
-            <div class="sc-sub" lang="zh-Hant">花生黑朱古力</div>
-            <div class="sc-price"><span class="sc-lbl">Per Piece</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/peanut-en.html">Peek Inside →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="hojicha" data-name="Hojicha" data-price="35" data-unit="pcs" data-img="./src/hojicha-brookies-new.webp" data-url="products/hojicha-en.html" data-sub="焙茶" data-price-label="Per Piece" data-price-text="$35" data-more="Peek Inside →" data-desc="Deep-roasted Hojicha with subtle nutty notes, paired with white chocolate in an unexpectedly perfect match. ☕">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><img src="./src/hojicha-brookies-new.webp" alt="Hojicha" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">Take a closer look ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="en">Hojicha</div>
-            <div class="sc-sub" lang="zh-Hant">焙茶</div>
-            <div class="sc-price"><span class="sc-lbl">Per Piece</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/hojicha-en.html">Peek Inside →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="matcha" data-name="Matcha" data-price="35" data-unit="pcs" data-img="./src/matcha-brookies-new.webp" data-url="products/matcha-en.html" data-sub="抹茶" data-price-label="Per Piece" data-price-text="$35" data-more="Peek Inside →" data-desc="Slightly bitter matcha, balanced perfectly with white chocolate and freeze-dried strawberries. A favorite for matcha lovers. ✿">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><img src="./src/matcha-brookies-new.webp" alt="Matcha" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">Take a closer look ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="en">Matcha</div>
-            <div class="sc-sub" lang="zh-Hant">抹茶</div>
-            <div class="sc-price"><span class="sc-lbl">Per Piece</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/matcha-en.html">Peek Inside →</a>
-          </div>
-        </article>
-      </div>
-        <div class="shelf-plank" aria-hidden="true"></div>
-      </div>
-
-      <p class="menu-note">— Click any card to read its little story ♥ —</p>
+        <img class="how-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+      </header>
+      <ol class="steps">
+        <li class="step step--1">
+          <span class="step-n" aria-hidden="true">1</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><circle cx="54" cy="62" r="38"/><circle cx="42" cy="50" r="5" class="f"/><circle cx="64" cy="46" r="4" class="f"/><circle cx="48" cy="72" r="5" class="f"/><circle cx="68" cy="68" r="4.5" class="f"/><circle cx="92" cy="28" r="18" class="bg"/><path d="M92 19v18M83 28h18"/></svg>
+          <h3>Pick your flavours</h3>
+          <p>Tap "Add to order" on the menu, as many as you like ♥</p>
+        </li>
+        <li class="step step--2">
+          <span class="step-n" aria-hidden="true">2</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 16h60v88l-10-7-10 7-10-7-10 7-10-7-10 7z"/><path d="M44 38h32M44 54h32M44 70h18"/><path d="M70 72l5 5 9-10"/></svg>
+          <h3>Check your order</h3>
+          <p>Tap the order button at the bottom to see everything and the total.</p>
+        </li>
+        <li class="step step--3">
+          <span class="step-n" aria-hidden="true">3</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 16c25 0 44 17 44 39S85 94 60 94c-6 0-12-1-17-3L20 100l7-21c-7-7-11-15-11-24 0-22 19-39 44-39z"/><path d="M42 56l12 12 24-26"/></svg>
+          <h3>Send on WhatsApp</h3>
+          <p>One tap writes the whole order out for you — just hit send ✨</p>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- Care notes -->
+  <!-- ═══ Pickup and delivery, drawn on the East Rail Line ═══ -->
+  <section class="deliver" id="delivery">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="eyebrow">Delivery &amp; Pickup</p>
+        <h2>Where do we meet?</h2>
+      </header>
+
+      <div class="tiers" role="group" aria-label="Delivery &amp; Pickup">
+        <button type="button" class="tier is-on" data-tier="1" aria-pressed="true">
+          <span class="tier-k">Any purchase</span>
+          <b>Pickup at Fo Tan MTR Station</b>
+          <small>SF Express (freight collect) is also available</small>
+        </button>
+        <button type="button" class="tier" data-tier="2" aria-pressed="false">
+          <span class="tier-k">Over $150</span>
+          <b>Any station along the East Rail Line</b>
+          <small>From Admiralty to Sheung Shui — pick the one that suits you</small>
+        </button>
+        <button type="button" class="tier" data-tier="3" aria-pressed="false">
+          <span class="tier-k">Over $1000</span>
+          <b>Free delivery to your door</b>
+          <small>Brought straight to you</small>
+        </button>
+      </div>
+
+      <div class="rail" data-tier="1">
+        <p class="rail-name"><span class="rail-swatch" aria-hidden="true"></span>East Rail Line</p>
+        <div class="rail-scroll">
+          <ol class="rail-line">
+            <li class="st" style="--i:0"><span class="st-dot"></span><span class="st-name">Admiralty</span></li>
+            <li class="st" style="--i:1"><span class="st-dot"></span><span class="st-name">Exhibition Centre</span></li>
+            <li class="st" style="--i:2"><span class="st-dot"></span><span class="st-name">Hung Hom</span></li>
+            <li class="st" style="--i:3"><span class="st-dot"></span><span class="st-name">Mong Kok East</span></li>
+            <li class="st" style="--i:4"><span class="st-dot"></span><span class="st-name">Kowloon Tong</span></li>
+            <li class="st" style="--i:5"><span class="st-dot"></span><span class="st-name">Tai Wai</span></li>
+            <li class="st" style="--i:6"><span class="st-dot"></span><span class="st-name">Sha Tin</span></li>
+            <li class="st is-home" style="--i:7"><span class="st-dot"></span><span class="st-name">Fo Tan</span><span class="st-here">We're here</span></li>
+            <li class="st" style="--i:8"><span class="st-dot"></span><span class="st-name">University</span></li>
+            <li class="st" style="--i:9"><span class="st-dot"></span><span class="st-name">Tai Po Market</span></li>
+            <li class="st" style="--i:10"><span class="st-dot"></span><span class="st-name">Tai Wo</span></li>
+            <li class="st" style="--i:11"><span class="st-dot"></span><span class="st-name">Fanling</span></li>
+            <li class="st" style="--i:12"><span class="st-dot"></span><span class="st-name">Sheung Shui</span></li>
+          </ol>
+        </div>
+        <p class="rail-door"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>To your door</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Keeping them ═══ -->
   <section class="care" id="care">
-    <div class="container">
-      <div class="care-card">
-        <div class="care-banner">♥ How to Enjoy ♥</div>
-        <div class="care-grid">
-          <div class="care-item">
-            <div class="care-emoji">🤏</div>
-            <h3>Mini Brookies</h3>
-            <p class="care-line">Best within <strong>5 days</strong></p>
-            <p class="care-line">Keep up to <strong>1 week</strong></p>
-          </div>
-          <div class="care-divider"></div>
-          <div class="care-item">
-            <div class="care-emoji">🍪</div>
-            <h3>Large Brookies</h3>
-            <p class="care-line">Tastes best <strong>same day</strong></p>
-          </div>
-          <div class="care-divider"></div>
-          <div class="care-item">
-            <div class="care-emoji">☁️</div>
-            <h3>Marshmallow</h3>
-            <p class="care-line">Give it a quick <strong>microwave warm-up</strong> at home — even better ♥</p>
-          </div>
-        </div>
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="eyebrow">Care Notes</p>
+        <h2>How to Enjoy</h2>
+      </header>
+      <div class="care-grid">
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">5 days</p>
+          <h3>Mini Brookies</h3>
+          <p>Best within <strong>5 days</strong></p>
+          <p>Keep up to <strong>1 week</strong></p>
+        </article>
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">Same day</p>
+          <h3>Large Brookies</h3>
+          <p>Tastes best <strong>same day</strong></p>
+        </article>
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">Warm it up</p>
+          <h3>Marshmallow</h3>
+          <p>Give it a quick <strong>microwave warm-up</strong> at home — even better ♥</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Farewell box -->
-  <section class="farewell" id="farewell">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Special Order ✿</span>
-        <h2>♥ Farewell Box <em>♥</em></h2>
-        <p class="menu-sub">Say goodbye to colleagues with style · medium-size brookies · <strong>$25 each</strong></p>
+  <!-- ═══ Farewell cookies ═══ -->
+  <section class="fw" id="farewell">
+    <div class="fw-parade" aria-hidden="true" data-scrub>
+      <img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="766" loading="lazy" decoding="async">
+      <img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="848" loading="lazy" decoding="async">
+      <img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="801" loading="lazy" decoding="async">
+      <img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="713" loading="lazy" decoding="async">
+      <img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="839" loading="lazy" decoding="async">
+    </div>
+    <div class="wrap fw-grid">
+      <div class="fw-lead" data-reveal>
+        <p class="eyebrow">Special Order</p>
+        <h2>Farewell Box</h2>
+        <p class="sec-sub">Say goodbye to colleagues with style · medium-size brookies</p>
+        <p class="fw-price"><b>$25</b><span>each</span></p>
+        <p class="fw-sticker">Swap on a <em>"thank you"</em> sticker</p>
+        <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="btn btn-solid"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> DM us on Instagram</a>
       </div>
-
-      <div class="farewell-grid">
-        <div class="farewell-flavors">
-          <h3 class="fw-h">Choose Your Flavours</h3>
-          <ul class="fw-list">
-            <li>Caramel Dark Chocolate</li>
-            <li>Marshmallow Dark Chocolate</li>
-            <li>Peanut Dark Chocolate</li>
-            <li>Rich Matcha</li>
-            <li>Almond Hojicha</li>
-          </ul>
-          <div class="fw-sticker-tag">
-            <span class="ft-icon">✦</span>
-            <span>Swap on a <em>"thank you"</em> sticker</span>
-          </div>
-        </div>
-
-        <div class="farewell-info">
-          <h3 class="fw-h">How to Order</h3>
-          <ul class="fw-info-list">
-            <li><span class="fw-k">Minimum</span><span class="fw-v">20 pieces</span></li>
-            <li><span class="fw-k">Discount</span><span class="fw-v">5% off over $1000</span></li>
-            <li><span class="fw-k">Lead Time</span><span class="fw-v">1 week ahead</span></li>
-            <li><span class="fw-k">Rush Orders</span><span class="fw-v">DM us · case-by-case</span></li>
-          </ul>
-          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
-            <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> DM us on Instagram
-          </a>
-        </div>
+      <div class="fw-panel" data-reveal>
+        <h3>Choose Your Flavours</h3>
+        <ul class="fw-list">
+          <li><img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="44px" alt="" width="880" height="766" loading="lazy" decoding="async"><span>Caramel Dark Chocolate</span></li>
+          <li><img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="44px" alt="" width="880" height="848" loading="lazy" decoding="async"><span>Marshmallow Dark Chocolate</span></li>
+          <li><img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="44px" alt="" width="880" height="801" loading="lazy" decoding="async"><span>Peanut Dark Chocolate</span></li>
+          <li><img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="44px" alt="" width="880" height="713" loading="lazy" decoding="async"><span>Rich Matcha</span></li>
+          <li><img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="44px" alt="" width="880" height="839" loading="lazy" decoding="async"><span>Almond Hojicha</span></li>
+        </ul>
+      </div>
+      <div class="fw-panel" data-reveal>
+        <h3>How to Order</h3>
+        <dl class="rows">
+          <div><dt>Minimum</dt><dd>20 pieces</dd></div>
+          <div><dt>Discount</dt><dd>5% off over $1000</dd></div>
+          <div><dt>Lead Time</dt><dd>1 week ahead</dd></div>
+          <div><dt>Rush Orders</dt><dd>DM us · case-by-case</dd></div>
+        </dl>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- ═══ Who we are ═══ -->
+  <section class="story" id="about">
+    <div class="wrap story-grid">
+      <figure class="story-photo" data-reveal>
+        <img src="src/market.webp" alt="The Little Sweet Tooth stall at a market" width="1000" height="988" loading="lazy" decoding="async">
+        <figcaption>See you at the market ♥</figcaption>
+      </figure>
+      <div class="story-copy" data-reveal>
+        <p class="eyebrow">About us</p>
+        <h2>Small batches, <em>baked with heart</em></h2>
+        <p class="story-body">Little Sweet Tooth makes handmade brookies in Hong Kong, baking fresh in small batches since 2025. You may have met us at a market — and if not, come and find us on Instagram ♥</p>
+        <ul class="stats">
+          <li><b>7</b><span>flavours</span></li>
+          <li><b>2025</b><span>baking since</span></li>
+          <li><b>HK</b><span>handmade</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Questions ═══ -->
   <section class="faq" id="faq">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">FAQ ✿</span>
+    <div class="wrap faq-grid">
+      <header class="sec-head faq-head" data-reveal>
+        <p class="eyebrow">FAQ</p>
         <h2>Good to know</h2>
-        <p class="menu-sub">Everything before you order ♥</p>
-      </div>
+        <p class="sec-sub">Everything before you order ♥</p>
+      </header>
       <div class="faq-list">
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>How do I place an order?</summary>
-          <div class="faq-answer">Tap "Add to order" on the menu to pick your flavours and quantities, then tap the order button at the bottom — it builds an itemised order you can send straight to us on WhatsApp. You are also welcome to just DM us on Instagram ♥</div>
+          <div class="qa-a">Tap "Add to order" on the menu to pick your flavours and quantities, then tap the order button at the bottom — it builds an itemised order you can send straight to us on WhatsApp. You are also welcome to just DM us on Instagram ♥</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>How long does it take?</summary>
-          <div class="faq-answer">Please order <strong>7 days</strong> ahead so we can bake everything fresh for you ♥ Farewell boxes and large orders also need a week. Rush orders — DM us and we will do our best ✿</div>
+          <div class="qa-a">Please order <strong>7 days</strong> ahead so we can bake everything fresh for you ♥ Farewell boxes and large orders also need a week. Rush orders — DM us and we will do our best ✿</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>Where do we meet?</summary>
-          <div class="faq-answer">Any purchase can be picked up at <strong>Fo Tan MTR Station</strong>. Over <strong>$150</strong> we can meet at any station along the <strong>East Rail Line</strong>, and over <strong>$1000</strong> we deliver to your door for free. SF Express (freight collect) is also available.</div>
+          <div class="qa-a">Any purchase can be picked up at <strong>Fo Tan MTR Station</strong>. Over <strong>$150</strong> we can meet at any station along the <strong>East Rail Line</strong>, and over <strong>$1000</strong> we deliver to your door for free. SF Express (freight collect) is also available.</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>How long do they keep?</summary>
-          <div class="faq-answer">Mini brookies in a jar are best within <strong>5 days</strong> and keep up to a week. Large brookies taste best <strong>the same day</strong>. Marshmallow ones are lovely with a quick microwave warm-up ✿</div>
+          <div class="qa-a">Mini brookies in a jar are best within <strong>5 days</strong> and keep up to a week. Large brookies taste best <strong>the same day</strong>. Marshmallow ones are lovely with a quick microwave warm-up ✿</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>How do farewell boxes work?</summary>
-          <div class="faq-answer">Medium brookies at <strong>$25 each</strong>, <strong>minimum 20 pieces</strong>, 5% off over $1000. We can swap in a "thank you" sticker — please DM us 1 week ahead ♥</div>
+          <div class="qa-a">Medium brookies at <strong>$25 each</strong>, <strong>minimum 20 pieces</strong>, 5% off over $1000. We can swap in a "thank you" sticker — please DM us 1 week ahead ♥</div>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- ═══ Contact ═══ -->
   <section class="contact" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Say Hello ✿</span>
+    <div class="wrap contact-grid">
+      <div class="contact-copy" data-reveal>
+        <p class="eyebrow">Say Hello</p>
         <h2>Come Say Hi, <em>or Order a Batch</em></h2>
+        <p class="contact-body">Questions, custom orders, or pop-up invites — DM us on Instagram. We usually reply same day ♥</p>
+        <div class="contact-btns">
+          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="btn btn-solid"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> Instagram</a>
+          <a href="https://wa.me/85298174221" target="_blank" rel="noopener" class="btn btn-line"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg> WhatsApp</a>
+        </div>
+        <dl class="rows">
+          <div><dt>Instagram</dt><dd>@littlesweettooth._</dd></div>
+          <div><dt>Reply Hours</dt><dd>10:00 — 20:00 HKT</dd></div>
+          <div><dt>Pickup</dt><dd>Fo Tan MTR Station</dd></div>
+          <div><dt>Delivery</dt><dd>SF Express · East Rail Line</dd></div>
+        </dl>
       </div>
-
-      <div class="contact-grid">
-        <div class="contact-copy">
-          <p>Questions, custom orders, or pop-up invites — DM us on Instagram. We usually reply same day ♥</p>
-          <ul class="contact-list">
-            <li><span class="k">Instagram</span><span class="v">@littlesweettooth._</span></li>
-            <li><span class="k">Reply Hours</span><span class="v">10:00 — 20:00 HKT</span></li>
-            <li><span class="k">Pickup</span><span class="v">Fo Tan MTR Station</span></li>
-            <li><span class="k">Delivery</span><span class="v">SF Express · East Rail Line</span></li>
-          </ul>
-          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-cream">
-            <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> Instagram
-          </a>
-          <a href="https://wa.me/85298174221" target="_blank" class="btn btn-cream">
-            <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg> WhatsApp
-          </a>
-        </div>
-        <div class="contact-visual">
-          <div class="qr-card">
-            <img src="./src/ig-qr.svg" alt="Instagram QR — @littlesweettooth._" width="516" height="516" loading="lazy" decoding="async">
-            <div class="qr-lbl">Scan to follow</div>
-            <div class="qr-handle">@littlesweettooth._</div>
-          </div>
-        </div>
+      <div class="qr" data-reveal>
+        <img src="src/ig-qr.svg" alt="Instagram QR — @littlesweettooth._" width="516" height="516" loading="lazy" decoding="async">
+        <p class="qr-lbl">Scan to follow</p>
+        <p class="qr-handle">@littlesweettooth._</p>
       </div>
     </div>
   </section>
 
   </main>
 
-  <footer class="site-foot">
-    <div class="container">
+  <footer class="foot">
+    <div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <h3>Little <em>Sweet</em> Tooth</h3>
-          <p>Good Food, Good Mood. Handmade brookies, baked with love ♥</p>
+          <img class="foot-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+          <p class="foot-blurb">Good Food, Good Mood. Handmade brookies, baked with love ♥</p>
           <div class="foot-social">
-            <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram">
-              <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
-            </a>
-
-            <a href="https://wa.me/85298174221" target="_blank" aria-label="WhatsApp">
-              <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg>
-            </a>
+            <a class="round" href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a>
+            <a class="round" href="https://wa.me/85298174221" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg></a>
           </div>
         </div>
-
         <div class="foot-col">
-          <h4>Around Here ✿</h4>
+          <h2 class="foot-h">Around Here</h2>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#care">Care Notes</a></li>
-            <li><a href="#farewell">Farewell Box</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Say Hello</a></li>
+            <li><a href="#home" data-nav="home">Home</a></li>
+            <li><a href="#menu" data-nav="menu">Menu</a></li>
+            <li><a href="#care" data-nav="care">Care Notes</a></li>
+            <li><a href="#farewell" data-nav="farewell">Farewell Box</a></li>
+            <li><a href="#faq" data-nav="faq">FAQ</a></li>
+            <li><a href="#contact" data-nav="contact">Contact</a></li>
           </ul>
         </div>
-
         <div class="foot-col">
-          <h4>Delivery & Pickup ♥</h4>
+          <h2 class="foot-h">Delivery &amp; Pickup</h2>
           <ul class="foot-info">
             <li>Fo Tan MTR Station Pickup (Any Purchase)</li>
             <li>East Rail Line Meetup (Orders Over $150)</li>
@@ -764,19 +923,17 @@
           </ul>
         </div>
       </div>
-
-      <div class="foot-bottom">
-        <span>© 2025 Little Sweet Tooth</span>
-        <span>Hong Kong · Handmade</span>
-        <span>Made with ♥</span>
-      </div>
+    </div>
+    <!-- the logo, as wide as the page -->
+    <div class="foot-word" role="img" aria-label="Little Sweet Tooth"></div>
+    <div class="wrap foot-base">
+      <span>© 2025 Little Sweet Tooth</span>
+      <span>Hong Kong · Handmade</span>
+      <span>Made with ♥</span>
     </div>
   </footer>
 
-  <a href="#" class="back-to-top" aria-label="Back to top"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></a>
-  <script src="scripts.js"></script>
   <script src="order.js"></script>
-  <script src="shelf.js"></script>
-  <div class="scroll-rail" aria-hidden="true"><span></span></div>
+  <script src="site.js"></script>
 </body>
 </html>

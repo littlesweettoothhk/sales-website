@@ -1,0 +1,36 @@
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img class="foot-mascot" src="{{R}}src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+          <p class="foot-blurb">{{t:foot.blurb}}</p>
+          <div class="foot-social">
+            <a class="round" href="{{@ig}}" target="_blank" rel="noopener" aria-label="Instagram">{{@icon_ig}}</a>
+            <a class="round" href="{{@wa}}" target="_blank" rel="noopener" aria-label="WhatsApp">{{@icon_wa}}</a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h2 class="foot-h">{{t:foot.more}}</h2>
+          <ul>
+{{@nav_foot}}
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h2 class="foot-h">{{t:foot.delivery}}</h2>
+          <ul class="foot-info">
+{{@foot_info}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- the logo, as wide as the page -->
+    <div class="foot-word" role="img" aria-label="{{t:brand}}"></div>
+    <div class="wrap foot-base">
+      <span>{{t:foot.copy}}</span>
+      <span>{{t:foot.place}}</span>
+      <span>{{t:foot.made}}</span>
+    </div>
+  </footer>
+
+  <script src="{{R}}order.js"></script>
+  <script src="{{R}}site.js"></script>

@@ -1,55 +1,74 @@
-# Adding or changing a flavour
+# How the site is put together
 
-Everything about the product list is generated from **`tools/products.json`**.
-The site stays completely static — these scripts run on your machine and write
-plain HTML that you commit. Nothing here runs on the server.
+Every page is plain HTML that GitHub Pages serves as-is. Nothing runs on the
+server. The pages are **generated** on your own machine from the files in this
+folder, so one fact lives in one place.
+
+| You want to change…                     | Edit                      |
+|-----------------------------------------|---------------------------|
+| a flavour: name, price, notes, colour   | `tools/products.json`     |
+| any other wording, in either language   | `tools/site.json`         |
+| the layout of a page                    | `tools/templates/`        |
+| how things look                         | `styles.css`              |
+| how things move                         | `site.js`                 |
+| how ordering works                      | `order.js`                |
+
+After editing anything in `tools/`, run:
+
+```
+python3 tools/build.py --check     # shows what would change, writes nothing
+python3 tools/build.py --write     # writes the pages
+```
+
+Then commit. Do not edit `index.html`, `en.html`, `404.html` or anything under
+`products/` by hand — the next build would overwrite it.
 
 ## To add a flavour
 
-1. Put the photo in `src/`.
-2. Add one entry to `tools/products.json` (copy the nearest existing flavour and
-   edit it — every field is required except `ppTag`, `homeTag`, `placeholder`
-   and `frameStyle`, which may be empty).
-3. Run:
+1. Put the photo in `src/` (WebP, about 900px on its long edge).
+2. Add one entry to `tools/products.json`. Copy the nearest existing flavour
+   and change the values. `unit` is `jar` or `pcs` and decides which part of
+   the menu it appears in.
+3. Give it its colours, in `stage`:
+   - `bg` — the flavour's colour: its menu tile, its page, the top of the
+     homepage when it is on show
+   - `ink` — the text on that colour; it must read clearly (aim for 4.5:1)
+   - `soft` — a lighter tint of `bg`, the circle behind the picture
+   - `deep` — a darker shade of `bg`
+4. Cut the flavour out of its photo, so it can be shown large on colour:
 
-   ```sh
-   python3 tools/build.py --check    # show what would change
-   python3 tools/build.py --write    # apply it
+   ```
+   pip install "rembg[cpu]" pillow numpy scipy      # once
+   python3 tools/cutout.py newflavour
    ```
 
-4. Optional — give it its own colour. Each flavour has one line near the top of
-   `styles.css` (`[data-id="matcha"], … { --fl: #55752f; }`). Copy a line, change
-   the id and the colour. It tints the lip under the card, the name chip and the
-   wash on that flavour's page. Leave it out and the flavour uses the logo brown.
-   Pick a colour dark enough for cream text to read on (the existing seven all
-   clear 4.5:1).
-5. Commit. GitHub Pages serves the result as usual.
+   This writes `src/cut/newflavour.webp` and a half-size `-s.webp`. Look at
+   the result before committing. If you skip this step the site still works:
+   the flavour is shown as its ordinary photo in a round frame.
+5. `python3 tools/build.py --write`, then commit.
 
-## What it writes
+That one entry produces: the flavour's two pages, its tile on both homepages,
+its turn on the stage at the top, the "other flavours" rows, the search-engine
+data, the sitemap, and its line in the order form.
 
-| File | What is regenerated |
-|---|---|
-| `products/<id>.html`, `<id>-en.html` | the two product pages |
-| `index.html`, `en.html` | both shelves and the JSON-LD offer catalogue |
-| every `products/*.html` | the “other flavours” grid at the foot |
-| `sitemap.xml` | one entry per page, per language |
-| `order.js` | the `PRODUCTS` list the cart runs on |
+## To change wording
 
-Only files whose content actually changes are touched.
+`tools/site.json` holds every sentence that is not about one flavour, once
+under `"zh"` and once under `"en"`. Change the text, build, commit. The
+delivery stations drawn on the homepage are listed there too (`stations`); the
+order form keeps its own copy in `order.js`, so change both together.
 
-## Ordering
+`stageStart` is the flavour the homepage opens on.
 
-`products.json` order is the catalogue order — it drives the shelves and the
-“next four, wrapping” rule for related flavours. `unit` decides which shelf a
-flavour lands on: `jar` or `pcs`.
+## What the build writes
+
+`index.html`, `en.html`, `404.html`, `products/<id>.html` and
+`products/<id>-en.html` for every flavour, `sitemap.xml`, and the `PRODUCTS`
+list at the top of `order.js` (nothing else in that file is touched).
 
 ## Safety
 
-`build.py` regenerates the **whole** site, not just the new flavour, so
-`--check` on an unchanged `products.json` must report every file identical. If
-it does not, something has drifted and the diff will show exactly what — run
-`python3 tools/build.py --diff`.
-
-`tools/mktemplate.py` rebuilds `tools/templates/` from `products/seasalt.html`.
-Only run it if you deliberately change the shape of a product page; it takes
-whatever that page currently looks like as the new shape for all of them.
+The build refuses to run if a flavour's photo is missing, an id is used twice,
+a `stage` colour is missing, or a template asks for wording that `site.json`
+does not have. `--check` exits non-zero when anything on disk differs from
+what the data says it should be.

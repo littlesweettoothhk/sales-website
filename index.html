@@ -28,14 +28,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonts load off the critical path. A firewall that drops requests to
        Google rather than refusing them (mainland China, some corporate wifi)
-       used to hold first paint for ~15s on a render-blocking stylesheet.
-       preload fetches it at full priority without blocking, then applies it;
-       display=swap in the URL already handles the font files themselves. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400..800&family=Nunito:wght@400;600;700;800&family=Chiron+GoRound+TC:wght@400;700;900&display=swap" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400..800&family=Nunito:wght@400;600;700;800&family=Chiron+GoRound+TC:wght@400;700;900&display=swap"></noscript>
+       would otherwise hold first paint for ~15s on a render-blocking
+       stylesheet. preload fetches it at full priority without blocking, then
+       applies it; display=swap in the URL handles the font files themselves. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700;900&family=Shantell+Sans:wght@700&display=swap" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700;900&family=Shantell+Sans:wght@700&display=swap"></noscript>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="shelf.css">
-  <link rel="manifest" href="./site.webmanifest">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" as="image" href="src/cut/caramel-s.webp" imagesrcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" imagesizes="(min-width: 900px) 46vw, 78vw" fetchpriority="high">
 
   <script type="application/ld+json">
 {
@@ -302,6 +302,7 @@
   }
 }
   </script>
+
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -351,415 +352,569 @@
 }
   </script>
 </head>
-<body>
-  <a class="skip-link" href="#main">跳到主要內容</a>
+<body class="home" style="--s-bg:#f2a544;--s-ink:#3a2110;--s-soft:#f8c477;--s-deep:#c67a1f">
+  <a class="skip" href="#main">跳到主要內容</a>
 
-  <!-- Top strip · delivery details -->
-  <div class="top-strip">
-    <div class="strip-row">
-      <span>♥ 任何消費即可</span><span class="dot">✿</span>
-      <span>火炭港鐵站交收 / 順豐到付</span><span class="dot">✿</span>
-      <span>滿 $150 東鐵沿綫交收</span><span class="dot">✿</span>
-      <span>滿 $1000 免費送貨 ✨</span><span class="dot">✿</span>
-      <span>♥ 任何消費即可</span><span class="dot">✿</span>
-      <span>火炭港鐵站交收 / 順豐到付</span><span class="dot">✿</span>
-      <span>滿 $150 東鐵沿綫交收</span><span class="dot">✿</span>
-      <span>滿 $1000 免費送貨 ✨</span><span class="dot">✿</span>
+  <!-- delivery terms, running along the top -->
+  <div class="strip">
+    <div class="strip-track">
+      <div class="strip-set"><span>任何消費即可</span><i aria-hidden="true"></i><span>火炭港鐵站交收 / 順豐到付</span><i aria-hidden="true"></i><span>滿 $150 東鐵沿綫交收</span><i aria-hidden="true"></i><span>滿 $1000 免費送貨</span><i aria-hidden="true"></i></div>
+      <div class="strip-set" aria-hidden="true"><span>任何消費即可</span><i aria-hidden="true"></i><span>火炭港鐵站交收 / 順豐到付</span><i aria-hidden="true"></i><span>滿 $150 東鐵沿綫交收</span><i aria-hidden="true"></i><span>滿 $1000 免費送貨</span><i aria-hidden="true"></i></div>
     </div>
   </div>
 
-
-  <div class="topbar">
-  <header class="site-head">
-    <div class="language-switcher"><a href="en.html" class="lang-btn">EN</a></div>
-    <div class="head-row">
-      <a href="#home" class="head-brand">
-        <img src="./src/logo-lockup.webp" alt="Little Sweet Tooth" width="640" height="283" loading="eager" decoding="async">
-        <span class="bname">Little Sweet Tooth</span>
+  <header class="top" id="top">
+    <div class="wrap top-row">
+      <a class="top-logo" href="#home">
+        <img src="src/logo-lockup.webp" alt="Little Sweet Tooth" width="640" height="283" decoding="async">
       </a>
-      <div class="head-tag">𝐺𝑜𝑜𝑑 𝐹𝑜𝑜𝑑, 𝐺𝑜𝑜𝑑 𝑀𝑜𝑜𝑑 ♥</div>
+      <nav class="top-nav" aria-label="Little Sweet Tooth">
+        <a href="#home" data-nav="home">首頁</a>
+        <a href="#menu" data-nav="menu">餐牌</a>
+        <a href="#care" data-nav="care">食用須知</a>
+        <a href="#farewell" data-nav="farewell">散水餅</a>
+        <a href="#faq" data-nav="faq">常見問題</a>
+        <a href="#contact" data-nav="contact">聯絡</a>
+      </nav>
+      <div class="top-tools">
+        <a class="lang" href="en.html" hreflang="en" aria-label="English">EN</a>
+        <button type="button" class="bag" data-cart-open aria-label="訂單">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l1.2 11.2a1.6 1.6 0 0 1-1.6 1.8H6.4a1.6 1.6 0 0 1-1.6-1.8L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+          <span class="bag-n" hidden>0</span>
+        </button>
+        <button type="button" class="burger" aria-expanded="false" aria-controls="sheet" aria-label="開啟選單" data-open="開啟選單" data-close="關閉選單">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-link active">首頁</a>
-      <a href="#menu" class="nav-link">餐牌</a>
-      <a href="#care" class="nav-link">食用須知</a>
-      <a href="#farewell" class="nav-link">散水餅</a>
-      <a href="#faq" class="nav-link">常見問題</a>
-      <a href="#contact" class="nav-link">聯絡</a>
+  <!-- the menu on a phone: the whole screen, in big type -->
+  <div class="sheet" id="sheet" hidden>
+    <nav class="sheet-nav" aria-label="Little Sweet Tooth">
+      <a href="#home" data-nav="home"><small>01</small>首頁</a>
+      <a href="#menu" data-nav="menu"><small>02</small>餐牌</a>
+      <a href="#care" data-nav="care"><small>03</small>食用須知</a>
+      <a href="#farewell" data-nav="farewell"><small>04</small>散水餅</a>
+      <a href="#faq" data-nav="faq"><small>05</small>常見問題</a>
+      <a href="#contact" data-nav="contact"><small>06</small>聯絡</a>
+    </nav>
+    <div class="sheet-foot">
+      <a class="round" href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a>
+      <a class="round" href="https://wa.me/85298174221" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg></a>
     </div>
-  </nav>
   </div>
 
   <main id="main">
-  <!-- Hero -->
-  <section class="hero" id="home">
-    <span class="doodle h1">♥</span>
-    <span class="doodle h2">✿</span>
-    <span class="doodle h3">♥</span>
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <h1 class="hero-title">
-          <span class="line-a">A little bite,</span>
-          <em>A big smile <span class="heart">♥</span></em>
+
+  <!-- ═══ The stage: one flavour at a time, the whole screen in its colour ═══ -->
+  <section class="stage" id="home" aria-label="首頁">
+    <div class="stage-word" aria-hidden="true"><div class="stage-word-track"></div></div>
+
+    <div class="wrap stage-grid">
+      <div class="stage-copy">
+        <h1 class="stage-title">
+          <span class="l1">A little bite,</span>
+          <span class="l2">A big smile <i class="heart" aria-hidden="true">♥</i></span>
         </h1>
-        <p class="hero-lede">
-          Brookies = brownie + cookies 嘅結合 — 表面薄脆裂紋，內裡濃郁濕潤。<br>
-          每一盤都係用心手工烘焙 ♥
-        </p>
-        <div class="hero-ctas">
-          <a href="#menu" class="btn btn-primary">睇下今日嘅餐牌 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#contact" class="btn btn-ghost">即刻訂購</a>
+        <div class="stage-cta">
+          <a href="#menu" class="btn btn-solid">睇下今日嘅餐牌 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#contact" class="btn btn-line">即刻訂購</a>
         </div>
       </div>
 
-      <div class="hero-media">
-        <div class="hero-figure">
-        <div class="hero-tape"></div>
-        <div class="hero-sticker">
-          <div>
-            <span>baked</span>
-            用心<br>新鮮烘焙
+      <div class="stage-shot">
+        <div class="stage-halo" aria-hidden="true"></div>
+        <div class="stage-shots">
+          <img data-id="caramel" class="shot is-on" src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="(min-width: 900px) 46vw, 78vw" alt="" width="880" height="766" loading="eager" fetchpriority="high" decoding="async">
+        </div>
+        <div class="stage-badge" aria-hidden="true"><div><span>baked</span>用心<br>新鮮烘焙</div></div>
+      </div>
+
+      <div class="stage-panels">
+        <div class="sp" id="sp-seasalt" role="tabpanel" aria-labelledby="st-seasalt" data-product data-id="seasalt" hidden>
+          <p class="sp-tag">皇牌</p>
+          <p class="sp-name">海鹽黑朱古力</p>
+          <p class="sp-sub" lang="en">Sea Salt Dark Chocolate</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$60</b><span>每樽 JAR</span></p>
+            <a class="sp-more" href="products/seasalt.html">看看詳情 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </div>
-        <img src="./src/market.webp" alt="Market" width="1000" height="988" loading="eager" decoding="async">
+        <div class="sp" id="sp-pepper" role="tabpanel" aria-labelledby="st-pepper" data-product data-id="pepper" hidden>
+          <p class="sp-tag">獨特</p>
+          <p class="sp-name">麻香花椒</p>
+          <p class="sp-sub" lang="en">Green Sichuan Pepper</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$62</b><span>每樽 JAR</span></p>
+            <a class="sp-more" href="products/pepper.html">看看詳情 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp is-on" id="sp-caramel" role="tabpanel" aria-labelledby="st-caramel" data-product data-id="caramel">
+          <p class="sp-tag">new</p>
+          <p class="sp-name">焦糖黑朱古力</p>
+          <p class="sp-sub" lang="en">Caramel Dark Chocolate</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>每件 PCS</span></p>
+            <a class="sp-more" href="products/caramel.html">看看詳情 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-marshmallow" role="tabpanel" aria-labelledby="st-marshmallow" data-product data-id="marshmallow" hidden>
+          <p class="sp-tag">new</p>
+          <p class="sp-name">棉花糖黑朱古力</p>
+          <p class="sp-sub" lang="en">Marshmallow Dark Chocolate</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>每件 PCS</span></p>
+            <a class="sp-more" href="products/marshmallow.html">看看詳情 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-peanut" role="tabpanel" aria-labelledby="st-peanut" data-product data-id="peanut" hidden>
+          <p class="sp-tag">new</p>
+          <p class="sp-name">花生黑朱古力</p>
+          <p class="sp-sub" lang="en">Peanut Dark Chocolate</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>每件 PCS</span></p>
+            <a class="sp-more" href="products/peanut.html">看看詳情 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-hojicha" role="tabpanel" aria-labelledby="st-hojicha" data-product data-id="hojicha" hidden>
+          
+          <p class="sp-name">焙茶</p>
+          <p class="sp-sub" lang="en">Hojicha</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>每件 PCS</span></p>
+            <a class="sp-more" href="products/hojicha.html">看看詳情 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="sp" id="sp-matcha" role="tabpanel" aria-labelledby="st-matcha" data-product data-id="matcha" hidden>
+          
+          <p class="sp-name">抹茶</p>
+          <p class="sp-sub" lang="en">Matcha</p>
+          <div class="sp-row">
+            <p class="sp-price"><b>$35</b><span>每件 PCS</span></p>
+            <a class="sp-more" href="products/matcha.html">看看詳情 <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div class="stage-pick">
+        <button type="button" class="pick-arrow" data-stage="prev" aria-label="上一款口味"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="pick-list" role="tablist" aria-label="揀一款睇睇">
+          <button type="button" class="pick" role="tab" id="st-seasalt" aria-selected="false" aria-controls="sp-seasalt" tabindex="-1" data-id="seasalt" data-bg="#3a2420" data-ink="#fdf5e2" data-soft="#573932" data-deep="#22130f" data-cut="src/cut/seasalt.webp" data-w="685" data-h="880" data-word="海鹽黑朱古力">
+            <img src="src/cut/seasalt-s.webp" srcset="src/cut/seasalt-s.webp 342w, src/cut/seasalt.webp 685w" sizes="64px" alt="" width="685" height="880" loading="lazy" decoding="async">
+            <span class="vh">海鹽黑朱古力</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-pepper" aria-selected="false" aria-controls="sp-pepper" tabindex="-1" data-id="pepper" data-bg="#a3b162" data-ink="#22260c" data-soft="#bdc888" data-deep="#73803a" data-cut="src/cut/pepper.webp" data-w="689" data-h="880" data-word="麻香花椒">
+            <img src="src/cut/pepper-s.webp" srcset="src/cut/pepper-s.webp 344w, src/cut/pepper.webp 689w" sizes="64px" alt="" width="689" height="880" loading="lazy" decoding="async">
+            <span class="vh">麻香花椒</span>
+          </button>
+          <button type="button" class="pick is-on" role="tab" id="st-caramel" aria-selected="true" aria-controls="sp-caramel" tabindex="0" data-id="caramel" data-bg="#f2a544" data-ink="#3a2110" data-soft="#f8c477" data-deep="#c67a1f" data-cut="src/cut/caramel.webp" data-w="880" data-h="766" data-word="焦糖黑朱古力">
+            <img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="64px" alt="" width="880" height="766" loading="lazy" decoding="async">
+            <span class="vh">焦糖黑朱古力</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-marshmallow" aria-selected="false" aria-controls="sp-marshmallow" tabindex="-1" data-id="marshmallow" data-bg="#f7c6ba" data-ink="#44201a" data-soft="#fbddd5" data-deep="#dc9485" data-cut="src/cut/marshmallow.webp" data-w="880" data-h="848" data-word="棉花糖黑朱古力">
+            <img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="64px" alt="" width="880" height="848" loading="lazy" decoding="async">
+            <span class="vh">棉花糖黑朱古力</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-peanut" aria-selected="false" aria-controls="sp-peanut" tabindex="-1" data-id="peanut" data-bg="#f4d27d" data-ink="#3d2a0c" data-soft="#f9e4ab" data-deep="#d0a53d" data-cut="src/cut/peanut.webp" data-w="880" data-h="801" data-word="花生黑朱古力">
+            <img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="64px" alt="" width="880" height="801" loading="lazy" decoding="async">
+            <span class="vh">花生黑朱古力</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-hojicha" aria-selected="false" aria-controls="sp-hojicha" tabindex="-1" data-id="hojicha" data-bg="#cf9a6e" data-ink="#2f1d0e" data-soft="#e0b894" data-deep="#a06c42" data-cut="src/cut/hojicha.webp" data-w="880" data-h="839" data-word="焙茶">
+            <img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="64px" alt="" width="880" height="839" loading="lazy" decoding="async">
+            <span class="vh">焙茶</span>
+          </button>
+          <button type="button" class="pick" role="tab" id="st-matcha" aria-selected="false" aria-controls="sp-matcha" tabindex="-1" data-id="matcha" data-bg="#a8c878" data-ink="#22300f" data-soft="#c6dda1" data-deep="#76984a" data-cut="src/cut/matcha.webp" data-w="880" data-h="713" data-word="抹茶">
+            <img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="64px" alt="" width="880" height="713" loading="lazy" decoding="async">
+            <span class="vh">抹茶</span>
+          </button>
+        </div>
+        <button type="button" class="pick-arrow" data-stage="next" aria-label="下一款口味"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
   </section>
 
-  <div class="trust">
-        <div class="trust-item"><span aria-hidden="true">♥</span>每日新鮮手工烘焙</div>
-        <div class="trust-item"><span aria-hidden="true">✿</span>火炭站任何消費即可交收</div>
-        <div class="trust-item"><span aria-hidden="true">✨</span>滿 $1000 免費送貨</div>
+  <!-- three promises, set large and kept moving -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <div class="ticker-set"><span>每日新鮮手工烘焙</span><i aria-hidden="true"></i><span>火炭站任何消費即可交收</span><i aria-hidden="true"></i><span>滿 $1000 免費送貨</span><i aria-hidden="true"></i></div>
+      <div class="ticker-set" aria-hidden="true"><span>每日新鮮手工烘焙</span><i aria-hidden="true"></i><span>火炭站任何消費即可交收</span><i aria-hidden="true"></i><span>滿 $1000 免費送貨</span><i aria-hidden="true"></i></div>
+      <div class="ticker-set" aria-hidden="true"><span>每日新鮮手工烘焙</span><i aria-hidden="true"></i><span>火炭站任何消費即可交收</span><i aria-hidden="true"></i><span>滿 $1000 免費送貨</span><i aria-hidden="true"></i></div>
+      <div class="ticker-set" aria-hidden="true"><span>每日新鮮手工烘焙</span><i aria-hidden="true"></i><span>火炭站任何消費即可交收</span><i aria-hidden="true"></i><span>滿 $1000 免費送貨</span><i aria-hidden="true"></i></div>
+    </div>
   </div>
 
+  <!-- ═══ What a brookie is ═══ -->
+  <section class="what" id="brookie" data-scrub>
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>乜嘢係 brookie？</p>
+      <div class="eq" aria-label="Brownie + Cookie = Brookie">
+        <div class="eq-part eq-a"><b>Brownie</b><small>內裡濃郁濕潤</small></div>
+        <span class="eq-op" aria-hidden="true">+</span>
+        <div class="eq-part eq-b"><b>Cookie</b><small>表面薄脆裂紋</small></div>
+        <span class="eq-op" aria-hidden="true">=</span>
+        <div class="eq-part eq-c">
+          <img class="eq-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+          <b>Brookie</b>
+        </div>
+      </div>
+      <p class="what-body" data-reveal>Brookies = brownie + cookies 嘅結合 — 表面薄脆裂紋，內裡濃郁濕潤。<br>每一盤都係用心手工烘焙 ♥</p>
+    </div>
+  </section>
 
-  <!-- How to order -->
+  <!-- ═══ Menu ═══ -->
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <header class="sec-head sec-head--split">
+        <div data-reveal>
+          <p class="eyebrow">今日餐牌</p>
+          <h2>布朗尼曲奇 · <em>Brookies</em></h2>
+          <p class="sec-sub">每一款都用心手工烘焙 · 任何消費都可以落單 ♥</p>
+        </div>
+        <div class="filter" role="group" aria-label="篩選餐牌" data-reveal>
+          <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">全部</button>
+          <button type="button" class="chip" data-filter="jar" aria-pressed="false">細粒裝</button>
+          <button type="button" class="chip" data-filter="pcs" aria-pressed="false">大粒裝</button>
+        </div>
+      </header>
+
+      <div class="group" data-group="jar">
+        <div class="group-head" data-reveal>
+          <h3>細粒裝</h3>
+          <span class="pill">每樽 · jar</span>
+          <p>迷你版本，方便分享 · 每樽</p>
+        </div>
+        <div class="tiles tiles--duo">
+          <article class="tile" data-product data-id="seasalt" data-unit="jar" style="--s-bg:#3a2420;--s-ink:#fdf5e2;--s-soft:#573932;--s-deep:#22130f">
+            <div class="tile-shot"><img src="src/cut/seasalt-s.webp" srcset="src/cut/seasalt-s.webp 342w, src/cut/seasalt.webp 685w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="685" height="880" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">皇牌</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/seasalt.html">海鹽黑朱古力</a></h4>
+              <p class="tile-sub" lang="en">Sea Salt Dark Chocolate</p>
+              <p class="tile-price"><b>$60</b><span>每樽 JAR</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="pepper" data-unit="jar" style="--s-bg:#a3b162;--s-ink:#22260c;--s-soft:#bdc888;--s-deep:#73803a">
+            <div class="tile-shot"><img src="src/cut/pepper-s.webp" srcset="src/cut/pepper-s.webp 344w, src/cut/pepper.webp 689w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="689" height="880" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">獨特</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/pepper.html">麻香花椒</a></h4>
+              <p class="tile-sub" lang="en">Green Sichuan Pepper</p>
+              <p class="tile-price"><b>$62</b><span>每樽 JAR</span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="group" data-group="pcs">
+        <div class="group-head" data-reveal>
+          <h3>大粒裝</h3>
+          <span class="pill">每件 · pcs</span>
+          <p>大件滿足款 · 每件單買 ♥</p>
+        </div>
+        <div class="tiles">
+          <article class="tile" data-product data-id="caramel" data-unit="pcs" style="--s-bg:#f2a544;--s-ink:#3a2110;--s-soft:#f8c477;--s-deep:#c67a1f">
+            <div class="tile-shot"><img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="766" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">new</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/caramel.html">焦糖黑朱古力</a></h4>
+              <p class="tile-sub" lang="en">Caramel Dark Chocolate</p>
+              <p class="tile-price"><b>$35</b><span>每件 PCS</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="marshmallow" data-unit="pcs" style="--s-bg:#f7c6ba;--s-ink:#44201a;--s-soft:#fbddd5;--s-deep:#dc9485">
+            <div class="tile-shot"><img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="848" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">new</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/marshmallow.html">棉花糖黑朱古力</a></h4>
+              <p class="tile-sub" lang="en">Marshmallow Dark Chocolate</p>
+              <p class="tile-price"><b>$35</b><span>每件 PCS</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="peanut" data-unit="pcs" style="--s-bg:#f4d27d;--s-ink:#3d2a0c;--s-soft:#f9e4ab;--s-deep:#d0a53d">
+            <div class="tile-shot"><img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="801" loading="lazy" decoding="async"></div>
+            <span class="tile-tag">new</span>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/peanut.html">花生黑朱古力</a></h4>
+              <p class="tile-sub" lang="en">Peanut Dark Chocolate</p>
+              <p class="tile-price"><b>$35</b><span>每件 PCS</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="hojicha" data-unit="pcs" style="--s-bg:#cf9a6e;--s-ink:#2f1d0e;--s-soft:#e0b894;--s-deep:#a06c42">
+            <div class="tile-shot"><img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="839" loading="lazy" decoding="async"></div>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/hojicha.html">焙茶</a></h4>
+              <p class="tile-sub" lang="en">Hojicha</p>
+              <p class="tile-price"><b>$35</b><span>每件 PCS</span></p>
+            </div>
+          </article>
+          <article class="tile" data-product data-id="matcha" data-unit="pcs" style="--s-bg:#a8c878;--s-ink:#22300f;--s-soft:#c6dda1;--s-deep:#76984a">
+            <div class="tile-shot"><img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="(min-width: 1000px) 340px, 45vw" alt="" width="880" height="713" loading="lazy" decoding="async"></div>
+            <div class="tile-body">
+              <h4 class="tile-name"><a href="products/matcha.html">抹茶</a></h4>
+              <p class="tile-sub" lang="en">Matcha</p>
+              <p class="tile-price"><b>$35</b><span>每件 PCS</span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ How to order: three cards that stack as you scroll ═══ -->
   <section class="how" id="how">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">落單好簡單 ✿</span>
+    <div class="wrap how-grid">
+      <header class="sec-head how-head">
+        <p class="eyebrow">落單好簡單</p>
         <h2>三步就搞掂</h2>
-      </div>
-      <div class="ribbon">
-        <div class="rb-step">
-          <span class="rb-badge">1<span class="rb-emoji" aria-hidden="true">🍪</span></span>
-          <h3 class="rb-head">揀口味</h3>
-          <p class="rb-copy">喺餐牌撳「加入訂單」，想要幾多就撳幾多 ♥</p>
-        </div>
-        <div class="rb-step">
-          <span class="rb-badge">2<span class="rb-emoji" aria-hidden="true">🧾</span></span>
-          <h3 class="rb-head">睇睇訂單</h3>
-          <p class="rb-copy">撳底部嘅訂單掣，會顯示你揀咗嘅嘢同總數。</p>
-        </div>
-        <div class="rb-step">
-          <span class="rb-badge">3<span class="rb-emoji" aria-hidden="true">💬</span></span>
-          <h3 class="rb-head">WhatsApp 落單</h3>
-          <p class="rb-copy">一撳就會自動整好訂單訊息，send 出嚟就得 ✨</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Menu -->
-  <section class="menu-section" id="menu">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">今日餐牌 ✿</span>
-        <h2>布朗尼曲奇 · <em>Brookies</em></h2>
-        <p class="menu-sub">每一款都用心手工烘焙 · 任何消費都可以落單 ♥</p>
-      </div>
-
-      <!-- Menu cards split into two sections -->
-
-      <!-- Section A: Jar -->
-      <div class="shelf">
-      <div class="menu-section-head">
-        <div class="msh-label">每樽 · jar</div>
-        <h3 class="msh-title">細粒裝</h3>
-        <p class="msh-sub">迷你版本，方便分享 · 每樽 ✿</p>
-      </div>
-        <div class="shelf-bar">
-          <div class="shelf-rail-ui"></div>
-        </div>
-      <div class="shelf-grid" data-layout="pair">
-        <article class="sc is-featured" data-product data-id="seasalt" data-name="海鹽黑朱古力" data-price="60" data-unit="jar" data-img="./src/sea-salt-dark-chocolate-brookies.webp" data-url="products/seasalt.html" data-sub="Sea Salt Dark Chocolate" data-price-label="每樽 jar" data-price-text="$60" data-more="看看詳情 →" data-desc="我們的招牌口味。香濃的比利時黑朱古力遇上一撮海鹽，外脆內軟，每一口都有層次。樽裝迷你款，方便分享，也適合自己慢慢吃 ♥">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><span class="sc-tag signature">皇牌 ♥</span><img src="./src/sea-salt-dark-chocolate-brookies.webp" alt="海鹽黑朱古力" width="733" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="zh-Hant">海鹽黑朱古力</div>
-            <div class="sc-sub" lang="en">Sea Salt Dark Chocolate</div>
-            <div class="sc-price"><span class="sc-lbl">每樽 jar</span><span class="sc-val">$60</span></div>
-            <a class="sc-more" href="products/seasalt.html">看看詳情 →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="pepper" data-name="麻香花椒" data-price="62" data-unit="jar" data-img="./src/green-sichuan-pepper-brookies.webp" data-url="products/pepper.html" data-sub="Green Sichuan Pepper" data-price-label="每樽 jar" data-price-text="$62" data-more="看看詳情 →" data-desc="我們最大膽的口味。青花椒的麻香，配上濃郁黑朱古力——舌尖會輕輕跳舞。試一口會驚喜 ✦">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><span class="sc-tag bold">獨特 ✦</span><img src="./src/green-sichuan-pepper-brookies.webp" alt="麻香花椒" width="697" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="zh-Hant">麻香花椒</div>
-            <div class="sc-sub" lang="en">Green Sichuan Pepper</div>
-            <div class="sc-price"><span class="sc-lbl">每樽 jar</span><span class="sc-val">$62</span></div>
-            <a class="sc-more" href="products/pepper.html">看看詳情 →</a>
-          </div>
-        </article>
-      </div>
-        <div class="shelf-plank" aria-hidden="true"></div>
-      </div>
-
-      <!-- Divider -->
-      <div class="menu-divider"><span>✿</span></div>
-
-      <!-- Section B: pcs -->
-      <div class="shelf">
-      <div class="menu-section-head">
-        <div class="msh-label">每件 · pcs</div>
-        <h3 class="msh-title">大粒裝</h3>
-        <p class="msh-sub">大件滿足款 · 每件單買 ♥</p>
-      </div>
-        <div class="shelf-bar">
-          <div class="shelf-rail-ui"></div>
-        </div>
-      <div class="shelf-grid" data-layout="counter">
-        <article class="sc is-featured" data-product data-id="caramel" data-name="焦糖黑朱古力" data-price="35" data-unit="pcs" data-img="./src/caramel-brookies.webp" data-url="products/caramel.html" data-sub="Caramel Dark Chocolate" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="焦糖醬慢慢熬煮到金黃色，再配上濃郁的黑朱古力Brookies。甜中帶微苦。✿">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame" style="background: linear-gradient(135deg,#e9c69a,#c9844a);"><span class="sc-tag new">new ✿</span><span class="pc-placeholder"><span class="pc-emoji">🍯</span> <span class="pc-ph-label">caramel</span></span><img src="./src/caramel-brookies.webp" alt="焦糖黑朱古力" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="zh-Hant">焦糖黑朱古力</div>
-            <div class="sc-sub" lang="en">Caramel Dark Chocolate</div>
-            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/caramel.html">看看詳情 →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="marshmallow" data-name="棉花糖黑朱古力" data-price="35" data-unit="pcs" data-img="./src/marshmallow-brookies.webp" data-url="products/marshmallow.html" data-sub="Marshmallow Dark Chocolate" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="小朋友的最愛。手作棉花糖在黑朱古力brookies上，燒到微微焦糖化，叮一叮會更好味 ♥ ☁">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame" style="background: linear-gradient(135deg,#fdebda,#e9d4be);"><span class="sc-tag new">new ✿</span><span class="pc-placeholder"><span class="pc-emoji">☁️</span> <span class="pc-ph-label">marshmallow</span></span><img src="./src/marshmallow-brookies.webp" alt="棉花糖黑朱古力" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="zh-Hant">棉花糖黑朱古力</div>
-            <div class="sc-sub" lang="en">Marshmallow Dark Chocolate</div>
-            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/marshmallow.html">看看詳情 →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="peanut" data-name="花生黑朱古力" data-price="35" data-unit="pcs" data-img="./src/peanut-butter-brookies.webp" data-url="products/peanut.html" data-sub="Peanut Dark Chocolate" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="鹹香花生醬配上黑朱古力brookies，鹹香又濃郁。灑上香烤花生，口感豐富。🥜">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame" style="background: linear-gradient(135deg,#e9c895,#b88550);"><span class="sc-tag new">new ✿</span><span class="pc-placeholder"><span class="pc-emoji">🥜</span> <span class="pc-ph-label">peanut</span></span><img src="./src/peanut-butter-brookies.webp" alt="花生黑朱古力" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="zh-Hant">花生黑朱古力</div>
-            <div class="sc-sub" lang="en">Peanut Dark Chocolate</div>
-            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/peanut.html">看看詳情 →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="hojicha" data-name="焙茶" data-price="35" data-unit="pcs" data-img="./src/hojicha-brookies-new.webp" data-url="products/hojicha.html" data-sub="Hojicha" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="深焙焙茶，帶著淡淡堅果味，配上白朱古力，意想不到地合拍。☕">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><img src="./src/hojicha-brookies-new.webp" alt="焙茶" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="zh-Hant">焙茶</div>
-            <div class="sc-sub" lang="en">Hojicha</div>
-            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/hojicha.html">看看詳情 →</a>
-          </div>
-        </article>
-        <article class="sc" data-product data-id="matcha" data-name="抹茶" data-price="35" data-unit="pcs" data-img="./src/matcha-brookies-new.webp" data-url="products/matcha.html" data-sub="Matcha" data-price-label="每件 pcs" data-price-text="$35" data-more="看看詳情 →" data-desc="微苦抹茶，配上白朱古力同士多啤梨涷乾，味道剛剛好。茶控的最愛 ✿">
-          <button type="button" class="sc-open" aria-haspopup="dialog">
-            <span class="sc-frame"><img src="./src/matcha-brookies-new.webp" alt="抹茶" width="900" height="900" loading="lazy" decoding="async"><span class="sc-peek">睇真啲 ♥</span></span>
-          </button>
-          <div class="sc-body">
-            <div class="sc-name" lang="zh-Hant">抹茶</div>
-            <div class="sc-sub" lang="en">Matcha</div>
-            <div class="sc-price"><span class="sc-lbl">每件 pcs</span><span class="sc-val">$35</span></div>
-            <a class="sc-more" href="products/matcha.html">看看詳情 →</a>
-          </div>
-        </article>
-      </div>
-        <div class="shelf-plank" aria-hidden="true"></div>
-      </div>
-
-      <p class="menu-note">— 點選圖卡看每款的故事 ♥ —</p>
+        <img class="how-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+      </header>
+      <ol class="steps">
+        <li class="step step--1">
+          <span class="step-n" aria-hidden="true">1</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><circle cx="54" cy="62" r="38"/><circle cx="42" cy="50" r="5" class="f"/><circle cx="64" cy="46" r="4" class="f"/><circle cx="48" cy="72" r="5" class="f"/><circle cx="68" cy="68" r="4.5" class="f"/><circle cx="92" cy="28" r="18" class="bg"/><path d="M92 19v18M83 28h18"/></svg>
+          <h3>揀口味</h3>
+          <p>喺餐牌撳「加入訂單」，想要幾多就撳幾多 ♥</p>
+        </li>
+        <li class="step step--2">
+          <span class="step-n" aria-hidden="true">2</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 16h60v88l-10-7-10 7-10-7-10 7-10-7-10 7z"/><path d="M44 38h32M44 54h32M44 70h18"/><path d="M70 72l5 5 9-10"/></svg>
+          <h3>睇睇訂單</h3>
+          <p>撳底部嘅訂單掣，會顯示你揀咗嘅嘢同總數。</p>
+        </li>
+        <li class="step step--3">
+          <span class="step-n" aria-hidden="true">3</span>
+          <svg class="step-art" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 16c25 0 44 17 44 39S85 94 60 94c-6 0-12-1-17-3L20 100l7-21c-7-7-11-15-11-24 0-22 19-39 44-39z"/><path d="M42 56l12 12 24-26"/></svg>
+          <h3>WhatsApp 落單</h3>
+          <p>一撳就會自動整好訂單訊息，send 出嚟就得 ✨</p>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- Care notes -->
+  <!-- ═══ Pickup and delivery, drawn on the East Rail Line ═══ -->
+  <section class="deliver" id="delivery">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="eyebrow">交收及送貨</p>
+        <h2>喺邊度交收？</h2>
+      </header>
+
+      <div class="tiers" role="group" aria-label="交收及送貨">
+        <button type="button" class="tier is-on" data-tier="1" aria-pressed="true">
+          <span class="tier-k">任何消費</span>
+          <b>火炭港鐵站交收</b>
+          <small>亦可以順豐到付</small>
+        </button>
+        <button type="button" class="tier" data-tier="2" aria-pressed="false">
+          <span class="tier-k">滿 $150</span>
+          <b>東鐵沿綫任何一個站</b>
+          <small>由金鐘到上水，揀個啱你嘅站</small>
+        </button>
+        <button type="button" class="tier" data-tier="3" aria-pressed="false">
+          <span class="tier-k">滿 $1000</span>
+          <b>免費送貨上門</b>
+          <small>直接送到你門口</small>
+        </button>
+      </div>
+
+      <div class="rail" data-tier="1">
+        <p class="rail-name"><span class="rail-swatch" aria-hidden="true"></span>東鐵綫</p>
+        <div class="rail-scroll">
+          <ol class="rail-line">
+            <li class="st" style="--i:0"><span class="st-dot"></span><span class="st-name">金鐘</span></li>
+            <li class="st" style="--i:1"><span class="st-dot"></span><span class="st-name">會展</span></li>
+            <li class="st" style="--i:2"><span class="st-dot"></span><span class="st-name">紅磡</span></li>
+            <li class="st" style="--i:3"><span class="st-dot"></span><span class="st-name">旺角東</span></li>
+            <li class="st" style="--i:4"><span class="st-dot"></span><span class="st-name">九龍塘</span></li>
+            <li class="st" style="--i:5"><span class="st-dot"></span><span class="st-name">大圍</span></li>
+            <li class="st" style="--i:6"><span class="st-dot"></span><span class="st-name">沙田</span></li>
+            <li class="st is-home" style="--i:7"><span class="st-dot"></span><span class="st-name">火炭</span><span class="st-here">我哋喺度</span></li>
+            <li class="st" style="--i:8"><span class="st-dot"></span><span class="st-name">大學</span></li>
+            <li class="st" style="--i:9"><span class="st-dot"></span><span class="st-name">大埔墟</span></li>
+            <li class="st" style="--i:10"><span class="st-dot"></span><span class="st-name">太和</span></li>
+            <li class="st" style="--i:11"><span class="st-dot"></span><span class="st-name">粉嶺</span></li>
+            <li class="st" style="--i:12"><span class="st-dot"></span><span class="st-name">上水</span></li>
+          </ol>
+        </div>
+        <p class="rail-door"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>送上門</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Keeping them ═══ -->
   <section class="care" id="care">
-    <div class="container">
-      <div class="care-card">
-        <div class="care-banner">♥ 購買須知 ♥</div>
-        <div class="care-grid">
-          <div class="care-item">
-            <div class="care-emoji">🤏</div>
-            <h3>迷你 brookie</h3>
-            <p class="care-line"><strong>5 日內</strong> 食係最佳口感</p>
-            <p class="care-line">最多可以放 <strong>一星期</strong></p>
-          </div>
-          <div class="care-divider"></div>
-          <div class="care-item">
-            <div class="care-emoji">🍪</div>
-            <h3>大 brookie</h3>
-            <p class="care-line">買返嚟 <strong>當日食</strong> 最好味</p>
-          </div>
-          <div class="care-divider"></div>
-          <div class="care-item">
-            <div class="care-emoji">☁️</div>
-            <h3>棉花糖曲奇</h3>
-            <p class="care-line">帶返屋企 <strong>叮一叮</strong> 會更好味 ♥</p>
-          </div>
-        </div>
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="eyebrow">食用須知</p>
+        <h2>購買須知</h2>
+      </header>
+      <div class="care-grid">
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">5 日內</p>
+          <h3>迷你 brookie</h3>
+          <p><strong>5 日內</strong> 食係最佳口感</p>
+          <p>最多可以放 <strong>一星期</strong></p>
+        </article>
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">當日食</p>
+          <h3>大 brookie</h3>
+          <p>買返嚟 <strong>當日食</strong> 最好味</p>
+        </article>
+        <article class="care-card" data-reveal>
+          <p class="care-big" aria-hidden="true">叮一叮</p>
+          <h3>棉花糖曲奇</h3>
+          <p>帶返屋企 <strong>叮一叮</strong> 會更好味 ♥</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Farewell cookies (散水餅) -->
-  <section class="farewell" id="farewell">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">特別訂購 ✿</span>
-        <h2>♥ 散水餅 <em>♥</em></h2>
-        <p class="menu-sub">同同事好好告別 · 中 size brookie · <strong>$25 / 件</strong></p>
+  <!-- ═══ Farewell cookies ═══ -->
+  <section class="fw" id="farewell">
+    <div class="fw-parade" aria-hidden="true" data-scrub>
+      <img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="766" loading="lazy" decoding="async">
+      <img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="848" loading="lazy" decoding="async">
+      <img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="801" loading="lazy" decoding="async">
+      <img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="713" loading="lazy" decoding="async">
+      <img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="(min-width: 900px) 220px, 34vw" alt="" width="880" height="839" loading="lazy" decoding="async">
+    </div>
+    <div class="wrap fw-grid">
+      <div class="fw-lead" data-reveal>
+        <p class="eyebrow">特別訂購</p>
+        <h2>散水餅</h2>
+        <p class="sec-sub">同同事好好告別 · 中 size brookie</p>
+        <p class="fw-price"><b>$25</b><span>/ 件</span></p>
+        <p class="fw-sticker">可轉 <em>"thank you"</em> 貼紙</p>
+        <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="btn btn-solid"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> Instagram 查詢訂購</a>
       </div>
-
-      <div class="farewell-grid">
-        <div class="farewell-flavors">
-          <h3 class="fw-h">可選口味</h3>
-          <ul class="fw-list">
-            <li>焦糖黑朱古力</li>
-            <li>棉花糖黑朱古力</li>
-            <li>花生黑朱古力</li>
-            <li>香濃抹茶</li>
-            <li>杏仁焙茶</li>
-          </ul>
-          <div class="fw-sticker-tag">
-            <span class="ft-icon">✦</span>
-            <span>可轉 <em>"thank you"</em> 貼紙</span>
-          </div>
-        </div>
-
-        <div class="farewell-info">
-          <h3 class="fw-h">訂購詳情</h3>
-          <ul class="fw-info-list">
-            <li><span class="fw-k">最低訂量</span><span class="fw-v">20 件起</span></li>
-            <li><span class="fw-k">折扣優惠</span><span class="fw-v">滿 $1000 · 95 折</span></li>
-            <li><span class="fw-k">預訂時間</span><span class="fw-v">請提早 1 星期</span></li>
-            <li><span class="fw-k">急單</span><span class="fw-v">另議 · 歡迎 DM</span></li>
-          </ul>
-          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-primary">
-            <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> Instagram 查詢訂購
-          </a>
-        </div>
+      <div class="fw-panel" data-reveal>
+        <h3>可選口味</h3>
+        <ul class="fw-list">
+          <li><img src="src/cut/caramel-s.webp" srcset="src/cut/caramel-s.webp 440w, src/cut/caramel.webp 880w" sizes="44px" alt="" width="880" height="766" loading="lazy" decoding="async"><span>焦糖黑朱古力</span></li>
+          <li><img src="src/cut/marshmallow-s.webp" srcset="src/cut/marshmallow-s.webp 440w, src/cut/marshmallow.webp 880w" sizes="44px" alt="" width="880" height="848" loading="lazy" decoding="async"><span>棉花糖黑朱古力</span></li>
+          <li><img src="src/cut/peanut-s.webp" srcset="src/cut/peanut-s.webp 440w, src/cut/peanut.webp 880w" sizes="44px" alt="" width="880" height="801" loading="lazy" decoding="async"><span>花生黑朱古力</span></li>
+          <li><img src="src/cut/matcha-s.webp" srcset="src/cut/matcha-s.webp 440w, src/cut/matcha.webp 880w" sizes="44px" alt="" width="880" height="713" loading="lazy" decoding="async"><span>香濃抹茶</span></li>
+          <li><img src="src/cut/hojicha-s.webp" srcset="src/cut/hojicha-s.webp 440w, src/cut/hojicha.webp 880w" sizes="44px" alt="" width="880" height="839" loading="lazy" decoding="async"><span>杏仁焙茶</span></li>
+        </ul>
+      </div>
+      <div class="fw-panel" data-reveal>
+        <h3>訂購詳情</h3>
+        <dl class="rows">
+          <div><dt>最低訂量</dt><dd>20 件起</dd></div>
+          <div><dt>折扣優惠</dt><dd>滿 $1000 · 95 折</dd></div>
+          <div><dt>預訂時間</dt><dd>請提早 1 星期</dd></div>
+          <div><dt>急單</dt><dd>另議 · 歡迎 DM</dd></div>
+        </dl>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- ═══ Who we are ═══ -->
+  <section class="story" id="about">
+    <div class="wrap story-grid">
+      <figure class="story-photo" data-reveal>
+        <img src="src/market.webp" alt="Little Sweet Tooth 喺市集嘅攤檔" width="1000" height="988" loading="lazy" decoding="async">
+        <figcaption>市集見 ♥</figcaption>
+      </figure>
+      <div class="story-copy" data-reveal>
+        <p class="eyebrow">關於我哋</p>
+        <h2>細細批，<em>用心焗</em></h2>
+        <p class="story-body">Little Sweet Tooth 係香港手工 brookies，由 2025 年開始，每一盤都係小批量新鮮烘焙。你可能喺市集見過我哋 — 冇見過都唔緊要，Instagram 搵到我哋 ♥</p>
+        <ul class="stats">
+          <li><b>7</b><span>款口味</span></li>
+          <li><b>2025</b><span>年開始</span></li>
+          <li><b>香港</b><span>手工烘焙</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Questions ═══ -->
   <section class="faq" id="faq">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">常見問題 ✿</span>
+    <div class="wrap faq-grid">
+      <header class="sec-head faq-head" data-reveal>
+        <p class="eyebrow">常見問題</p>
         <h2>有咩想知？</h2>
-        <p class="menu-sub">落單前想清楚啲 ♥</p>
-      </div>
+        <p class="sec-sub">落單前想清楚啲 ♥</p>
+      </header>
       <div class="faq-list">
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>點樣落單？</summary>
-          <div class="faq-answer">喺餐牌撳「加入訂單」揀你想要嘅口味同數量，然後撳底部嘅訂單掣，就會自動幫你整好一張訂單清單，一撳就經 WhatsApp send 俾我哋。你亦可以直接 Instagram DM 我哋 ♥</div>
+          <div class="qa-a">喺餐牌撳「加入訂單」揀你想要嘅口味同數量，然後撳底部嘅訂單掣，就會自動幫你整好一張訂單清單，一撳就經 WhatsApp send 俾我哋。你亦可以直接 Instagram DM 我哋 ♥</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>要幾耐先做好？</summary>
-          <div class="faq-answer">請提早 <strong>7 日</strong>落單，等我哋可以新鮮烘焙俾你 ♥ 散水餅或大量訂單亦請提早 1 星期預訂。急單歡迎 DM 傾傾，我哋盡量幫手 ✿</div>
+          <div class="qa-a">請提早 <strong>7 日</strong>落單，等我哋可以新鮮烘焙俾你 ♥ 散水餅或大量訂單亦請提早 1 星期預訂。急單歡迎 DM 傾傾，我哋盡量幫手 ✿</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>喺邊度交收？</summary>
-          <div class="faq-answer">任何消費都可以喺 <strong>火炭港鐵站</strong>交收。滿 <strong>$150</strong> 可以喺<strong>東鐵沿綫</strong>任何一個站交收，滿 <strong>$1000</strong> 免費送貨上門。亦可以順豐到付。</div>
+          <div class="qa-a">任何消費都可以喺 <strong>火炭港鐵站</strong>交收。滿 <strong>$150</strong> 可以喺<strong>東鐵沿綫</strong>任何一個站交收，滿 <strong>$1000</strong> 免費送貨上門。亦可以順豐到付。</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>可以放幾耐？</summary>
-          <div class="faq-answer">迷你 brookie 樽裝 <strong>5 日內</strong>食口感最好，最多可以放一星期。大粒裝<strong>當日食</strong>最好味。棉花糖口味叮一叮會更好味 ✿</div>
+          <div class="qa-a">迷你 brookie 樽裝 <strong>5 日內</strong>食口感最好，最多可以放一星期。大粒裝<strong>當日食</strong>最好味。棉花糖口味叮一叮會更好味 ✿</div>
         </details>
-        <details class="faq-item">
+        <details class="qa" data-reveal>
           <summary>散水餅點訂？</summary>
-          <div class="faq-answer">中 size brookie <strong>$25 / 件</strong>，<strong>20 件起</strong>訂，滿 $1000 有 95 折。可以轉「thank you」貼紙，請提早 1 星期 DM 我哋 ♥</div>
+          <div class="qa-a">中 size brookie <strong>$25 / 件</strong>，<strong>20 件起</strong>訂，滿 $1000 有 95 折。可以轉「thank you」貼紙，請提早 1 星期 DM 我哋 ♥</div>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- ═══ Contact ═══ -->
   <section class="contact" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">聯絡我們 ✿</span>
+    <div class="wrap contact-grid">
+      <div class="contact-copy" data-reveal>
+        <p class="eyebrow">聯絡我們</p>
         <h2>搵我哋<em>落單啦</em></h2>
+        <p class="contact-body">有任何問題、特別訂購、或者想合作 — Instagram DM 我哋啦，通常當日就會覆 ♥</p>
+        <div class="contact-btns">
+          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" class="btn btn-solid"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> IG 搵我哋</a>
+          <a href="https://wa.me/85298174221" target="_blank" rel="noopener" class="btn btn-line"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg> WhatsApp 我哋</a>
+        </div>
+        <dl class="rows">
+          <div><dt>instagram</dt><dd>@littlesweettooth._</dd></div>
+          <div><dt>回覆時間</dt><dd>10:00 — 20:00 HKT</dd></div>
+          <div><dt>交收地點</dt><dd>火炭港鐵站</dd></div>
+          <div><dt>運送方式</dt><dd>順豐到付 · 東鐵沿綫</dd></div>
+        </dl>
       </div>
-
-      <div class="contact-grid">
-        <div class="contact-copy">
-          <p>有任何問題、特別訂購、或者想合作 — Instagram DM 我哋啦，通常當日就會覆 ♥</p>
-          <ul class="contact-list">
-            <li><span class="k">instagram</span><span class="v">@littlesweettooth._</span></li>
-            <li><span class="k">回覆時間</span><span class="v">10:00 — 20:00 HKT</span></li>
-            <li><span class="k">交收地點</span><span class="v">火炭港鐵站</span></li>
-            <li><span class="k">運送方式</span><span class="v">順豐到付 · 東鐵沿綫</span></li>
-          </ul>
-          <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-cream">
-            <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg> IG 搵我哋
-          </a>
-          <a href="https://wa.me/85298174221" target="_blank" class="btn btn-cream">
-            <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg> WhatsApp 我哋
-          </a>
-        </div>
-        <div class="contact-visual">
-          <div class="qr-card">
-            <img src="./src/ig-qr.svg" alt="Instagram QR — @littlesweettooth._" width="516" height="516" loading="lazy" decoding="async">
-            <div class="qr-lbl">scan to follow</div>
-            <div class="qr-handle">@littlesweettooth._</div>
-          </div>
-        </div>
+      <div class="qr" data-reveal>
+        <img src="src/ig-qr.svg" alt="Instagram QR — @littlesweettooth._" width="516" height="516" loading="lazy" decoding="async">
+        <p class="qr-lbl">scan to follow</p>
+        <p class="qr-handle">@littlesweettooth._</p>
       </div>
     </div>
   </section>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="site-foot">
-    <div class="container">
+  <footer class="foot">
+    <div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <h3>Little <em>Sweet</em> Tooth</h3>
-          <p>Good Food, Good Mood. 手工 brookies♥</p>
+          <img class="foot-mascot" src="src/mascot.webp" alt="" width="520" height="301" loading="lazy" decoding="async">
+          <p class="foot-blurb">Good Food, Good Mood. 手工 brookies♥</p>
           <div class="foot-social">
-            <a href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram">
-              <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
-            </a>
-
-            <a href="https://wa.me/85298174221" target="_blank" aria-label="WhatsApp">
-              <svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg>
-            </a>
+            <a class="round" href="https://www.instagram.com/littlesweettooth._?igsh=MTJxb3Awbm1kM3QycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a>
+            <a class="round" href="https://wa.me/85298174221" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i i-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.42 9.42 0 0 1-1.44-5.03c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.69 2.78a9.38 9.38 0 0 1 2.77 6.67c0 5.2-4.24 9.45-9.45 9.45zM20.52 3.45A11.36 11.36 0 0 0 12.04 0C5.76 0 .65 5.1.64 11.38c0 2 .53 3.96 1.53 5.68L.54 24l7.1-1.86a11.36 11.36 0 0 0 5.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.33-8.05z"/></svg></a>
           </div>
         </div>
-
         <div class="foot-col">
-          <h4>了解更多 ✿</h4>
+          <h2 class="foot-h">了解更多</h2>
           <ul>
-            <li><a href="#home">首頁</a></li>
-            <li><a href="#menu">餐牌</a></li>
-            <li><a href="#care">食用須知</a></li>
-            <li><a href="#farewell">散水餅</a></li>
-            <li><a href="#faq">常見問題</a></li>
-            <li><a href="#contact">聯絡</a></li>
+            <li><a href="#home" data-nav="home">首頁</a></li>
+            <li><a href="#menu" data-nav="menu">餐牌</a></li>
+            <li><a href="#care" data-nav="care">食用須知</a></li>
+            <li><a href="#farewell" data-nav="farewell">散水餅</a></li>
+            <li><a href="#faq" data-nav="faq">常見問題</a></li>
+            <li><a href="#contact" data-nav="contact">聯絡</a></li>
           </ul>
         </div>
-
         <div class="foot-col">
-          <h4>交收及送貨 ♥</h4>
+          <h2 class="foot-h">交收及送貨</h2>
           <ul class="foot-info">
             <li>火炭站（任何消費）</li>
             <li>東鐵沿線（滿 $150）</li>
@@ -768,19 +923,17 @@
           </ul>
         </div>
       </div>
-
-      <div class="foot-bottom">
-        <span>© 2025 Little Sweet Tooth</span>
-        <span>香港 · 手工烘焙</span>
-        <span>made with ♥</span>
-      </div>
+    </div>
+    <!-- the logo, as wide as the page -->
+    <div class="foot-word" role="img" aria-label="Little Sweet Tooth"></div>
+    <div class="wrap foot-base">
+      <span>© 2025 Little Sweet Tooth</span>
+      <span>香港 · 手工烘焙</span>
+      <span>made with ♥</span>
     </div>
   </footer>
 
-  <a href="#" class="back-to-top" aria-label="Back to top"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></a>
-  <script src="scripts.js"></script>
   <script src="order.js"></script>
-  <script src="shelf.js"></script>
-  <div class="scroll-rail" aria-hidden="true"><span></span></div>
+  <script src="site.js"></script>
 </body>
 </html>
